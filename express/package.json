@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "test",
+    "test": "npx tsc&&mocha --exit 'dist/test/*.test.js'",
     "start": "npx tsc&&node ./dist/server.js"
   },
   "author": "",
@@ -19,6 +19,7 @@
   "devDependencies": {
     "@types/chai": "^4.3.19",
     "@types/express": "^4.17.21",
-    "@types/mocha": "^10.0.8"
+    "@types/mocha": "^10.0.8",
+    "mocha": "^10.7.3"
   }
 }
