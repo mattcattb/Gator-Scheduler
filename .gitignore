@@ -1,0 +1,5 @@
+# Sensitive Data for Mongo Access
+.env
+
+# IDE
+.vscode
