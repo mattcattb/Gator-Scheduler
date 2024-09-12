@@ -1,0 +1,1 @@
+The "controllers" layer defines the API endpoints that can be hit to talk to the server. Very little code should go here, mostly just URL route defining.

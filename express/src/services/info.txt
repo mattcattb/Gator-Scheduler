@@ -1,0 +1,1 @@
+The service layer is for "business logic," aka where most of the actual code goes. The calculations and computations will go here.

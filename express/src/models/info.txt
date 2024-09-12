@@ -1,0 +1,1 @@
+MongoDB requires "models" to be used in JavaScript. This folder is for defining them.
