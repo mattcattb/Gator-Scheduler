@@ -1,0 +1,30 @@
+services:
+  wtm-mongodb:
+    image: mongo:latest
+    container_name: wtm-mongodb
+    restart: always
+    ports:
+      - 12345:27017
+      - 28017:28017
+    env_file: 
+      - ./wtm-express/.env
+
+  wtm-express:
+    build: ./wtm-express
+    container_name: wtm-express
+    ports:
+      - "3004:3004"
+    depends_on:
+      - wtm-mongodb
+    environment:
+      - NODE_ENV=deployment
+
+  wtm-react:
+    build: ./wtm-react
+    container_name: wtm-react
+    ports:
+      - "3000:3000"
+    depends_on:
+      - wtm-express
+    environment:
+      - NODE_ENV=deployment
