@@ -7,7 +7,7 @@ npm: `10.8.1`
 nvm: `1.1.12`
 
 # Building & Running
-In order to build this project, you will need Docker-Compose. On Windows, Docker Compose comes with Docker Engine. On Linux, Docker Compose can be installed manually via command line.
+In order to build this project, you will need Docker Compose. On Windows, Docker Compose comes with Docker Engine. On Linux, Docker Compose can be installed manually via command line: https://docs.docker.com/engine/install/ubuntu/
 
 In order to start the entire project, run `docker compose up --build -d` in the `SWE-Fall24` directory. This should start up the `wtm-mongodb`, `wtm-react`, `wtm-express` containers, and a network between them. 
 
