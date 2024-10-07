@@ -2,8 +2,8 @@ import React from 'react';
 import './eventcreator.css';
 
 import AddFriends from './addfriends';
-import DaySelection from './dayselection';
 import EventHeader from './eventheader';
+import PossibilityRangeSelector from './rangeselector';
 
 import { useState } from 'react';
 
@@ -21,9 +21,8 @@ function EventCreator() {
           eventDescription={eventDescription} 
           setEventDescription={setEventDescription}
         />
-        <DaySelection /> 
-        <AddFriends />
-  
+        <PossibilityRangeSelector/>
+        <AddFriends/>
         <div className="section">
           <button className="submit-btn">Create Event</button>
         </div>
