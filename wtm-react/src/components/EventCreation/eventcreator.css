@@ -1,0 +1,32 @@
+.event-creation-container {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+  }
+  
+  .section {
+    margin: 20px 0;
+  }
+  
+  .days-selection {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .day-checkbox {
+    margin: 10px;
+  }
+  
+  .friend-selector {
+    padding: 10px;
+    width: 50%;
+  }
+  
+  .submit-btn {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
