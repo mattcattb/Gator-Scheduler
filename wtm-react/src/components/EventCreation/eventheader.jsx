@@ -1,13 +1,12 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';  
-
+import Box from '@mui/material/Box';  // Import Box from MUI
 
 function EventHeader({eventName, setEventName, eventDescription, setEventDescription}) {
     return (
-      <div className="event-header">
+      <Box sx={{ padding: 2 }}> 
         <h1>Create New Event</h1>
         
-        {/* Event Name TextField */}
         <TextField
           label="Event Name"
           variant="outlined"
@@ -17,7 +16,6 @@ function EventHeader({eventName, setEventName, eventDescription, setEventDescrip
           margin="normal"
         />
         
-        {/* Event Description TextField (multiline) */}
         <TextField
           label="Event Description"
           variant="outlined"
@@ -28,7 +26,7 @@ function EventHeader({eventName, setEventName, eventDescription, setEventDescrip
           rows={4}
           margin="normal"
         />
-      </div>
+      </Box>
     );
   }
 export default EventHeader;
