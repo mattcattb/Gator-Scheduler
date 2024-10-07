@@ -1,25 +1,37 @@
 import React, { useState } from 'react';
-import { Typography, Box } from '@mui/material';
+import { Typography, Box, Checkbox, FormControlLabel } from '@mui/material';
 
-// Define days of the week and time slots
+// Define days of the week and time range
 const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-const timeSlots = ['9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM']; // Example slots
+const startHour = 9; // 9:00 AM
+const endHour = 17; // 5:00 PM
+const timeSlots = generateTimeSlots(startHour, endHour, 30); // 30-minute intervals
+
+// Function to generate time slots
+function generateTimeSlots(start, end, interval) {
+  const slots = [];
+  for (let hour = start; hour < end; hour++) {
+    for (let minute = 0; minute < 60; minute += interval) {
+      const time = new Date();
+      time.setHours(hour);
+      time.setMinutes(minute);
+      slots.push(time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+    }
+  }
+  return slots;
+}
 
 function PossibilityRangeSelector() {
-  // Allows user to select what times group can choose for meeting
   return (
     <div>
-      <DaySelection/>
       <TimeSelectorGrid/>
     </div>
-  )
+  );
 }
 
 function TimeSelectorGrid() {
-  // Maintain a state for selected time slots
   const [selectedTimes, setSelectedTimes] = useState({});
 
-  // Toggle selection of a time slot
   const toggleTimeSlot = (day, time) => {
     setSelectedTimes((prev) => ({
       ...prev,
@@ -36,49 +48,48 @@ function TimeSelectorGrid() {
         Select Available Times
       </Typography>
 
-      {/* Calendar Grid */}
+      {/* Table layout */}
       <Box
         sx={{
           display: 'grid',
-          gridTemplateColumns: `repeat(${timeSlots.length + 1}, 1fr)`, // 1 extra column for days
-          gap: 1,
+          gridTemplateColumns: `repeat(${daysOfWeek.length}, 1fr)`,
+          gridTemplateRows: `repeat(${timeSlots.length}, auto)`,
+          gap: 2,
         }}
       >
-        {/* Empty box for the corner above day labels */}
-        <Box></Box>
-
-        {/* Time Slot Headers */}
-        {timeSlots.map((slot) => (
-          <Box key={slot} sx={{ textAlign: 'center', fontWeight: 'bold' }}>
-            {slot}
+        {/* Day Headers */}
+        {daysOfWeek.map((day) => (
+          <Box key={day} sx={{ textAlign: 'center', fontWeight: 'bold' }}>
+            {day}
           </Box>
         ))}
 
-        {/* Day Rows with time slots */}
-        {daysOfWeek.map((day) => (
-          <React.Fragment key={day}>
-            {/* Day label column */}
-            <Box sx={{ fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              {day}
-            </Box>
-
-            {/* Time slot columns */}
-            {timeSlots.map((time) => (
-              <Box
-                key={time}
-                onClick={() => toggleTimeSlot(day, time)} // Toggle time slot on click
+        {/* Time Slot Selections */}
+        {timeSlots.map((time) => (
+          <React.Fragment key={time}>
+            {daysOfWeek.map((day) => (
+              <FormControlLabel
+                key={`${day}-${time}`}
+                control={
+                  <Checkbox
+                    checked={selectedTimes[day]?.[time] || false}
+                    onChange={() => toggleTimeSlot(day, time)}
+                    sx={{
+                      color: selectedTimes[day]?.[time] ? '#0021A5' : '#FA4616', // Highlighted or unhighlighted
+                      '&.Mui-checked': { color: '#0021A5' }, // Use Gator blue for selected
+                    }}
+                  />
+                }
+                label={time}
                 sx={{
-                  height: 40,
                   backgroundColor: selectedTimes[day]?.[time] ? '#0021A5' : '#FA4616', // Gator blue or orange
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
                   color: '#fff',
+                  padding: 1,
+                  borderRadius: 1,
+                  cursor: 'pointer',
+                  textAlign: 'center', // Center the text
                 }}
-              >
-                {selectedTimes[day]?.[time] ? 'Selected' : ''}
-              </Box>
+              />
             ))}
           </React.Fragment>
         ))}
@@ -87,23 +98,4 @@ function TimeSelectorGrid() {
   );
 }
 
-function DaySelection(props) {
-
-  const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-
-  return (
-      <div className="section">
-        <h2>Select Days</h2>
-        <div className="days-selection">
-          {daysOfWeek.map((day, index) => (
-            <div key={index} className="day-checkbox">
-              <input type="checkbox" id={day} />
-              <label htmlFor={day}>{day}</label>
-            </div>
-          ))}
-        </div>
-      </div>
-  );
-}
-
-export default PossibilityRangeSelector
+export default PossibilityRangeSelector;
