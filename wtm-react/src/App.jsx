@@ -11,21 +11,26 @@ import './App.css';
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';  // Import MUI ThemeProvider and createTheme
 
-// Create a custom theme (optional)
-const theme = createTheme({
+const gatorTheme = createTheme({
   palette: {
     primary: {
-      main: '#1976d2',
+      main: '#FA4616', // Gator Orange
     },
     secondary: {
-      main: '#dc004e',
+      main: '#0021A5', // Gator Blue
     },
+    background: {
+      default: '#f5f5f5', // Optional: A neutral background color
+    },
+  },
+  typography: {
+    fontFamily: 'Arial, sans-serif', // You can choose a custom font here if needed
   },
 });
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={gatorTheme}>
       <div> 
         <Navbar />
         <Routes>
