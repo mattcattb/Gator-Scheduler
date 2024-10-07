@@ -15,6 +15,20 @@ const timeSlots = generateTimeSlots(startHour, endHour, 30); // 30-minute interv
   - Add a section to adjust time range only
   - make sections more responsive
 
+  Event = {
+    name: Text,
+    description: Text,
+    days: [Boolean],
+    times: {
+      day: [String]
+    }
+  }
+
+  Day = {
+    name: String,
+    times: [String]
+  }
+
 */
 
 // Function to generate time slots
