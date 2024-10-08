@@ -1,35 +1,17 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, Typography, Box } from '@mui/material';
-import {sampleEvents} from './SampleData';
+import EventPreview from './eventpreview';  // Import the EventPreview component
+import { Box, Typography } from '@mui/material';
 
-function JoinedEvents() {
-  const navigate = useNavigate();
-
-  // Navigate to specific event details page
-  const goToEventDetails = (eventId) => {
-    navigate(`/event/${eventId}`);
-  };
-
+function JoinedEvents({ events }) {
   return (
-    <>
-      <Typography variant='h4'>Joined Events</Typography>
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
-        {sampleEvents.map((event) => (
-          <Card 
-            key={event.id} 
-            onClick={() => goToEventDetails(event.id)} 
-            sx={{ minWidth: 275, cursor: 'pointer', backgroundColor: '#fafafa' }}
-          >
-            <CardContent>
-              <Typography variant="h5">{event.name}</Typography>
-              <Typography variant="body2">{event.description}</Typography>
-              <Typography variant="caption">{event.date}</Typography>
-            </CardContent>
-          </Card>
-        ))}
-      </Box>
-    </>
+    <Box sx={{ padding: 3 }}>
+      <Typography variant="h4">Joined Events</Typography>
+
+      {/* Map through all events and show EventPreview for each */}
+      {events.map((event) => (
+        <EventPreview key={event.id} event={event} />
+      ))}
+    </Box>
   );
 }
 
