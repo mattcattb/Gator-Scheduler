@@ -1,63 +1,36 @@
-
-
-export const sampleEvents = [
-    {
-      id: '1',
-      name: 'Team Meeting',
-      date: '2024-10-12',
-      description: 'Monthly team sync to discuss project updates.',
-      participants: ['Alice', 'Bob', 'Charlie'],
-    },
-    {
-      id: '2',
-      name: 'Project Kickoff',
-      date: '2024-10-15',
-      description: 'Kickoff meeting for the new project.',
-      participants: ['Alice', 'Dave'],
-    },
-    {
-      id: '3',
-      name: 'Client Presentation',
-      date: '2024-10-20',
-      description: 'Presentation for the client regarding project status.',
-      participants: ['Charlie', 'Eve'],
-    },
-  ];
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Card, CardContent, Typography, Box } from '@mui/material';
+import {sampleEvents} from './SampleData';
 
 function JoinedEvents() {
-    // show list of joined events that when pressed go to that specific event
+  const navigate = useNavigate();
 
+  // Navigate to specific event details page
+  const goToEventDetails = (eventId) => {
+    navigate(`/event/${eventId}`);
+  };
 
-
-    return (
-      <></>
-    )
+  return (
+    <>
+      <Typography variant='h4'>Joined Events</Typography>
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+        {sampleEvents.map((event) => (
+          <Card 
+            key={event.id} 
+            onClick={() => goToEventDetails(event.id)} 
+            sx={{ minWidth: 275, cursor: 'pointer', backgroundColor: '#fafafa' }}
+          >
+            <CardContent>
+              <Typography variant="h5">{event.name}</Typography>
+              <Typography variant="body2">{event.description}</Typography>
+              <Typography variant="caption">{event.date}</Typography>
+            </CardContent>
+          </Card>
+        ))}
+      </Box>
+    </>
+  );
 }
 
-function EventDetails({event}) {
-    /* 
-        Show the details of an event
-        event is an object with the following structure:
-        {
-            name: string,
-            description: string,
-            date: string,
-            time: string,
-            location: string,
-            friends: [string],
-            possibilities: [string],
-            id: string
-        }
-    */
-
-    if (!event) {
-        return <div>No events shown.</div>
-    }
-
-    // show details of a event
-    return (
-      <></>
-    )
-}
-
-export default JoinedEvents
+export default JoinedEvents;
