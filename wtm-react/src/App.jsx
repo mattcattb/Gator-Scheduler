@@ -1,7 +1,7 @@
 import React from 'react';
-import HomeView from './pages/homeview';
+import HomeView from './pages/homeviewpage';
 import EventCreatorPage from './pages/eventcreatorpage';
-import EventDetails from './pages/eventdetails';
+import EventDetails from './pages/eventdetailspage';
 import Login from './pages/login';
 import Profile from './pages/profile';
 import Schedule from './pages/schedule';
@@ -9,22 +9,19 @@ import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/navbar';
 import './App.css';
 
-import { ThemeProvider, createTheme } from '@mui/material/styles';  // Import MUI ThemeProvider and createTheme
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const gatorTheme = createTheme({
   palette: {
     primary: {
-      main: '#FA4616', // Gator Orange
+      main: '#FA4616',
     },
     secondary: {
-      main: '#0021A5', // Gator Blue
-    },
-    background: {
-      default: '#f5f5f5', // Optional: A neutral background color
+      main: '#0021A5',
     },
   },
   typography: {
-    fontFamily: 'Arial, sans-serif', // You can choose a custom font here if needed
+    fontFamily: 'Arial, sans-serif',
   },
 });
 
@@ -39,6 +36,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/create" element={<EventCreatorPage />} />
+          <Route path="/event/:id" element={<EventDetails />} /> {/* Dynamic route for event details */}
         </Routes>
       </div>
     </ThemeProvider>
