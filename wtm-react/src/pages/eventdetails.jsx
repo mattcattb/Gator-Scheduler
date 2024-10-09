@@ -1,9 +1,13 @@
+
+/*
+  TODO
+  - Make a page for event creator, or event participant
+*/ 
+
 function EventDetails() {
-    return (
-      <div className="Event Details">
-        Event Details Page
-      </div>
-    );
-  }
+  return (
+    <div>EventDetails</div>
+  )
+}
   
-  export default EventDetails;
+export default EventDetails;
