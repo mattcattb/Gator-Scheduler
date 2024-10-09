@@ -1,0 +1,25 @@
+[
+    {
+      "_id": "eventID123",
+      "name": "Team Meeting",
+      "description": "Discuss project goals",
+      "members": ["userID123", "userID456", "userID789"],
+      "range": {
+        "days": ["2024-10-08", "2024-10-09"],
+        "start_time": "09:00",
+        "end_time": "17:00"
+      }
+    },
+    {
+      "_id": "eventID456",
+      "name": "Code Review",
+      "description": "Review latest PRs",
+      "members": ["userID123", "userID456"],
+      "range": {
+        "days": ["2024-10-10"],
+        "start_time": "14:00",
+        "end_time": "16:00"
+      }
+    }
+  ]
+  
