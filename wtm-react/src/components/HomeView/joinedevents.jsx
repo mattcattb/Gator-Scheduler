@@ -1,6 +1,7 @@
 import React from 'react';
 import EventPreview from './eventpreview';  // Import the EventPreview component
 import { Box, Typography } from '@mui/material';
+import { sampleEvents } from '../../static_database/SampleData';
 
 function JoinedEvents({ events }) {
   return (
@@ -8,7 +9,7 @@ function JoinedEvents({ events }) {
       <Typography variant="h4">Joined Events</Typography>
 
       {/* Map through all events and show EventPreview for each */}
-      {events.map((event) => (
+      {sampleEvents.map((event) => (
         <EventPreview key={event.id} event={event} />
       ))}
     </Box>
