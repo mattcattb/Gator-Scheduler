@@ -1,7 +1,7 @@
 import React from 'react';
 import HomeView from './pages/homeviewpage';
-import EventCreatorPage from './pages/eventcreatorpage';
-import EventDetails from './pages/eventdetailspage';
+import EventCreator from './pages/eventcreatorpage';
+import EventDetails from './pages/eventdetails';
 import Login from './pages/login';
 import Profile from './pages/profile';
 import Schedule from './pages/schedule';
@@ -35,7 +35,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/schedule" element={<Schedule />} />
-          <Route path="/create" element={<EventCreatorPage />} />
+          <Route path="/create" element={<EventCreator/>} />
           <Route path="/event/:id" element={<EventDetails />} /> {/* Dynamic route for event details */}
         </Routes>
       </div>
