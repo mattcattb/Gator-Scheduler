@@ -6,7 +6,7 @@ function HomeView() {
     return (
       <div className='HomeView'>
         <HomepageHeader />
-        <JoinedEvents />
+        <JoinedEvents events={[]}/>
         <FriendsDisplay />
       </div>
     );
