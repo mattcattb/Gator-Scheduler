@@ -1,8 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
-import {Box} from '@mui/material'
+import {Box, Chip} from '@mui/material'
 import { LoginGroup } from '../components/Login/logingroup';
 
+import "../components/Login/login.css"
 
 function doLogin(username, password){ // called when a user clicks login
   const loginData = {
@@ -28,9 +29,9 @@ function Login() {
   const [passwordRegister, setPasswordRegister] = useState('');  // State for password for login
 
   return (
-    <Box className="Login-Page">
+    <Box className="login-page">
       {/* consider moving to a component for styling */}
-      <LoginGroup
+      <LoginGroup className="login-group"
         headerPrompt={"Already Registered?"}
         buttonPrompt={"Click to Login!"}
         username={usernameLogin}
@@ -38,7 +39,7 @@ function Login() {
         password={passwordLogin}
         setPassword={setPasswordLogin}
         button={doLogin}/>
-      <LoginGroup
+      <LoginGroup className="register-group"
         headerPrompt={"Register Here"}
         buttonPrompt={"Click to Register!"}
         username={usernameRegister}
@@ -46,6 +47,12 @@ function Login() {
         password={passwordRegister}
         setPassword={setPasswordRegister}
         button={doRegister}/>
+      <Chip label='just use "admin" and "admin" for now' style={{
+        display: 'flex',
+        alignSelf: 'center',
+        width: 'fit-content',
+        margin: 'auto',
+      }}></Chip>
     </Box>
   );
 }
