@@ -19,13 +19,13 @@ function RangeSelector({selectedDays, setSelectedDays, startTime, setStartTime, 
 
   return (
     <div>
-      <TimeToggle/>
+      <TimeToggle startTime={startTime} setStartTime={setStartTime} endTime={endTime} setEndTime={setEndTime}/>
       <DaySelection selectedDays={selectedDays} toggleDaySelection={toggleDaySelection} />
     </div>
   );
 }
 
-function TimeToggle({ startTime, setStartTime, endTime, setEndTime }) {
+function TimeToggle({startTime, endTime, setStartTime, setEndTime}) {
   return (
     <Box sx={{ padding: 3 }}>
       <Typography variant="h4" gutterBottom>
