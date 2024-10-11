@@ -5,12 +5,18 @@ import { LoginGroup } from '../components/Login/logingroup';
 
 import "../components/Login/login.css"
 
-function doLogin(username, password){ // called when a user clicks login
+
+function doLogin(username, password, navigate){ // called when a user clicks login
   const loginData = {
     username: username,
     password: password
   };
   console.log("Login Attempted:", loginData);
+  if(username === 'admin' && password === 'admin'){
+    sessionStorage.setItem('token', 123456789);
+    console.log('token added to session storage');
+    navigate("/home")
+  }
 }
 
 function doRegister(username, password){ // called when a user clicks register
