@@ -1,10 +1,10 @@
-import { TextField } from "@mui/material";
+import { TextField, Box } from "@mui/material";
 
 export function LoginFields({username, setUsername, password, setPassword}){
     return(
-        <div>
+        <Box>
             <TextField label="Username" value={username} onChange={(e) => {setUsername(e.target.value)}}></TextField>
             <TextField label="Password" value={password} onChange={(e) => {setPassword(e.target.value)}}></TextField>
-        </div>
+        </Box>
     );
 }
