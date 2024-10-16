@@ -6,7 +6,7 @@ import Login from './pages/login';
 import Profile from './pages/profile';
 import Schedule from './pages/schedule';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Navbar from './components/navbar';
+import Navbar from './components/Navbar/navbar';
 import './App.css';
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
