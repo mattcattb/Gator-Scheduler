@@ -7,6 +7,7 @@ import Profile from './pages/profile';
 import Schedule from './pages/schedule';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar/navbar';
+import ContextProvider from './context/ContextProvider'
 import './App.css';
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -42,20 +43,22 @@ const LoginOnlyRoute = ({ children }) => {
 
 function App() {
   return (
-    <ThemeProvider theme={gatorTheme}>
-      <div> 
-        <Navbar />
-        <Routes>
-          <Route path="/home" element={<ProtectedRoute><HomeView /></ProtectedRoute>} />
-          <Route path="/" element={<ProtectedRoute><HomeView /></ProtectedRoute>} />
-          <Route path="/login" element={<LoginOnlyRoute><Login /></LoginOnlyRoute>} />
-          <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-          <Route path="/schedule" element={<ProtectedRoute><Schedule /></ProtectedRoute>} />
-          <Route path="/create" element={<ProtectedRoute><EventCreator/></ProtectedRoute>} />
-          <Route path="/event/:id" element={<ProtectedRoute><EventDetails /></ProtectedRoute>} /> {/* Dynamic route for event details */}
-        </Routes>
-      </div>
-    </ThemeProvider>
+    <ContextProvider>
+      <ThemeProvider theme={gatorTheme}>
+        <div> 
+          <Navbar />
+          <Routes>
+            <Route path="/home" element={<ProtectedRoute><HomeView /></ProtectedRoute>} />
+            <Route path="/" element={<ProtectedRoute><HomeView /></ProtectedRoute>} />
+            <Route path="/login" element={<LoginOnlyRoute><Login /></LoginOnlyRoute>} />
+            <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+            <Route path="/schedule" element={<ProtectedRoute><Schedule /></ProtectedRoute>} />
+            <Route path="/create" element={<ProtectedRoute><EventCreator/></ProtectedRoute>} />
+            <Route path="/event/:id" element={<ProtectedRoute><EventDetails /></ProtectedRoute>} /> {/* Dynamic route for event details */}
+          </Routes>
+        </div>
+      </ThemeProvider>
+    </ContextProvider>
   );
 }
 
