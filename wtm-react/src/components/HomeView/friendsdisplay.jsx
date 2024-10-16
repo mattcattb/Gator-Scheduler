@@ -5,8 +5,20 @@ function FriendsDisplay() {
     return (
       <Box>
         <Typography variant='h4' gutterBottom>Your Friends</Typography>
+        <FriendsPreview/>
       </Box>
     )
   }
 
+
+function FriendsPreview() {
+  return (
+    <div>
+      
+    </div>
+  )
+}
+
 export default FriendsDisplay;
+
+
