@@ -1,38 +1,41 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState } from 'react';
 import {Box, Chip} from '@mui/material'
 import { LoginGroup } from '../components/Login/logingroup';
+import {UserContext} from '../context/UserProvider';
+import userData from '../static_database/users.json';
 
 import "../components/Login/login.css"
 
-
-function doLogin(username, password, navigate){ // called when a user clicks login
-  const loginData = {
-    username: username,
-    password: password
-  };
-  console.log("Login Attempted:", loginData);
-  if(username === 'admin' && password === 'admin'){
-    sessionStorage.setItem('token', 123456789);
-    console.log('token added to session storage');
-    navigate("/home")
-  }
-}
-
-function doRegister(username, password){ // called when a user clicks register
-  const registerData = {
-    username: username,
-    password: password
-  };
-  console.log("Register Attempted:", registerData);
-}
-
 function Login() {
 
+  const { setUser } = useContext(UserContext);
   const [usernameLogin, setUsernameLogin] = useState('');  // State for username for login
   const [passwordLogin, setPasswordLogin] = useState('');  // State for password for login
   const [usernameRegister, setUsernameRegister] = useState('');  // State for username for login
   const [passwordRegister, setPasswordRegister] = useState('');  // State for password for login
+
+  function doLogin(username, password, navigate){ // called when a user clicks login
+    const loginData = {
+      username: username,
+      password: password
+    };
+    console.log("Login Attempted:", loginData);
+    if(username === 'admin' && password === 'admin'){
+      sessionStorage.setItem('token', 123456789);
+      setUser(userData[0]);
+      console.log('token added to session storage');
+      navigate("/home")
+    }
+  }
+  
+  function doRegister(username, password){ // called when a user clicks register
+    const registerData = {
+      username: username,
+      password: password
+    };
+    console.log("Register Attempted:", registerData);
+  }
 
   return (
     <Box className="login-page">
