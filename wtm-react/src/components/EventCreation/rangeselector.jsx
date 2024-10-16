@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Typography, Box, Checkbox, FormControlLabel, MenuItem, Select } from '@mui/material';
 
 
@@ -20,6 +20,7 @@ function RangeSelector({selectedDays, setSelectedDays, startTime, setStartTime, 
   return (
     <div>
       <TimeToggle startTime={startTime} setStartTime={setStartTime} endTime={endTime} setEndTime={setEndTime}/>
+
       <DaySelection selectedDays={selectedDays} toggleDaySelection={toggleDaySelection} />
     </div>
   );
@@ -31,7 +32,8 @@ function TimeToggle({startTime, endTime, setStartTime, setEndTime}) {
       <Typography variant="h4" gutterBottom>
         Select Time Range
       </Typography>
-      <Box sx={{ display: 'flex', gap: 2 }}>
+      <Box sx={{  gap: 2 }}>
+        <Typography variant="h6">Start Time:</Typography>
         <Select
           value={startTime}
           onChange={(e) => setStartTime(e.target.value)}
@@ -43,6 +45,7 @@ function TimeToggle({startTime, endTime, setStartTime, setEndTime}) {
             <MenuItem key={time} value={time}>{time}</MenuItem>
           ))}
         </Select>
+        <Typography variant="h6">End Time:</Typography>
         <Select
           value={endTime}
           onChange={(e) => setEndTime(e.target.value)}
