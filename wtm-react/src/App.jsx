@@ -5,7 +5,7 @@ import EventDetails from './pages/eventdetails';
 import Login from './pages/login';
 import Profile from './pages/profile';
 import Schedule from './pages/schedule';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/navbar';
 import './App.css';
 
@@ -25,18 +25,34 @@ const gatorTheme = createTheme({
   },
 });
 
+const hasToken = () => {
+  const token = sessionStorage.getItem('token');
+  return !!token;
+}
+
+const ProtectedRoute = ({ children }) => {
+  const isAuth = hasToken();
+  return isAuth ? children : <Navigate to="/login" />;
+};
+
+const LoginOnlyRoute = ({ children }) => {
+  const isAuth = hasToken();
+  return isAuth ? <Navigate to="/home" /> : children;
+};
+
 function App() {
   return (
     <ThemeProvider theme={gatorTheme}>
       <div> 
         <Navbar />
         <Routes>
-          <Route path="/" element={<HomeView />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/schedule" element={<Schedule />} />
-          <Route path="/create" element={<EventCreator/>} />
-          <Route path="/event/:id" element={<EventDetails />} /> {/* Dynamic route for event details */}
+          <Route path="/home" element={<ProtectedRoute><HomeView /></ProtectedRoute>} />
+          <Route path="/" element={<ProtectedRoute><HomeView /></ProtectedRoute>} />
+          <Route path="/login" element={<LoginOnlyRoute><Login /></LoginOnlyRoute>} />
+          <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route path="/schedule" element={<ProtectedRoute><Schedule /></ProtectedRoute>} />
+          <Route path="/create" element={<ProtectedRoute><EventCreator/></ProtectedRoute>} />
+          <Route path="/event/:id" element={<ProtectedRoute><EventDetails /></ProtectedRoute>} /> {/* Dynamic route for event details */}
         </Routes>
       </div>
     </ThemeProvider>

@@ -1,0 +1,23 @@
+.login-page{
+    margin: auto;
+    text-align: center
+}
+
+.login-group{
+    margin: auto;
+    text-align: center
+}
+
+.register-group{
+    margin: auto;
+    text-align: center
+}
+
+.all-login-groups{
+    margin-top: 2vh;
+    margin-bottom: 4vh;
+}
+
+.login-fields{
+    margin-bottom: 1vh;
+}
