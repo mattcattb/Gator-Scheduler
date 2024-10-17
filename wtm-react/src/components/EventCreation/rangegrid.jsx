@@ -1,20 +1,15 @@
 import React from 'react'
-import { Typography, Box, Grid2} from '@mui/material';
 
-
-// New Component for Range Grid
-function RangeGrid({ selectedDays, timeSlots, startTime, endTime }) {
-    // Filter time slots based on selected start and end time
-
-
+function RangeGrid({ day_range, start_time, end_time }) {
+  /*
+    Setup a grid for all times in the day_range
+  */
+  
     return (
-        <Box sx={{ padding: 3 }}>
-        <Typography variant="h4" gutterBottom>
-            Time Slots Grid
-        </Typography>
-        </Box>
-    );
+    <div>
+      
+    </div>
+  )
 }
-  
-  
+
 export default RangeGrid;
