@@ -5,7 +5,12 @@ import { Box, Typography } from '@mui/material';
 function JoinedEvents({ events }) {
   
   if (events.length === 0) {
-    return (<Typography variant="h4">No events joined yet</Typography>);
+    return (
+      <>
+        <Typography variant="h4">Joined Events</Typography>
+        <Typography variant="body1">Join an event to see it here.</Typography>
+      </>
+    );
   }
   
   return (
