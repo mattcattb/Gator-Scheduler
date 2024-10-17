@@ -1,21 +1,25 @@
 import { Box, Typography, Card, CardContent, Button } from '@mui/material';
 
-function FriendsDisplay() {
+
+function FriendsDisplay({friends}) {
     // show all of your friends, when clicked view their schedule
     return (
       <Box>
         <Typography variant='h4' gutterBottom>Your Friends</Typography>
-        <FriendsPreview/>
+        
+        {friends.map((friend) => (
+          <FriendsPreview key={friend.id} friend={friend} />
+        ))}
       </Box>
     )
   }
 
 
-function FriendsPreview() {
+function FriendsPreview({friend}) {
   return (
-    <div>
-      
-    </div>
+    <Box>
+      <Typography variant='h5'>{friend.name}</Typography>
+    </Box>
   )
 }
 
