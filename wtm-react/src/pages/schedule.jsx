@@ -2,11 +2,11 @@
 import { useEffect } from 'react'   
 import { useCalendarApp, ScheduleXCalendar } from '@schedule-x/react'
 import {
-  createViewMonthGrid,
-  createViewWeek,
-} from '@schedule-x/calendar'
+  createViewMonthGrid, createViewWeek, createViewMonthAgenda } from '@schedule-x/calendar'
 import { createEventsServicePlugin } from '@schedule-x/events-service'
  
+import '@schedule-x/theme-default/dist/index.css'
+
 
 import AddEventModal from "../components/Schedule/addeventmodal";
 
@@ -71,9 +71,9 @@ function Schedule() {
 
 
   const config = {
-    views: [createViewWeek(), createViewMonthGrid()],
+    views: [createViewWeek(), createViewMonthGrid(), createViewMonthAgenda()],
     events: example_events,
-    callbacks: callbacks
+    callbacks: callbacks  
   }
 
   const calendar = useCalendarApp(config, plugins)
@@ -85,8 +85,8 @@ function Schedule() {
 
   return (
     <>
-      <ScheduleXCalendar calendar={calendar} />
-      <AddEventModal calender={calendar}/>
+      <ScheduleXCalendar calendarApp={calendar} />
+      <AddEventModal calendar={calendar}/>
     </>
   );
 }

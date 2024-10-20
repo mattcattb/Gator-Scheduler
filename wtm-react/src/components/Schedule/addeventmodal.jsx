@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Box, Button, TextField, Typography } from '@mui/material';
 
-export default function AddEventModal() {
+export default function AddEventModal( calendar ) {
   const [open, setOpen] = useState(false);
   const [eventTitle, setEventTitle] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -24,7 +24,7 @@ export default function AddEventModal() {
 
     console.log('New Event:', newEvent);
     // You can now use your calendar's event service to add the new event
-
+    calendar.eventsService.add(newEvent)
     // Close the modal after submission
     handleClose();
   };
