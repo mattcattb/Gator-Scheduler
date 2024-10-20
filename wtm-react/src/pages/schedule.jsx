@@ -7,9 +7,8 @@ import {
 } from '@schedule-x/calendar'
 import { createEventsServicePlugin } from '@schedule-x/events-service'
  
-import '@schedule-x/theme-default/dist/index.css'
- 
-import AddEventButton from "../components/Schedule/addeventbutton";
+
+import AddEventModal from "../components/Schedule/addeventmodal";
 
 
 const example_events = [
@@ -64,6 +63,10 @@ function Schedule() {
       // what happens when an event is clicked!
       console.log('onEventClick', calendarEvent)
     },
+    onDayClick(day) {
+      // what happens when a day is clicked!
+      console.log('onDayClick', day)
+    }
   };
 
 
@@ -83,7 +86,7 @@ function Schedule() {
   return (
     <>
       <ScheduleXCalendar calendar={calendar} />
-      <AddEventButton calender={calendar}/>
+      <AddEventModal calender={calendar}/>
     </>
   );
 }
