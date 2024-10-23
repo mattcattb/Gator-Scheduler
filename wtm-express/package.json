@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "back end server for WhenToMeet-alike",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "npx tsc&&set NODE_ENV=test&&mocha --exit 'dist/test/*.test.js'",
     "start": "npx tsc&&set NODE_ENV='local'&&node ./dist/server.js"

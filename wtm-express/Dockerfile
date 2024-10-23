@@ -14,8 +14,7 @@ RUN npm install
 
 # Move all source code to image
 COPY src/ ./src/
-RUN npx tsc
 
 EXPOSE 3000
 
-CMD ["node", "dist/server.js"]
+CMD ["node", "src/server.js"]
