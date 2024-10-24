@@ -28,3 +28,5 @@ services:
       - wtm-express
     environment:
       - NODE_ENV=deployment
+    env_file: 
+      - ./wtm-react/.env.docker

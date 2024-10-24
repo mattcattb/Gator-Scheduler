@@ -15,6 +15,6 @@ RUN npm install
 # Move all source code to image
 COPY src/ ./src/
 
-EXPOSE 3000
+EXPOSE 3004
 
 CMD ["node", "src/server.js"]
