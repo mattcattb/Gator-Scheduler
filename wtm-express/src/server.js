@@ -2,7 +2,6 @@ const express = require('express');
 const dotenv = require('dotenv');
 const connectdb = require('./repository/db');
 const auth = require('./routes/auth');
-const login = require('./routes/login');
 
 dotenv.config();
 const app = express();
@@ -15,7 +14,6 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/auth', auth);
-app.use('/api/login', login);
 
 const PORT = process.env.PORT || 3001;
 
