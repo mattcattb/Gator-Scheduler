@@ -3,17 +3,18 @@
   "version": "1.0.0",
   "description": "back end server for WhenToMeet-alike",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "npx tsc&&set NODE_ENV=test&&mocha --exit 'dist/test/*.test.js'",
-    "start": "npx tsc&&set NODE_ENV=local&&node ./dist/server.js"
+    "start": "npx tsc&&set NODE_ENV='local'&&node ./dist/server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "chai": "^5.1.1",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
+    "mongoose": "^8.7.1",
     "typescript": "^5.6.2"
   },
   "devDependencies": {
