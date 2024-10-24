@@ -1,0 +1,18 @@
+.navbar{
+    background-color: rgb(193, 226, 227);
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+}
+
+.nav-element{
+    padding: 1vw;
+    background-color: white;
+    box-shadow: 2px 2px 2px 1px rgb(0 0 0 / 20%);
+    border-radius: 20%;
+}
+
+.nav-options-wrapper{
+    display: flex;
+    justify-content: space-evenly;
+
+}
