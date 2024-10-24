@@ -15,8 +15,9 @@ function Login() {
   const [usernameRegister, setUsernameRegister] = useState('');  // State for username for login
   const [passwordRegister, setPasswordRegister] = useState('');  // State for password for login
 
-  function doLogin(username, password, navigate){ // called when a user clicks login
+  async function doLogin(username, password, navigate){ // called when a user clicks login
     const loginData = {
+      name: "Luke Li",
       username: username,
       password: password
     };
@@ -29,11 +30,33 @@ function Login() {
     }
   }
   
-  function doRegister(username, password){ // called when a user clicks register
+  async function doRegister(username, password){ // called when a user clicks register
     const registerData = {
+      name: "Luke Li",
       username: username,
       password: password
     };
+
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND}api/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(registerData),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        console.log('User registered successfully:', data);
+      } else {
+        console.error('Error:', data.msg);
+      }
+    }
+    catch (error) {
+      console.error('Network error:', error);
+    }
+
     console.log("Register Attempted:", registerData);
   }
 
