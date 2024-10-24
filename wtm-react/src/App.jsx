@@ -24,6 +24,22 @@ const gatorTheme = createTheme({
   typography: {
     fontFamily: 'Arial, sans-serif',
   },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          maxHeight: '100%',
+          minHeight: '100%',
+          backgroundColor: 'rgb(193, 226, 227)', // Background color
+          color: 'black', // Text color
+          // Add any other default styles you want here
+          '&:hover': {
+            backgroundColor: 'rgb(170, 200, 202)', // Optional hover effect
+          },
+        },
+      },
+    },
+  },
 });
 
 const hasToken = () => {
