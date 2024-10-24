@@ -3,6 +3,7 @@
       "_id": "userID123",
       "username": "john_doe",
       "password": "hashedpassword123",
+      "icon": "1",
       "name": "John Doe",
       "friends": ["userID456", "userID789"],
       "schedule": "scheduleID123"
@@ -11,6 +12,7 @@
       "_id": "userID456",
       "username": "jane_doe",
       "password": "hashedpassword456",
+      "icon": "2",
       "name": "Jane Doe",
       "friends": ["userID123"],
       "schedule": "scheduleID456"
@@ -19,6 +21,7 @@
       "_id": "userID789",
       "username": "bob_smith",
       "password": "hashedpassword789",
+      "icon": "3",
       "name": "Bob Smith",
       "friends": ["userID123"],
       "schedule": "scheduleID789"

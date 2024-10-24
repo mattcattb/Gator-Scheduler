@@ -6,7 +6,8 @@ import Login from './pages/login';
 import Profile from './pages/profile';
 import Schedule from './pages/schedule';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Navbar from './components/navbar';
+import Navbar from './components/Navbar/navbar';
+import ContextProvider from './context/ContextProvider'
 import './App.css';
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -22,6 +23,22 @@ const gatorTheme = createTheme({
   },
   typography: {
     fontFamily: 'Arial, sans-serif',
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          maxHeight: '100%',
+          minHeight: '100%',
+          backgroundColor: 'rgb(193, 226, 227)', // Background color
+          color: 'black', // Text color
+          // Add any other default styles you want here
+          '&:hover': {
+            backgroundColor: 'rgb(170, 200, 202)', // Optional hover effect
+          },
+        },
+      },
+    },
   },
 });
 
@@ -42,20 +59,22 @@ const LoginOnlyRoute = ({ children }) => {
 
 function App() {
   return (
-    <ThemeProvider theme={gatorTheme}>
-      <div> 
-        <Navbar />
-        <Routes>
-          <Route path="/home" element={<ProtectedRoute><HomeView /></ProtectedRoute>} />
-          <Route path="/" element={<ProtectedRoute><HomeView /></ProtectedRoute>} />
-          <Route path="/login" element={<LoginOnlyRoute><Login /></LoginOnlyRoute>} />
-          <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-          <Route path="/schedule" element={<ProtectedRoute><Schedule /></ProtectedRoute>} />
-          <Route path="/create" element={<ProtectedRoute><EventCreator/></ProtectedRoute>} />
-          <Route path="/event/:id" element={<ProtectedRoute><EventDetails /></ProtectedRoute>} /> {/* Dynamic route for event details */}
-        </Routes>
-      </div>
-    </ThemeProvider>
+    <ContextProvider>
+      <ThemeProvider theme={gatorTheme}>
+        <div> 
+          <Navbar />
+          <Routes>
+            <Route path="/home" element={<ProtectedRoute><HomeView /></ProtectedRoute>} />
+            <Route path="/" element={<ProtectedRoute><HomeView /></ProtectedRoute>} />
+            <Route path="/login" element={<LoginOnlyRoute><Login /></LoginOnlyRoute>} />
+            <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+            <Route path="/schedule" element={<ProtectedRoute><Schedule /></ProtectedRoute>} />
+            <Route path="/create" element={<ProtectedRoute><EventCreator/></ProtectedRoute>} />
+            <Route path="/event/:id" element={<ProtectedRoute><EventDetails /></ProtectedRoute>} /> {/* Dynamic route for event details */}
+          </Routes>
+        </div>
+      </ThemeProvider>
+    </ContextProvider>
   );
 }
 
