@@ -1,6 +1,28 @@
+import { Button } from '@mui/material';
+import { useContext } from 'react';
+import { UserContext } from '../../context/UserProvider';
+import users from "../../static_database/users.json"
 import FriendCard from "./FriendCard";
 
 function FriendCardBay() {
+    const { user } = useContext(UserContext);
+
+    const findFriends = (userId) => {
+        // Find the user object by ID
+        const user = users.find(u => u._id === userId);
+        
+        if (!user) {
+            return []; // If user is not found, return an empty array
+        }
+    
+        // Map over the friends array to find corresponding user objects
+        const friends = user.friends.map(friendId => {
+            return users.find(u => u._id === friendId);
+        });
+
+        return friends; // Returns an array of friend objects
+    };
+
     return(
         <div className="friends-card-group" style={{
             minWidth:'90vw',
@@ -15,17 +37,9 @@ function FriendCardBay() {
                 gridTemplateColumns:'repeat(2, 1fr)',
                 gap:'2rem',
             }}>
-                <FriendCard id="2" username="jimmayy"/>
-                <FriendCard id="1" username="stuff"/>
-                <FriendCard id="5" username="whoknows"/>
-                <FriendCard id="3" username="jason"/>
-                <FriendCard id="3" username="ee"/>
-                <FriendCard id="4" username="name"/>
-                <FriendCard id="2" username="leaveamessage"/>
-                <FriendCard id="1" username="jimmayy2"/>
-                <FriendCard id="2" username="hoorah"/>
-                <FriendCard id="5" username="yeet"/>
-                <FriendCard id="4" username="phone"/>
+                {findFriends(user._id).map(item =>(
+                    <FriendCard key={item._id} id={item.icon} username={item.username}/>
+                ))}
             </div>
         </div>
         
