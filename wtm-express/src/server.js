@@ -12,6 +12,8 @@ app.get('/', (req, res) => {
   res.send('Please work :3');
 });
 
+app.use('/api/auth', require('./routes/auth'));
+
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
