@@ -1,7 +1,6 @@
-import { Router } from 'express';
+const { Router } = require('express');
 const router = Router();
-import { findById } from '../models/user';
-
+const { findById } = require('../models/user');
 // Add a friend
 router.post('/addFriend', async (req, res) => {
     try {

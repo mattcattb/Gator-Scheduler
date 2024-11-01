@@ -5,3 +5,6 @@
 .vscode
 
 node_modules/
+
+# Mac user...
+.DS_Store
