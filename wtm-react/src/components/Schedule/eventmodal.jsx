@@ -31,10 +31,13 @@ export default function EventModal({ open, handleClose, handleSubmit, eventTitle
             required
           />
           <DatePicker
-            label="Controlled picker"
-            value={value}
-            onChange={(newValue) => setValue(newValue)}
+            label="Start Date"
+            value={startDate} // Use the startDate state
+            onChange={(newValue) => setStartDate(newValue)} // Update startDate state
+            renderInput={(params) => <TextField {...params} fullWidth margin="normal" required />}
           />
+          <TimePicker label="Start time" />
+          <TimePicker label="End time" />
           <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
             Add Event
           </Button>
