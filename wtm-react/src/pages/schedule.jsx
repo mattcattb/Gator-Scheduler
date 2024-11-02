@@ -8,7 +8,7 @@ import { createEventsServicePlugin } from '@schedule-x/events-service'
 import '@schedule-x/theme-default/dist/index.css'
 
 
-import AddEventModal from "../components/Schedule/addeventmodal";
+import AddEventButton from "../components/Schedule/addeventbutton";
 
 
 const example_events = [
@@ -85,8 +85,8 @@ function Schedule() {
 
   return (
     <>
+      <AddEventButton calendar={calendar}/>
       <ScheduleXCalendar calendarApp={calendar} />
-      <AddEventModal calendar={calendar}/>
     </>
   );
 }
