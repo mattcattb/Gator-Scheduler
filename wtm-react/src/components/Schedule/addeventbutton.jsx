@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '@mui/material';
 import EventModal from './eventmodal';
-import { formatISO } from 'date-fns'; // Import date-fns to format dates
+import { format } from 'date-fns';
 
 
 export default function AddEventButton({calendar}) {
@@ -12,30 +12,31 @@ export default function AddEventButton({calendar}) {
 
   const handleSubmit = (newEvent) => {
     console.log('New Event from Modal:', newEvent);
-
-    // Check if startDate and endDate are valid dates
-    const startDate = newEvent.startDate instanceof Date && !isNaN(newEvent.startDate) 
-      ? formatISO(newEvent.startDate) // Format startDate
-      : new Date(); // Fallback to now if invalid
-
-    const endDate = newEvent.endTime instanceof Date && !isNaN(newEvent.endTime) 
-      ? formatISO(newEvent.endTime) // Format endDate
-      : new Date(new Date().getTime() + 60 * 60 * 1000); // Fallback to 1 hour later
-
-
-    // Add the new event to the local state
+  
+    // Format the dates as 'YYYY-MM-DD HH:mm'
+    const startDate = newEvent.startDate instanceof Date && !isNaN(newEvent.startDate)
+      ? format(newEvent.startDate, 'yyyy-MM-dd HH:mm') // Format startDate
+      : format(new Date(), 'yyyy-MM-dd HH:mm'); // Fallback to now if invalid
+  
+    const endTime = newEvent.endTime instanceof Date && !isNaN(newEvent.endTime)
+      ? format(newEvent.endTime, 'yyyy-MM-dd HH:mm') // Format endTime
+      : format(new Date(new Date().getTime() + 60 * 60 * 1000), 'yyyy-MM-dd HH:mm'); // Fallback to 1 hour later
+  
+    // Create event object
     const eventToAdd = {
-      id: Date.now().toString(), // Generate a simple ID
-      title: newEvent.title,
-      bio: newEvent.bio,
-      startDate: formatISO(newEvent.startDate),
-      startTime: formatISO(newEvent.startTime),
-      endTime: formatISO(newEvent.endTime),
+      id: Date.now(), // Unique ID based on current timestamp
+      start: startDate, // Formatted start date
+      end: endTime,   // Formatted end date
+      title: newEvent.title || 'Untitled Event', // Optional title
+      description: newEvent.description || 'No description provided', // Optional description
     };
+  
+    // Add event to the calendar
     calendar.eventsService.add(eventToAdd);
-
-    handleClose(); // Close the modal after submission
+  
+    handleClose(); // Close modal after submission
   };
+  
 
   return (
     <div>
@@ -47,7 +48,7 @@ export default function AddEventButton({calendar}) {
         open={open}
         handleClose={handleClose}
         handleSubmit={handleSubmit}
-        presetEventBio = "My Bio"
+        presetEventDescription = "My Description"
         presetEventTitle="My Event" // Example preset value
         presetStartDate={new Date()} // Example preset start date
         presetStartTime={new Date()} // Example preset start time

@@ -14,14 +14,14 @@ export default function EventModal({
   handleClose,
   handleSubmit,
   presetEventTitle = '',
-  presetEventBio = '',
+  presetEventDescription = '',
   presetStartDate = null,
   presetStartTime = null,
   presetEndTime = null,
 }) {
   // Local state for the modal
   const [eventTitle, setEventTitle] = useState(presetEventTitle);
-  const [eventBio, setEventBio] = useState(presetEventBio);
+  const [eventDescription, setEventDescription] = useState(presetEventDescription);
   const [startDate, setStartDate] = useState(presetStartDate);
   const [startTime, setStartTime] = useState(presetStartTime);
   const [endTime, setEndTime] = useState(presetEndTime);
@@ -31,7 +31,7 @@ export default function EventModal({
     const newEvent = {
       id: Date.now().toString(),
       title: eventTitle,
-      bio: eventBio,
+      Description: eventDescription,
       startDate: startDate,
       startTime: startTime,
       endTime : endTime,
@@ -69,11 +69,11 @@ export default function EventModal({
             required
           />
           <TextField
-            label="Event Bio"
+            label="Event Description"
             fullWidth
             margin="normal"
-            value={eventBio}
-            onChange={(e) => setEventBio(e.target.value)}
+            value={eventDescription}
+            onChange={(e) => setEventDescription(e.target.value)}
             required
           />
 
