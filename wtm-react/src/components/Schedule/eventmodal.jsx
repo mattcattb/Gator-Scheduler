@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Box, Button, TextField, Typography } from '@mui/material';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 export default function EventModal({ open, handleClose, handleSubmit, eventTitle, setEventTitle, startDate, setStartDate, endDate, setEndDate }) {
   return (
@@ -30,17 +30,10 @@ export default function EventModal({ open, handleClose, handleSubmit, eventTitle
             onChange={(e) => setEventTitle(e.target.value)}
             required
           />
-          <DateTimePicker
-            label="Start Date and Time"
-            value={startDate}
-            onChange={(newValue) => setStartDate(newValue)}
-            renderInput={(props) => <TextField fullWidth margin="normal" {...props} />}
-          />
-          <DateTimePicker
-            label="End Date and Time"
-            value={endDate}
-            onChange={(newValue) => setEndDate(newValue)}
-            renderInput={(props) => <TextField fullWidth margin="normal" {...props} />}
+          <DatePicker
+            label="Controlled picker"
+            value={value}
+            onChange={(newValue) => setValue(newValue)}
           />
           <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
             Add Event
