@@ -5,16 +5,7 @@ import {
   createViewMonthGrid, createViewWeek, createViewMonthAgenda } from '@schedule-x/calendar'
 import { createEventsServicePlugin } from '@schedule-x/events-service'
 import '@schedule-x/theme-default/dist/index.css'
-
-
-// with date-fns v3.x or v4.x
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
-import { de } from 'date-fns/locale/de';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-
 import AddEventButton from "../components/Schedule/addeventbutton";
-import { Typography } from '@mui/material';
-
 
 const example_events = [
   {
@@ -90,11 +81,7 @@ function Schedule() {
 
   return (
     <>
-
-      <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={de}>
-        <AddEventButton calendar={calendar}/>
-      </LocalizationProvider>    
-
+      <AddEventButton calendar={calendar}/>
       <ScheduleXCalendar calendarApp={calendar} />
     </>
   );
