@@ -1,43 +1,29 @@
 import React from 'react'
-import { Box, TextField } from '@mui/material';
-
-import DaySelection from './dayselection';  
+import { Box } from '@mui/material';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
-export default function MeetingOptions() {
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+
+import DaysToggleField from './daytogglefield';
+
+export default function MeetingOptions({formData, handleChange}) {
+  
   return (
     <Box>
-
-      <TextField
-        label="Event Name"
-        variant="outlined"
-        value={eventName}
-        onChange={(e) => setEventName(e.target.value)}
-        fullWidth
-        margin="normal"
-      />
-      
-      <TextField
-        label="Event Description"
-        variant="outlined"
-        value={eventDescription}
-        onChange={(e) => setEventDescription(e.target.value)}
-        fullWidth
-        multiline
-        rows={4}
-        margin="normal"
-      />
-      <DaySelection />
-      <TimePicker
-        label="No sooner then"
-        value={new Date()}
-        onChange={(newValue) => console.log('New Start Time:', newValue)}
-      />
-      <TimePicker
-        label="No later then"
-        value={new Date(new Date().getTime() + 60 * 60 * 1000)} // 1 hour later
-        onChange={(newValue) => console.log('New End Time:', newValue)}
-      />
+      <DaysToggleField selectedDays={formData.selectedDays} handleChange={handleChange}/>
+      <LocalizationProvider dateAdapter={AdapterDateFns} >
+        <TimePicker
+          label="No sooner then"
+          value={formData.startTime}
+          onChange={(newValue) => handleChange({ target: { name: 'startTime', value: newValue }})}
+        />
+        <TimePicker
+          label="No later then"
+          value={formData.endTime} // 1 hour later
+          onChange={(newValue) => handleChange({ target: { name: 'endTime', value: newValue }})}
+        />
+      </LocalizationProvider>
     </Box>  
   )
 }
