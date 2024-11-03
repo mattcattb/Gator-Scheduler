@@ -7,6 +7,7 @@ import AddFriends from '../components/EventCreation/addfriends';
 import EventHeader from '../components/EventCreation/eventheader';
 import RangeSelector from '../components/EventCreation/rangeselector';
 import RangeGrid from '../components/EventCreation/rangegrid';
+import MeetingOptions from '../components/EventCreation/meetingoptions';
 
 function EventCreator() {
 
@@ -34,13 +35,15 @@ function EventCreator() {
   
   return (
     <div className="event-creation-container">
-      
       <EventHeader 
         eventName={eventName} 
         setEventName={setEventName} 
         eventDescription={eventDescription} 
         setEventDescription={setEventDescription}
       />
+
+      <MeetingOptionsPanel/>
+      
       <RangeSelector 
         selectedDays={selectedDays} 
         setSelectedDays={setSelectedDays} 
