@@ -1,21 +1,24 @@
 import React from 'react';
+import { Box, Typography, Checkbox, FormControlLabel } from '@mui/material';
 
-function DaySelection(props) {
-
+function DaySelection() {
     const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
     return (
-        <div className="section">
-          <h2>Select Days</h2>
-          <div className="days-selection">
-            {daysOfWeek.map((day, index) => (
-              <div key={index} className="day-checkbox">
-                <input type="checkbox" id={day} />
-                <label htmlFor={day}>{day}</label>
-              </div>
-            ))}
-          </div>
-        </div>
+        <Box className="section" sx={{ margin: 2 }}>
+            <Typography variant="h6" gutterBottom>
+                Select Days
+            </Typography>
+            <Box className="days-selection" sx={{ display: 'flex', flexDirection: 'column' }}>
+                {daysOfWeek.map((day, index) => (
+                    <FormControlLabel
+                        key={index}
+                        control={<Checkbox id={day} />}
+                        label={day}
+                    />
+                ))}
+            </Box>
+        </Box>
     );
 }
 
