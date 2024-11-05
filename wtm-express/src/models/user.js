@@ -5,7 +5,8 @@ const userSchema = new Schema({
     username: { type: String, required: true },
     password: { type: String, required: true },
     icon: { type: String },
-    schedule: { type: String },
+    events: [{ type: String }],
+    invited: [{ type: String }],
     friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 });
 
