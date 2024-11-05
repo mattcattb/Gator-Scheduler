@@ -3,7 +3,8 @@
       "_id": "eventID123",
       "name": "Team Meeting",
       "description": "Discuss project goals",
-      "members": ["userID123", "userID456", "userID789"],
+      "organizers": ["userID123"],
+      "members": ["userID456", "userID789"],
       "range": {
         "days": ["2024-10-08", "2024-10-09"],
         "start_time": "09:00",
@@ -14,7 +15,8 @@
       "_id": "eventID456",
       "name": "Code Review",
       "description": "Review latest PRs",
-      "members": ["userID123", "userID456"],
+      "organizers": ["userID456", "userID789"],
+      "members": ["userID123"],
       "range": {
         "days": ["2024-10-10"],
         "start_time": "14:00",
