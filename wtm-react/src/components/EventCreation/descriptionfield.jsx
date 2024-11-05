@@ -6,6 +6,7 @@ export default function DescriptionField({eventName, eventDescription, handleCha
     <Box className="section" sx={{ margin: 2 }}>
       <TextField
         label="Event Name"
+        name="eventName"             
         variant="outlined"
         value={eventName}
         onChange={handleChange}
@@ -16,6 +17,7 @@ export default function DescriptionField({eventName, eventDescription, handleCha
       <TextField
         label="Event Description"
         variant="outlined"
+        name="eventDescription"
         value={eventDescription}
         onChange={handleChange}
         fullWidth

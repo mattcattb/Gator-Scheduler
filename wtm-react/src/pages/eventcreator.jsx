@@ -20,10 +20,24 @@ function EventCreator() {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: type === 'checkbox' ? checked : value,
-    }));
+  
+    setFormData((prevData) => {
+      // Handle array updates for fields like 'selectedDays'
+      if (name.startsWith("selectedDays")) {
+        // Extract the index from the name, e.g., 'selectedDays[0]'
+        const index = parseInt(name.match(/\d+/)[0], 10);
+        const updatedDays = [...prevData.selectedDays];
+        updatedDays[index] = checked; // Update the specific index with the new checked value
+  
+        return { ...prevData, selectedDays: updatedDays };
+      }
+      
+      // Update other fields
+      return {
+        ...prevData,
+        [name]: type === 'checkbox' ? checked : value,
+      };
+    });
   };
 
   const handleSubmit = () => {
