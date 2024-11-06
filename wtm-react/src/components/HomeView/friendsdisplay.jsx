@@ -1,4 +1,4 @@
-import { Box, Typography, Card, CardContent, Button } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 export default function FriendsDisplay({friends}) {
     // show all of your friends, when clicked view their schedule

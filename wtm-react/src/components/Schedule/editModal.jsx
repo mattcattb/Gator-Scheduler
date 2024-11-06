@@ -4,7 +4,6 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
-import { de } from 'date-fns/locale/de';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 
 export default function EditModal({

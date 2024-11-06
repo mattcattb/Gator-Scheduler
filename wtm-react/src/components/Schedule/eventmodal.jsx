@@ -5,7 +5,6 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
 // with date-fns v3.x or v4.x
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
-import { de } from 'date-fns/locale/de';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 
 

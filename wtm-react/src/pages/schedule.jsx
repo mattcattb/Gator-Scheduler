@@ -11,9 +11,13 @@ import EventList from '../components/Schedule/eventlist.jsx'
 
 import example_events from "../static_database/events.js";  // import the example events
 
+// todo properly order times input, and submit to backend when submit clicked
+// todo change modal to be named editEventModal and createEventModal
+
 function get_users_events() {
-  // TODO: fetch events from the backend using the users ID
-  // get all events
+  // TODO: fetch events from the backend using the users ID 
+  // get all 
+  // use effect run when oauge kiads 
   return example_events;
 }
  

@@ -1,63 +1,66 @@
 import React from 'react';
 import { useState } from 'react';
+import { Button } from '@mui/material';
 
 import  '../components/EventCreation/eventcreator.css';
 
-import AddFriends from '../components/EventCreation/addfriends';
-import EventHeader from '../components/EventCreation/eventheader';
-import RangeSelector from '../components/EventCreation/rangeselector';
-import RangeGrid from '../components/EventCreation/rangegrid';
+import AddMembers from '../components/EventCreation/addmembers';
+import MeetingOptions from '../components/EventCreation/meetingoptions';
+import DescriptionField from '../components/EventCreation/descriptionfield';
 
 function EventCreator() {
-
-  const [eventName, setEventName] = useState('');  // State for event name
-  const [eventDescription, setEventDescription] = useState('');  // State for event description
-  const [selectedDays, setSelectedDays] = useState([true, true, true, false, false, false, false]); // Days selection
-  const [startTime, setStartTime] = useState(''); // State for start time
-  const [endTime, setEndTime] = useState(''); // State for end time
-
-  // selected days is an array of true or false values, where each index represents a day of the week
-  // const [selectedDays, setSelectedDays] = useState([false, false, false, false, false, false, false]);
   
+  const [formData, setFormData] = useState({
+    eventName: '',
+    eventDescription: '',
+    selectedDays: [true, true, true, true, true, true, true],
+    startTime: '',
+    endTime: '',
+    members: []
+  });
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+  
+    setFormData((prevData) => {
+      // Check if the name starts with 'selectedDays' and contains an index
+      if (name.startsWith("selectedDays")) {
+        const match = name.match(/\d+/); // Extract the index
+        if (match) {
+          const index = parseInt(match[0], 10);
+          const updatedDays = [...prevData.selectedDays];
+          updatedDays[index] = checked; // Update the specific index with the new checked value
+  
+          return { ...prevData, selectedDays: updatedDays };
+        }
+      }
+      
+      // Update other fields
+      return {
+        ...prevData,
+        [name]: type === 'checkbox' ? checked : value,
+      };
+    });
+  };
+
+  const handleMembersChange = (newMembers) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      onMembersChange: newMembers,
+    }));
+  };
+
   const handleSubmit = () => {
-    // You can perform validation and submit the event data here
-    const eventData = {
-      name: eventName,
-      description: eventDescription,
-      days: selectedDays,
-      start_time: startTime,
-      end_time: endTime,
-    };
-    console.log("Event Created:", eventData);
-    // Further logic to send eventData to backend can be added here
+    console.log("Event Created:", formData);
+    //TODO Further logic to send eventData to backend can be added here
   };
   
   return (
     <div className="event-creation-container">
-      
-      <EventHeader 
-        eventName={eventName} 
-        setEventName={setEventName} 
-        eventDescription={eventDescription} 
-        setEventDescription={setEventDescription}
-      />
-      <RangeSelector 
-        selectedDays={selectedDays} 
-        setSelectedDays={setSelectedDays} 
-        startTime={startTime} 
-        setStartTime={setStartTime} 
-        endTime={endTime} 
-        setEndTime={setEndTime}
-      />
-      <RangeGrid 
-        day_range={selectedDays}
-        start_time={startTime}
-        end_time={endTime}
-      />
-      <AddFriends/>
-      <div className="section">
-        <button className="submit-btn" onClick={handleSubmit}>Create Event</button>
-      </div>
+      <DescriptionField eventName={formData.eventName} eventDescription={formData.eventDescription} handleChange={handleChange} />
+      <MeetingOptions formData={formData} handleChange={handleChange}/>
+      <AddMembers members={formData.members} onMembersChange={handleMembersChange}/>
+      <Button onClick={handleSubmit}>Add Event</Button> 
     </div>
   );  
 }
