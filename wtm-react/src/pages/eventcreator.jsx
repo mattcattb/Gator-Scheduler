@@ -13,7 +13,7 @@ function EventCreator() {
   const [formData, setFormData] = useState({
     eventName: '',
     eventDescription: '',
-    selectedDays: [true, true, true, false, false, false, false],
+    selectedDays: [true, true, true, true, true, true, true],
     startTime: '',
     endTime: '',
     members: []
