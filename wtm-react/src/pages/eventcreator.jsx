@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 
 import  '../components/EventCreation/eventcreator.css';
 
-import AddFriends from '../components/EventCreation/addfriends';
+import AddMembers from '../components/EventCreation/addmembers';
 import MeetingOptions from '../components/EventCreation/meetingoptions';
 import DescriptionField from '../components/EventCreation/descriptionfield';
 
@@ -16,6 +16,7 @@ function EventCreator() {
     selectedDays: [true, true, true, false, false, false, false],
     startTime: '',
     endTime: '',
+    members: []
   });
 
   const handleChange = (e) => {
@@ -42,6 +43,13 @@ function EventCreator() {
     });
   };
 
+  const handleMembersChange = (newMembers) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      onMembersChange: newMembers,
+    }));
+  };
+
   const handleSubmit = () => {
     console.log("Event Created:", formData);
     // Further logic to send eventData to backend can be added here
@@ -51,8 +59,8 @@ function EventCreator() {
     <div className="event-creation-container">
       <DescriptionField eventName={formData.eventName} eventDescription={formData.eventDescription} handleChange={handleChange} />
       <MeetingOptions formData={formData} handleChange={handleChange}/>
-      <AddFriends/>
-      <Button onClick={handleSubmit}/> 
+      <AddMembers members={formData.members} onMembersChange={handleMembersChange}/>
+      <Button onClick={handleSubmit}>Add Event</Button> 
     </div>
   );  
 }
