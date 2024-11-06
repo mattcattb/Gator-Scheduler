@@ -22,14 +22,16 @@ function EventCreator() {
     const { name, value, type, checked } = e.target;
   
     setFormData((prevData) => {
-      // Handle array updates for fields like 'selectedDays'
+      // Check if the name starts with 'selectedDays' and contains an index
       if (name.startsWith("selectedDays")) {
-        // Extract the index from the name, e.g., 'selectedDays[0]'
-        const index = parseInt(name.match(/\d+/)[0], 10);
-        const updatedDays = [...prevData.selectedDays];
-        updatedDays[index] = checked; // Update the specific index with the new checked value
+        const match = name.match(/\d+/); // Extract the index
+        if (match) {
+          const index = parseInt(match[0], 10);
+          const updatedDays = [...prevData.selectedDays];
+          updatedDays[index] = checked; // Update the specific index with the new checked value
   
-        return { ...prevData, selectedDays: updatedDays };
+          return { ...prevData, selectedDays: updatedDays };
+        }
       }
       
       // Update other fields
