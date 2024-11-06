@@ -5,6 +5,7 @@
       "password": "hashedpassword123",
       "icon": "1",
       "name": "John Doe",
+      "meetings": ["eventID123", "eventID456"],
       "friends": ["userID456", "userID789"],
       "schedule": "scheduleID123"
     },
@@ -14,6 +15,7 @@
       "password": "hashedpassword456",
       "icon": "2",
       "name": "Jane Doe",
+      "meetings": ["eventID123", "eventID456"],
       "friends": ["userID123"],
       "schedule": "scheduleID456"
     },
@@ -23,6 +25,7 @@
       "password": "hashedpassword789",
       "icon": "3",
       "name": "Bob Smith",
+      "meetings": ["eventID123", "eventID456"],
       "friends": ["userID123"],
       "schedule": "scheduleID789"
     }

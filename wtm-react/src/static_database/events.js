@@ -2,7 +2,7 @@ const example_events = [
     {
       id: '1',
       title: 'Event 1',
-      description: 'fdfd',
+      description: 'dfdfdfdf',
       start: '2024-10-16 09:00', // Start time
       end: '2024-10-16 10:00',   // End time
     },
