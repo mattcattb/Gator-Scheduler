@@ -52,7 +52,7 @@ function EventCreator() {
 
   const handleSubmit = () => {
     console.log("Event Created:", formData);
-    // Further logic to send eventData to backend can be added here
+    //TODO Further logic to send eventData to backend can be added here
   };
   
   return (
