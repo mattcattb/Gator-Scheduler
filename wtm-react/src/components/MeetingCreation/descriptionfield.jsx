@@ -1,24 +1,24 @@
 import React from 'react'
 import {Box, TextField} from '@mui/material'
 
-export default function DescriptionField({eventName, eventDescription, handleChange}) {
+export default function DescriptionField({meetingName, meetingDescription, handleChange}) {
   return (
     <Box className="section" sx={{ margin: 2 }}>
       <TextField
-        label="Event Name"
-        name="eventName"             
+        label="Meeting Name"
+        name="meetingName"             
         variant="outlined"
-        value={eventName}
+        value={meetingName}
         onChange={handleChange}
         fullWidth
         margin="normal"
       />
       
       <TextField
-        label="Event Description"
+        label="Meeting Description"
         variant="outlined"
-        name="eventDescription"
-        value={eventDescription}
+        name="meetingDescription"
+        value={meetingDescription}
         onChange={handleChange}
         fullWidth
         multiline

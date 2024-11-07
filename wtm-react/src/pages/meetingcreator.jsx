@@ -2,17 +2,17 @@ import React from 'react';
 import { useState } from 'react';
 import { Button } from '@mui/material';
 
-import  '../components/EventCreation/eventcreator.css';
+import  '../components/MeetingCreation/eventcreator.css';
 
-import AddMembers from '../components/EventCreation/addmembers';
-import MeetingOptions from '../components/EventCreation/meetingoptions';
-import DescriptionField from '../components/EventCreation/descriptionfield';
+import AddMembers from '../components/MeetingCreation/addmembers';
+import MeetingOptions from '../components/MeetingCreation/meetingoptions';
+import DescriptionField from '../components/MeetingCreation/descriptionfield';
 
-function EventCreator() {
+function MeetingCreator() {
   
   const [formData, setFormData] = useState({
-    eventName: '',
-    eventDescription: '',
+    meetingName: '',
+    meetingDescription: '',
     selectedDays: [true, true, true, true, true, true, true],
     startTime: '',
     endTime: '',
@@ -51,18 +51,18 @@ function EventCreator() {
   };
 
   const handleSubmit = () => {
-    console.log("Event Created:", formData);
-    //TODO Further logic to send eventData to backend can be added here
+    console.log("Meeting Created:", formData);
+    //TODO Further logic to send MeetingData to backend can be added here
   };
   
   return (
-    <div className="event-creation-container">
-      <DescriptionField eventName={formData.eventName} eventDescription={formData.eventDescription} handleChange={handleChange} />
+    <div className="Meeting-creation-container">
+      <DescriptionField eventName={formData.meetingName} meetingDescription={formData.meetingDescription} handleChange={handleChange} />
       <MeetingOptions formData={formData} handleChange={handleChange}/>
       <AddMembers members={formData.members} onMembersChange={handleMembersChange}/>
-      <Button onClick={handleSubmit}>Add Event</Button> 
+      <Button onClick={handleSubmit}>Create Meeting</Button> 
     </div>
   );  
 }
   
-export default EventCreator;
+export default MeetingCreator;
