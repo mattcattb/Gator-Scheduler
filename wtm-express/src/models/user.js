@@ -7,7 +7,7 @@ const userSchema = new Schema({
     icon: { type: String },
     events: [{ type: String }],
     invited: [{ type: String }],
-    friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+    friends: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 });
 
 module.exports = model("User", userSchema);
