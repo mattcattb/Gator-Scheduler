@@ -1,13 +1,39 @@
 const { Schema, model } = require('mongoose');
 
 const userSchema = new Schema({
-    name: { type: String, required: true },
-    username: { type: String, required: true },
-    password: { type: String, required: true },
-    icon: { type: String },
-    events: [{ type: String }],
-    invited: [{ type: String }],
-    friends: [{ type: Schema.Types.ObjectId, ref: 'User' }]
+    name: {
+        type: String,
+        require: true
+    },
+    username: {
+        type: String,
+        require: true
+    },
+    password: {
+        type: String,
+        require: true
+    },
+    icon: {
+        type: String
+    },
+    events: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    ],
+    invited: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    ],
+    friends: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'User' 
+        }
+    ]
 });
 
 module.exports = model("User", userSchema);
