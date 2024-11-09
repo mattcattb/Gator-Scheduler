@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Button } from '@mui/material';
 
-import  '../components/MeetingCreation/eventcreator.css';
+import  '../components/MeetingCreation/meetingcreator.css';
 
 import AddMembers from '../components/MeetingCreation/addmembers';
 import MeetingOptions from '../components/MeetingCreation/meetingoptions';
@@ -57,7 +57,7 @@ function MeetingCreator() {
   
   return (
     <div className="Meeting-creation-container">
-      <DescriptionField eventName={formData.meetingName} meetingDescription={formData.meetingDescription} handleChange={handleChange} />
+      <DescriptionField meetingName={formData.meetingName} meetingDescription={formData.meetingDescription} handleChange={handleChange} />
       <MeetingOptions formData={formData} handleChange={handleChange}/>
       <AddMembers members={formData.members} onMembersChange={handleMembersChange}/>
       <Button onClick={handleSubmit}>Create Meeting</Button> 
