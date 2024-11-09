@@ -1,4 +1,4 @@
-import JoinedEvents from "../components/HomeView/joinedevents";
+import JoinedMeetings from "../components/HomeView/joinedevents";
 import FriendsDisplay from "../components/HomeView/friendsdisplay";
 import ScheduleDisplay from "../components/HomeView/scheduledisplay.jsx";
 

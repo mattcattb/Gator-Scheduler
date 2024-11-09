@@ -1,21 +1,21 @@
 import React from 'react';
-import EventPreview from './eventpreview';  // Import the EventPreview component
+import MeetingPreview from './meetingpreview';  // Import the MeetingPreview component
 import { Box, Typography } from '@mui/material';
 
-function JoinedEvents({ events }) {
+function JoinedMeetings({ meetings }) {
   
-  if (events.length === 0) {
-    return (<Typography variant="h4">No events joined yet</Typography>);
+  if (meetings.length === 0) {
+    return (<Typography variant="h4">No meetings joined yet</Typography>);
   }
   
   return (
     <Box sx={{ padding: 3 }}>
-      <Typography variant="h4">Joined Events</Typography>
-      {events.map((event) => (
-        <EventPreview key={event.id} event={event} />
+      <Typography variant="h4">Joined Meetings</Typography>
+      {meetings.map((meeting) => (
+        <MeetingPreview key={meeting.id} meeting={meeting} />
       ))}
     </Box>
   );
 }
 
-export default JoinedEvents;
+export default JoinedMeetings;

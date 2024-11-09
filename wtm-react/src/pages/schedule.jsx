@@ -9,8 +9,6 @@ import AddEventButton from "../components/Schedule/addeventbutton";
 import EditModal from "../components/Schedule/editModal.jsx"; // Import the EditModal component
 import EventList from '../components/Schedule/eventlist.jsx'
 
-import schedules from '../data/schedules.json' 
-
 // todo properly order times input, and submit to backend when submit clicked
 // todo change modal to be named editEventModal and createEventModal
 
@@ -60,7 +58,7 @@ function Schedule() {
 
   const config = {
     views: [createViewWeek(), createViewMonthGrid(), createViewMonthAgenda()],
-    events: users_events,
+    events: events,
     callbacks: callbacks,
     weekOptions: {
       gridHeight: 1500,
@@ -102,7 +100,7 @@ function Schedule() {
     <>
       <AddEventButton calendar={calendar}/>
       <ScheduleXCalendar calendarApp={calendar} style={{ width: '80%', height: '400px', margin: '0 auto' }}/>
-      <EventList events={users_events} onEventClick={handleEventClick} /> {/* Add the EventList here */}
+      <EventList events={events} onEventClick={handleEventClick} /> {/* Add the EventList here */}
       <EditModal 
         open={modalOpen} 
         handleClose={handleCloseModal} 
