@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, Typography, Box, Chip } from '@mui/material';
+import { Card, CardContent, Typography, Box, Chip, Button } from '@mui/material';
 
-function MeetingPreview({ meeting }) {
+function MeetingInvitePreview({ meeting, onJoin, onReject }) {
   const navigate = useNavigate();
+  const [isMember, setIsMember] = useState(meeting.members.includes('yourUserID')); // Replace 'yourUserID' with actual user id.
 
-  const handleMeetingClick = () => {
-    navigate(`/meeting/${meeting._id}`);  // Use _id since that is the correct field in the provided data
+  const handleJoin = () => {
+    setIsMember(true);
+    onJoin(meeting._id);
+  };
+
+  const handleReject = () => {
+    setIsMember(false);
+    onReject(meeting._id);
   };
 
   const daysOfWeek = ['su', 'm', 't', 'w', 'th', 'f', 'sa'];
@@ -17,7 +24,7 @@ function MeetingPreview({ meeting }) {
   };
 
   return (
-    <Card sx={{ marginBottom: 2, cursor: 'pointer' }} onClick={handleMeetingClick}>
+    <Card sx={{ marginBottom: 2, cursor: 'pointer' }}>
       <CardContent>
         <Typography variant="h5" gutterBottom>{meeting.name}</Typography>
         <Typography variant="body2" sx={{ marginBottom: 2 }}>{meeting.description}</Typography>
@@ -33,9 +40,13 @@ function MeetingPreview({ meeting }) {
             />
           ))}
         </Box>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 2 }}>
+          <Button variant="contained" color="primary" onClick={handleJoin} sx={{ marginRight: 1 }}>Join</Button>
+          <Button variant="contained" color="error" onClick={handleReject}>Reject</Button>
+        </Box>
       </CardContent>
     </Card>
   );
 }
 
-export default MeetingPreview;
+export default MeetingInvitePreview;

@@ -8,6 +8,8 @@ function JoinedMeetings({ meetings }) {
     return (<Typography variant="h4">No meetings joined yet</Typography>);
   }
   
+  
+
   return (
     <Box sx={{ padding: 3 }}>
       <Typography variant="h4">Joined Meetings</Typography>
