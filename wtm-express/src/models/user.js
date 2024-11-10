@@ -19,7 +19,7 @@ const userSchema = new Schema({
     events: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'User'
+            ref: 'Event'
         }
     ],
     invited: [
