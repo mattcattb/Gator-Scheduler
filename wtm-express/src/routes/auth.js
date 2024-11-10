@@ -44,7 +44,14 @@ router.post('/login', async (req, res) => {
         if (!compare_passwords) {
             return res.status(400).json({msg: "Username or password is incorrect"})
         }
-        res.json({ userId: user._id});
+        res.json({
+          _id: user._id,
+          icon: user.icon,
+          name: user.name,
+          meetings: user.meetings,
+          friends: user.friends,
+          schedule: user.schedule
+        });
     }
     catch (err) {
         res.status(500).send('Server error');

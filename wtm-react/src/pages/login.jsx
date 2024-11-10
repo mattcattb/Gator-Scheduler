@@ -29,6 +29,7 @@ function Login() {
       setUser(userData[0]);
       console.log('token added to session storage');
       navigate("/home")
+      return
     }
 
     const response = await fetch(`${process.env.REACT_APP_BACKEND}api/auth/login`, {
