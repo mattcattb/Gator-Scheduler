@@ -14,10 +14,12 @@ function Login() {
   const [passwordLogin, setPasswordLogin] = useState('');  // State for password for login
   const [usernameRegister, setUsernameRegister] = useState('');  // State for username for login
   const [passwordRegister, setPasswordRegister] = useState('');  // State for password for login
+  const [nameLogin, setNameLogin] = useState('');
+  const [nameRegister, setNameRegister] = useState('');
 
-  async function doLogin(username, password, navigate){ // called when a user clicks login
+  async function doLogin(name, username, password, navigate){ // called when a user clicks login
     const loginData = {
-      name: "Luke Li",
+      name: name,
       username: username,
       password: password
     };
@@ -70,7 +72,9 @@ function Login() {
         setUsername={setUsernameLogin}
         password={passwordLogin}
         setPassword={setPasswordLogin}
-        button={doLogin}/>
+        button={doLogin}
+        name={nameLogin}
+        setName={setNameLogin}/>
       <LoginGroup className="register-group"
         headerPrompt={"Register Here"}
         buttonPrompt={"Click to Register!"}
@@ -78,7 +82,9 @@ function Login() {
         setUsername={setUsernameRegister}
         password={passwordRegister}
         setPassword={setPasswordRegister}
-        button={doRegister}/>
+        button={doRegister}
+        name={nameRegister}
+        setName={setNameRegister}/>
       <Chip label='just use "admin" and "admin" for now' style={{
         display: 'flex',
         alignSelf: 'center',
