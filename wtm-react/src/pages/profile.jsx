@@ -27,7 +27,7 @@ function Profile() {
             <img src={iconIdToPath(user.icon)} alt="User Icon" 
             className="user-icon" />
             <div className='user-details'>
-              <h2 className="username">{user.username}</h2>
+              <h2 className="username">{user.name}</h2>
               <p className="friend-code">Friend Code: {user._id}</p>
             </div>
           </div>

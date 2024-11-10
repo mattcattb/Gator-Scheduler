@@ -30,11 +30,28 @@ function Login() {
       console.log('token added to session storage');
       navigate("/home")
     }
+
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}api/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(loginData),
+    });
+
+    if(response.ok){
+      const data = await response.json();
+      console.log(data);
+      console.log('User logged in successfully:', data);
+      sessionStorage.setItem('token', data.userId);
+      setUser(data);
+      navigate("/home");
+    }
   }
   
-  async function doRegister(username, password){ // called when a user clicks register
+  async function doRegister(name, username, password, navigate){ // called when a user clicks register
     const registerData = {
-      name: "Luke Li",
+      name: name,
       username: username,
       password: password
     };
@@ -51,6 +68,9 @@ function Login() {
       const data = await response.json();
       if (response.ok) {
         console.log('User registered successfully:', data);
+        sessionStorage.setItem('token', 123456789);
+        setUser(userData[0]);
+        navigate("/home");
       } else {
         console.error('Error:', data.msg);
       }
