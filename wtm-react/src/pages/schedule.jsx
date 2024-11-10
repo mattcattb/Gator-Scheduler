@@ -15,14 +15,14 @@ import EventList from '../components/Schedule/eventlist.jsx'
 const sample_events = [
   {
     "_id": "eventID10",
-    "name": "Evening Walk",
+    "title": "Evening Walk",
     "description": "Relaxing walk through the park",
     "start": "2024-10-11 19:00",
     "end": "2024-10-11 20:00"
   },
   {
     "_id": "eventID11",
-    "name": "Conference Call",
+    "title": "Conference Call",
     "description": "Call with the offshore team",
     "start": "2024-10-12 08:00",
     "end": "2024-10-12 09:30"
