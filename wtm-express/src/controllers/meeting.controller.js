@@ -1,10 +1,8 @@
-const express = require('express');
-const router = express.Router();
-const bcrypt = require('bcryptjs');
-const User = require('../models/user');
-const Meeting = require('../models/meeting');
 
-router.post('/create', async (req, res) => {
+const User = require("../models/user.js");  // Assuming you have a User model
+const Meeting = require("../models/meeting.js")
+
+const addMeeting = async (req, res) => {
     const { meetingName, meetingDescription, selectedDays, startTime, endTime, friendUsernames } = req.body;
     
     try {
@@ -27,6 +25,9 @@ router.post('/create', async (req, res) => {
       console.error(err);
       res.status(500).json({ msg: 'Server error' });
     }
-  });
-  
-  module.exports = router;
+}
+
+
+module.exports = {
+    addMeeting
+};

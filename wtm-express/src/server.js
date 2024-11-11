@@ -4,10 +4,10 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const connectdb = require('./repository/db');
 
-const auth = require('./routes/auth');
-const meeting = require('./routes/meeting');
-const events = require('./routes/events')
-const friends = require('./routes/friends');
+const auth = require('./routes/auth.routing');
+const meeting = require('./routes/meeting.routing');
+const events = require('./routes/events.routing')
+const friends = require('./routes/friends.routing');
 
 dotenv.config();
 
@@ -20,6 +20,7 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.send('Please work :3');
 });
+
 app.use('/api/auth', auth);
 app.use('/api/meeting', meeting);
 app.use('/api/events', events);
