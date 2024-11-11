@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const connectdb = require('./repository/db');
 const auth = require('./routes/auth');
+const meeting = require('./routes/meeting');
 
 dotenv.config();
 const app = express();
@@ -16,6 +17,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/auth', auth);
+app.use('/api/meeting', meeting);
 
 const PORT = process.env.PORT || 3001;
 
