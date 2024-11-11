@@ -1,0 +1,8 @@
+{
+    "meetingName": "Scrum",
+    "meetingDescription": "Its scrumming time",
+    "selectedDays": ["Monday", "Wednesday"],
+    "startTime": "2024-11-12T10:00:00.000Z",
+    "endTime": "2024-11-12T11:00:00.000Z",
+    "friendUsernames": ["john_doe", "jane_smith"]
+  }
