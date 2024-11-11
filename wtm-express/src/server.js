@@ -1,11 +1,15 @@
 const express = require('express');
 const dotenv = require('dotenv');
+
 const cors = require('cors');
 const connectdb = require('./repository/db');
+
 const auth = require('./routes/auth');
 const meeting = require('./routes/meeting');
+const events = require('./routes/events.route')
 
 dotenv.config();
+
 const app = express();
 app.use(cors()); // THIS IS SO UNSAFE PLEASE DO NOT LEAVE THIS HERE PERMANENTLY -Corey
 connectdb();
@@ -15,9 +19,9 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.send('Please work :3');
 });
-
 app.use('/api/auth', auth);
 app.use('/api/meeting', meeting);
+app.use('/api/events', events);
 
 const PORT = process.env.PORT || 3001;
 
