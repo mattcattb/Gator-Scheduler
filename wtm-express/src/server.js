@@ -23,8 +23,6 @@ app.get('/', (req, res) => {
 app.use('/api/auth', auth);
 app.use('/api/meeting', meeting);
 app.use('/api/events', events);
-
-app.use('/api/events', events);
 app.use('/api/friends', friends);
 
 const PORT = process.env.PORT || 3001;

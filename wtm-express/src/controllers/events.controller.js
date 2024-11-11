@@ -1,7 +1,7 @@
-import Event from "../models/event.js";
-import User from "../models/user.js";  // Assuming you have a User model
+const Event = require("../models/event.js");
+const User = require("../models/user.js");  // Assuming you have a User model
 
-export const getEvents = async (req, res) => {
+const getEvents = async (req, res) => {
     try {
         const { userId } = req.query;  // Use req.query for query parameters
         
@@ -22,7 +22,7 @@ export const getEvents = async (req, res) => {
     }
 }
 
-export const postEvent = async (req, res) => {
+const postEvent = async (req, res) => {
     try {
         const { userId, title, description, start, end } = req.body;
         
@@ -50,7 +50,7 @@ export const postEvent = async (req, res) => {
     }
 }
 
-export const editEvent = async(req, res) => {
+const editEvent = async(req, res) => {
     try {
         const { eventId } = req.params;  // Access eventId from URL parameter       
         const {title, description, start, end} = req.body;
@@ -73,7 +73,7 @@ export const editEvent = async(req, res) => {
     }
 }
 
-export const deleteEvent = async(req, res) => {
+const deleteEvent = async(req, res) => {
     try {
         const { eventId } = req.params;  // Access eventId from URL parameter
         const deletedEvent = await Event.findByIdAndDelete(eventId);
@@ -98,3 +98,9 @@ export const deleteEvent = async(req, res) => {
     }
 }
 
+module.exports = {
+    getEvents,
+    postEvent,
+    editEvent,
+    deleteEvent
+};

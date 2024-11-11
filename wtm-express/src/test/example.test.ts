@@ -1,7 +1,9 @@
-const chai = await import('chai');
-const use = chai.use;
-const expect = chai.expect;
-// chai (the testing framework) has to be imported weirdly because it's a stupid module that sucks. here's how you use it:
+require('dotenv').config();
+
+const request = require('supertest');
+const app = require('../server.js');
+const { expect } = require('chai');
+
 
 describe("Sample test", ()=>{
     it('should assert 2==2 correctly', ()=>{
