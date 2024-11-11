@@ -3,18 +3,18 @@ const { Schema, model } = require('mongoose');
 const eventSchema = new Schema({
     title: {
         type: String, 
-        require: true
+        required: true
     },
     description: {
         type: String
     },
     start: {
         type: String,
-        require: true
+        required: true
     },
     end: {
         type: String,
-        require: true
+        required: true
     }
 });
 
