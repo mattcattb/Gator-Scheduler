@@ -1,7 +1,6 @@
 import Event from "../models/event.js";
 import User from "../models/user.js";  // Assuming you have a User model
 
-
 export const getEvents = async (req, res) => {
     try {
         const { userId } = req.query;  // Use req.query for query parameters

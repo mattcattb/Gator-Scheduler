@@ -6,7 +6,7 @@ const connectdb = require('./repository/db');
 
 const auth = require('./routes/auth');
 const meeting = require('./routes/meeting');
-const events = require('./routes/events.route')
+const events = require('./routes/events')
 const friends = require('./routes/friends');
 
 dotenv.config();
