@@ -31,13 +31,14 @@ export const postEvent = async (req, res) => {
             return res.status(400).json({message:'Field information missing.'});
         }
 
-        const newEvent = new Event({title, description, start, end});
-        await newEvent.save();
-
         const user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({message: "User not found."});
         }
+
+        const newEvent = new Event({title, description, start, end});
+        await newEvent.save();
+
         user.events.push(newEvent._id); // find the user and then push this _id of the event to it
         await user.save();
         
@@ -77,7 +78,7 @@ export const deleteEvent = async(req, res) => {
     try {
         const { eventId } = req.params;  // Access eventId from URL parameter
         const deletedEvent = await Event.findByIdAndDelete(eventId);
-        if (!deleteEvent){
+        if (!deletedEvent){
             return res.status(404).json({message:'Event not found'});
         }        
 
@@ -91,8 +92,8 @@ export const deleteEvent = async(req, res) => {
             }
         }
 
-        res.status(200).json({message:"Event successfully deleted"});
-    } catch (error) {
+        res.status(204).send(); // No content, event deleted
+    } catch (err) {
         console.error(err);
         res.status(500).send('Server error');        
     }
