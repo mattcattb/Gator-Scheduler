@@ -5,9 +5,11 @@ import {
 import { createEventsServicePlugin } from '@schedule-x/events-service'
 import '@schedule-x/theme-default/dist/index.css'
 
-import AddEventButton from "../components/Schedule/addeventbutton";
-import EditModal from "../components/Schedule/editModal.jsx"; // Import the EditModal component
+import { Button } from '@mui/material';
+
 import EventList from '../components/Schedule/eventlist.jsx'
+import EditModal from "../components/Schedule/editeventmodal.jsx"; // Import the EditModal component
+import AddEventModal from '../components/Schedule/addeventmodal.jsx'
 
 // todo properly order times input, and submit to backend when submit clicked
 // todo change modal to be named editEventModal and createEventModal
@@ -15,43 +17,40 @@ import EventList from '../components/Schedule/eventlist.jsx'
 const sample_events = [
   {
     "_id": "eventID10",
-    "name": "Evening Walk",
+    "title": "Evening Walk",
     "description": "Relaxing walk through the park",
-    "start": "2024-10-11 19:00",
-    "end": "2024-10-11 20:00"
+    "start": "2024-11-11 19:00",
+    "end": "2024-11-11 20:00"
   },
   {
     "_id": "eventID11",
-    "name": "Conference Call",
+    "title": "Conference Call",
     "description": "Call with the offshore team",
-    "start": "2024-10-12 08:00",
-    "end": "2024-10-12 09:30"
+    "start": "2024-11-12 08:00",
+    "end": "2024-11-12 09:30"
   }
 ] 
-
 
 function Schedule() {
 
   //! First, get all the users events for the calender from the backend
   const [events, setEvents] = useState(sample_events);
-
-  console.log('users_events', events)
+  const [selectedEvent, setSelectedEvent] = useState(null); // State for the selected event
+  const [editEventModalOpen, setEditEventModalOpen] = useState(false); // State for modal visibility
+  const [addEventModalOpen, setAddEventModalOpen] = useState(false);
 
   // Then, create scheduleXCalendar with the config and plugins and users events.
   const plugins = [createEventsServicePlugin()]
 
-  const [selectedEvent, setSelectedEvent] = useState(null); // State for the selected event
-  const [modalOpen, setModalOpen] = useState(false); // State for modal visibility
-
   const callbacks = {    
     onEventClick(calendarEvent) {
-      // when an event is clicked, open a modal to do something with the event.
+      // when an event on calender is clicked, open a edit event modal.
       setSelectedEvent(calendarEvent); // Set the selected event
-      setModalOpen(true); // Open the edit modal
+      setEditEventModalOpen(true); // Open the edit modal
       console.log('onEventClick', calendarEvent)  
     },
     onDayClick(day) {
-      // what happens when a day is clicked!
+      // what what happens when a data is clicked...
       console.log('onDayClick', day)
     }
   };
@@ -62,7 +61,6 @@ function Schedule() {
     callbacks: callbacks,
     weekOptions: {
       gridHeight: 1500,
-      // nDays: 7, // Optional; remove if you want to show all 7 days
       eventWidth: 95,
       timeAxisFormatOptions: { hour: '2-digit', minute: '2-digit' },
     },
@@ -76,37 +74,55 @@ function Schedule() {
   }, [calendar.eventsService])
 
   const handleCloseModal = () => {
-    setModalOpen(false);
+    // when closemodal clicked, set it to false and set selected event to null. 
+    setEditEventModalOpen(false);
     setSelectedEvent(null); // Clear selected event on close
   };
 
   const handleEditSubmit = (updatedEvent) => {
     // Update the event in the calendar service
-    calendar.eventsService.update(updatedEvent.id, updatedEvent); // Assuming you have an update method
-    handleCloseModal(); // Close the modal after submission
+    const newEvents = events.map(event => event._id === updatedEvent._id ? updatedEvent : event);
+    setEvents(newEvents);    
+    calendar.eventsService.update(updatedEvent._id, updatedEvent); // Assuming you have an update method
+    setEditEventModalOpen(false); // Close the modal after submission
   };
 
   const handleDeleteEvent = (eventId) => {
-    calendar.eventsService.remove(eventId); // Use the eventsService to remove the event
+    const updatedEvents = events.filter(event => event._id !== eventId);
+    setEvents(updatedEvents);
+    calendar.eventsService.remove(eventId);
+    setEditEventModalOpen(false);
   };
+
+  const handleAddEvent = (newEvent) => {
+    const updatedEvents = [...events, newEvent];
+    setEvents(updatedEvents);
+    calendar.eventsService.add(newEvent);
+    setAddEventModalOpen(false);
+  }
 
   const handleEventClick = (event) => {
     setSelectedEvent(event);
-    setModalOpen(true);
+    setEditEventModalOpen(true);
   };
 
   // finally, return the parts of the schedule component
   return (
     <>
-      <AddEventButton calendar={calendar}/>
+      <Button onClick={() => setAddEventModalOpen(true)} variant="contained" color="primary" sx={{ mb: 2 }}>Add Event</Button>
       <ScheduleXCalendar calendarApp={calendar} style={{ width: '80%', height: '400px', margin: '0 auto' }}/>
       <EventList events={events} onEventClick={handleEventClick} /> {/* Add the EventList here */}
       <EditModal 
-        open={modalOpen} 
+        open={editEventModalOpen} 
         handleClose={handleCloseModal} 
         event={selectedEvent} 
         onSubmit={handleEditSubmit} 
         onDelete={handleDeleteEvent}
+      />
+      <AddEventModal 
+        open={addEventModalOpen}
+        handleClose={() => setAddEventModalOpen(false)}
+        handleSubmit={handleAddEvent}
       />
     </>
   );
