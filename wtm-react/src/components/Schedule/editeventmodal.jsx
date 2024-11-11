@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Box, Button, TextField, Typography } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import { LocalizationProvider } from '@mui/x-date-pickers';
+import { format, parse } from 'date-fns';
 
-export default function EditModal({
+export default function EditEventModal({
   open,
   handleClose,
   event, // Event to be edited
@@ -14,43 +14,57 @@ export default function EditModal({
   onDelete
 }) {
   // Local state for the modal
-  const [eventTitle, setEventTitle] = useState('');
-  const [eventDescription, setEventDescription] = useState('');
-  const [startDate, setStartDate] = useState(null);
-  const [startTime, setStartTime] = useState(null);
-  const [endTime, setEndTime] = useState(null);
+  const [eventTitle, setEventTitle] = useState(event ? event.title : '');
+  const [eventDescription, setEventDescription] = useState(event ? event.description : '');
+  const [date, setDate] = useState(event ? parse(event.start, 'yyyy-MM-dd HH:mm', new Date()) : null);
+  const [startTime, setStartTime] = useState(event ? parse(event.start, 'yyyy-MM-dd HH:mm', new Date()) : null);
+  const [endTime, setEndTime] = useState(event ? parse(event.end, 'yyyy-MM-dd HH:mm', new Date()) : null);
 
-  // Effect to populate modal fields when the event changes
   useEffect(() => {
     if (event) {
       setEventTitle(event.title || '');
       setEventDescription(event.description || '');
-      setStartDate(new Date(event.start)); // Assuming event.start is in a parseable date format
-      setStartTime(new Date(event.start)); // Assuming you want the same as start
-      setEndTime(new Date(event.end)); // Assuming event.end is in a parseable date format
+      const parsedStart = parse(event.start, 'yyyy-MM-dd HH:mm', new Date());
+      const parsedEnd = parse(event.end, 'yyyy-MM-dd HH:mm', new Date());
+      setDate(parsedStart);
+      setStartTime(parsedStart);
+      setEndTime(parsedEnd);
     }
   }, [event]);
 
-  const onEditSubmit = (e) => {
-    e.preventDefault();
-    const updatedEvent = {
-      id: event.id, // Keep the same ID
-      title: eventTitle,
-      description: eventDescription,
-      start: startDate, // Format these as needed
-      startTime: startTime,
-      end: endTime,
-    };
-    console.log('Updated Event:', updatedEvent);
-    onSubmit(updatedEvent); // Pass the updated event back to the parent
-    handleClose(); // Close the modal
+
+  const handleDelete = () => {
+    if (event && event._id) {
+      onDelete(event._id);
+      handleClose(); // Close the modal
+    }
   };
 
-  const handleDelete  = () => {
-    if (event && event.id) {
-        onDelete(event.id);
-        handleClose(); // Close the modal
+  const onEditSubmit = (e) => {
+    e.preventDefault();
+  
+    if (!date || !startTime || !endTime) {
+      return;
     }
+  
+    const start = new Date(date);
+    start.setHours(startTime.getHours());
+    start.setMinutes(startTime.getMinutes());
+  
+    const end = new Date(date);
+    end.setHours(endTime.getHours());
+    end.setMinutes(endTime.getMinutes());
+  
+    const updatedEvent = {
+      _id: event._id,
+      title: eventTitle,
+      description: eventDescription,
+      start: format(start, 'yyyy-MM-dd HH:mm'),
+      end: format(end, 'yyyy-MM-dd HH:mm')
+    };
+  
+    onSubmit(updatedEvent);
+    handleClose();
   };
 
   return (
@@ -90,28 +104,28 @@ export default function EditModal({
           />
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
-              label="Start Date"
-              value={startDate}
-              onChange={(newValue) => setStartDate(newValue)}
+              label="Date"
+              value={date}
+              onChange={(newValue) => setDate(newValue)}
               renderInput={(params) => <TextField {...params} fullWidth margin="normal" required />}
             />
-            <TimePicker 
-              label="Start Time" 
-              value={startTime} 
-              onChange={(newValue) => setStartTime(newValue)} 
-              renderInput={(params) => <TextField {...params} fullWidth margin="normal" required />}  
+            <TimePicker
+              label="Start Time"
+              value={startTime}
+              onChange={(newValue) => setStartTime(newValue)}
+              renderInput={(params) => <TextField {...params} fullWidth margin="normal" required />}
             />
-            <TimePicker 
+            <TimePicker
               label="End Time"
-              value={endTime} 
-              onChange={(newValue) => setEndTime(newValue)} 
-              renderInput={(params) => <TextField {...params} fullWidth margin="normal" required />} 
+              value={endTime}
+              onChange={(newValue) => setEndTime(newValue)}
+              renderInput={(params) => <TextField {...params} fullWidth margin="normal" required />}
             />
           </LocalizationProvider>
           <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
             Save Changes
           </Button>
-          <Button variant="contained" onClick={handleDelete} sx={{ mt: 2 }}>
+          <Button variant="contained" color="secondary" onClick={handleDelete} sx={{ mt: 2, ml: 2 }}>
             Delete
           </Button>
         </form>

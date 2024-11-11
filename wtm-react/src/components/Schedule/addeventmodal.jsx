@@ -2,41 +2,51 @@ import React, { useState } from 'react';
 import { Modal, Box, Button, TextField, Typography } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-
-// with date-fns v3.x or v4.x
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import { LocalizationProvider } from '@mui/x-date-pickers';
+import { format, parse } from 'date-fns';
 
-
-export default function EventModal({
+// Define the AddEventModal component
+export default function AddEventModal({
   open,
   handleClose,
   handleSubmit,
-  presetEventTitle = '',
-  presetEventDescription = '',
-  presetStartDate = null,
-  presetStartTime = null,
-  presetEndTime = null,
 }) {
   // Local state for the modal
-  const [eventTitle, setEventTitle] = useState(presetEventTitle);
-  const [eventDescription, setEventDescription] = useState(presetEventDescription);
-  const [startDate, setStartDate] = useState(presetStartDate);
-  const [startTime, setStartTime] = useState(presetStartTime);
-  const [endTime, setEndTime] = useState(presetEndTime);
+  const [eventTitle, setEventTitle] = useState("My Event");
+  const [eventDescription, setEventDescription] = useState("My Description");
+  const [date, setDate] = useState(new Date());
+  const [startTime, setStartTime] = useState(new Date());
+  const [endTime, setEndTime] = useState(new Date(new Date().getTime() + 60 * 60 * 1000));
 
+  // Handling form submission
   const onSubmit = (e) => {
+    // when submit pressed, properly formate the state and update new event 
+    
     e.preventDefault();
+
+    const start = new Date(date);
+
+    start.setHours(startTime.getHours());
+    start.setMinutes(startTime.getMinutes());
+
+    const end = new Date(date);
+    end.setHours(endTime.getHours());
+    end.setMinutes(endTime.getMinutes());
+
+    // Create new event object with formatted dates
     const newEvent = {
-      id: Date.now().toString(),
+      _id: Date.now().toString(),
       title: eventTitle,
-      Description: eventDescription,
-      startDate: startDate,
-      startTime: startTime,
-      endTime : endTime,
+      description: eventDescription,
+      start: format(start, 'yyyy-MM-dd HH:mm'),
+      end: format(end, 'yyyy-MM-dd HH:mm'),
     };
+
     console.log('New Event:', newEvent);
-    handleSubmit(newEvent); // Pass the new event back to the parent
+
+    // Call the handleSubmit function passed as a prop to handle the new event
+    handleSubmit(newEvent);
     handleClose(); // Close the modal
   };
 
@@ -75,25 +85,24 @@ export default function EventModal({
             onChange={(e) => setEventDescription(e.target.value)}
             required
           />
-
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
-              label="Start Date"
-              value={startDate}
-              onChange={(newValue) => setStartDate(newValue)}
+              label="Date"
+              value={date}
+              onChange={(newValue) => setDate(newValue)}
               renderInput={(params) => <TextField {...params} fullWidth margin="normal" required />}
             />
-            <TimePicker 
-              label="Start Time" 
-              value={startTime} 
-              onChange={(newValue) => setStartTime(newValue)} 
-              renderInput={(params) => <TextField {...params} fullWidth margin="normal" required />}  
+            <TimePicker
+              label="Start Time"
+              value={startTime}
+              onChange={(newValue) => setStartTime(newValue)}
+              renderInput={(params) => <TextField {...params} fullWidth margin="normal" required />}
             />
-            <TimePicker 
+            <TimePicker
               label="End Time"
-              value={endTime} 
-              onChange={(newValue) => setEndTime(newValue)} 
-              renderInput={(params) => <TextField {...params} fullWidth margin="normal" required />} 
+              value={endTime}
+              onChange={(newValue) => setEndTime(newValue)}
+              renderInput={(params) => <TextField {...params} fullWidth margin="normal" required />}
             />
           </LocalizationProvider>
           <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
