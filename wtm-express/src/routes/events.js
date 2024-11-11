@@ -10,12 +10,14 @@ router.post('/addEvent', async (req, res) => {
         
         if (!user) return res.status(204).json({ message: 'User not found' });
 
-        user.friends.push({
+        const newEvent = await Event.create({
             title: req.body.title,
             description: req.body.description,
             start: req.body.title,
             end: req.body.end
         });
+
+        user.events.push(newEvent._id);
 
         result = await user.save();
 
