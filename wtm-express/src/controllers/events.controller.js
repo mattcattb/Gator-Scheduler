@@ -52,17 +52,49 @@ export const postEvent = async (req, res) => {
 
 export const editEvent = async(req, res) => {
     try {
-        const { eventId } = req.params;  // Access eventId from URL parameter        
-    } catch (error) {
+        const { eventId } = req.params;  // Access eventId from URL parameter       
+        const {title, description, start, end} = req.body;
         
+        const updatedEvent = await Event.findByIdAndUpdate(
+            eventId,
+            {title, description, start, end},
+            {new: true}
+        )
+        
+        if (!updatedEvent){
+            return res.status(404).json({message: 'Event not found'});
+        }
+
+        res.status(200).json(updatedEvent);
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
     }
 }
 
 export const deleteEvent = async(req, res) => {
     try {
-        const { eventId } = req.params;  // Access eventId from URL parameter        
+        const { eventId } = req.params;  // Access eventId from URL parameter
+        const deletedEvent = await Event.findByIdAndDelete(eventId);
+        if (!deleteEvent){
+            return res.status(404).json({message:'Event not found'});
+        }        
+
+        const {userId} = req.query;
+
+        if(userId){
+            const user = await User.findById(userId);
+            if (user){
+                user.events = user.events.filter(event => event.toString() !== eventId);
+                await user.save();
+            }
+        }
+
+        res.status(200).json({message:"Event successfully deleted"});
     } catch (error) {
-        
+        console.error(err);
+        res.status(500).send('Server error');        
     }
 }
 
