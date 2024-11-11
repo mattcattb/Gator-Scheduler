@@ -6,11 +6,6 @@ import InfoPanel from '../components/MeetingDetails/InfoPanel';
 import DetailsPanel from '../components/MeetingDetails/DetailsPanel';
 import InviteField from '../components/MeetingDetails/InviteField';
 
-/*
-  TODO
-  - Make a page for event creator, or event participant
-*/ 
-
 function MeetingDetails() {
   const { id } = useParams();
   var {meetingDetails, setMeetingDetails} = useContext(MeetingDetailsContext);
@@ -18,7 +13,7 @@ function MeetingDetails() {
   useEffect(() => {
     const fetchMeetingData = async () => {
       try {
-        // implement proper fetching logic once meetings exist in backend
+        //TODO: implement proper fetching logic once meetings exist in backend
         setMeetingDetails(meetings[0]);
       }
       catch(e) {
