@@ -4,7 +4,7 @@ const User = require('../models/user');
 const Event = require('../models/user.js');
 
 // Returns list of events in JSON for front end to display
-router.post('/getEvents', async (req, res) => {
+router.get('/getEvents', async (req, res) => {
    try {
         const { userId } = req.body;
         const user = await User.findById(userId);
