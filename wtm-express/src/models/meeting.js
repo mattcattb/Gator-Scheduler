@@ -4,6 +4,8 @@ const meetingSchema = new Schema({
     meetingName: { type: String, required: true },
     meetingDescription: { type: String },
     selectedDays: { type: [String], required: true },
+    organizers: [{ type:String, required: true}],
+    members: [{ type: String, required: true }],
 
     timeRange: { 
         startTime: { type: Date, required: true},
