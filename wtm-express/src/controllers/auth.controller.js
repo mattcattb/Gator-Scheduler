@@ -1,5 +1,5 @@
-const Event = require("../models/event.js");
 const User = require("../models/user.js");  // Assuming you have a User model
+const bcrypt = require('bcryptjs');
 
 const registerUser = async (req, res) => {
     const { name, username, password } = req.body;
