@@ -5,7 +5,7 @@ const userSchema = new Schema({
     username: { type: String, required: true },
     password: { type: String, required: true },
     icon: { type: String },
-    events: [{ type: String }],
+    meetings: [{ type: String }],
     invited: [{ type: String }],
     friends: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 });
