@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, Typography, Box, Chip, Button } from '@mui/material';
 
 function MeetingInvitePreview({ meeting, onJoin, onReject }) {
-  const navigate = useNavigate();
-  const [isMember, setIsMember] = useState(meeting.members.includes('yourUserID')); // Replace 'yourUserID' with actual user id.
+  const [, setIsMember] = useState(meeting.members.includes('yourUserID')); // Replace 'yourUserID' with actual user id.
 
   const handleJoin = () => {
     setIsMember(true);

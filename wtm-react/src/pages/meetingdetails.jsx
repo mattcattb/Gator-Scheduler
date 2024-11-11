@@ -2,6 +2,9 @@ import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import meetings from "../static_database/meetings.json";
 import { MeetingDetailsContext } from '../context/MeetingDetailsProvider';
+import InfoPanel from '../components/MeetingDetails/InfoPanel';
+import DetailsPanel from '../components/MeetingDetails/DetailsPanel';
+import InviteField from '../components/MeetingDetails/InviteField';
 
 /*
   TODO
@@ -15,7 +18,7 @@ function MeetingDetails() {
   useEffect(() => {
     const fetchMeetingData = async () => {
       try {
-        // implement proper fetching logic once meetings exist
+        // implement proper fetching logic once meetings exist in backend
         setMeetingDetails(meetings[0]);
       }
       catch(e) {
@@ -30,7 +33,18 @@ function MeetingDetails() {
   }
 
   return (
-    <div>MeetingDetails {meetingDetails.name}, {meetingDetails.description}, {meetingDetails._id}!</div>
+    <div className='meeting-details-parent' style={{
+      display:'flex',
+      flexDirection:'column',
+      alignItems:'center',
+      margin:"5vh auto 0 auto",
+      gap:'2vh',
+      width:'55%'
+    }}>
+      <InfoPanel></InfoPanel>
+      <DetailsPanel></DetailsPanel>
+      <InviteField></InviteField>
+    </div>
   )
 }
   
