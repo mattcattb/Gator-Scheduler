@@ -7,9 +7,9 @@ router.post('/register', async (req, res) => {
   const { name, username, password } = req.body;
 
   try {
-    console.log(name)
-    console.log(username)
-    console.log(password)
+    console.log(name);
+    console.log(username);
+    console.log(password);
     let user = await User.findOne({ username });
     if (user) {
       return res.status(400).json({ msg: 'User already exists' });
@@ -26,8 +26,8 @@ router.post('/register', async (req, res) => {
 
     await user.save();
     res.status(201).json({ msg: 'User registered successfully' });
-  }
-  catch (err) {
+  } catch (err) {
+    console.log(err);
     res.status(500).send('Server error');
   }
 });
