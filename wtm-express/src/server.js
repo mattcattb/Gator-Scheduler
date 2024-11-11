@@ -7,6 +7,7 @@ const connectdb = require('./repository/db');
 const auth = require('./routes/auth');
 const meeting = require('./routes/meeting');
 const events = require('./routes/events.route')
+const friends = require('./routes/friends');
 
 dotenv.config();
 
@@ -22,6 +23,9 @@ app.get('/', (req, res) => {
 app.use('/api/auth', auth);
 app.use('/api/meeting', meeting);
 app.use('/api/events', events);
+
+app.use('/api/events', events);
+app.use('/api/friends', friends);
 
 const PORT = process.env.PORT || 3001;
 
