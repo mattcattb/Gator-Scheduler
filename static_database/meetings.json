@@ -1,24 +1,36 @@
 [
   {
-    "_id": "615f1c7697a0c4791b7c0193",
+    "_id": { "$oid": "615f1c7697a0c4791b7c0193" },
     "meetingName": "Team Sync",
     "meetingDescription": "Weekly team synchronization meeting",
     "selectedDays": ["Monday", "Wednesday", "Friday"],
-    "organizers": ["616f1c7697a0c4791b7c0196"],
-    "members": ["615f1c7697a0c4791b7c0191", "616f1c7697a0c4791b7c0194"],
+    "organizers": [
+      { "$oid": "616f1c7697a0c4791b7c0196" }
+    ],
+    "members": [
+      { "$oid": "615f1c7697a0c4791b7c0191" },
+      { "$oid": "616f1c7697a0c4791b7c0194" }
+    ],
     "timeRange": { 
       "startTime": "2024-09-25 09:00",
       "endTime": "2024-09-25 10:00"
     },
-    "invitedUsers": ["615f1c7697a0c4791b7c0192"]
+    "invitedUsers": [
+      { "$oid": "615f1c7697a0c4791b7c0192" }
+    ]
   },
   {
-    "_id": "615f1c7697a0c4791b7c0198",
+    "_id": { "$oid": "615f1c7697a0c4791b7c0198" },
     "meetingName": "Project Kickoff",
     "meetingDescription": "Kickoff meeting for the new project initiative",
     "selectedDays": ["Tuesday"],
-    "organizers": ["616f1c7697a0c4791b7c0195"],
-    "members": ["615f1c7697a0c4791b7c0192", "616f1c7697a0c4791b7c0193"],
+    "organizers": [
+      { "$oid": "616f1c7697a0c4791b7c0195" }
+    ],
+    "members": [
+      { "$oid": "615f1c7697a0c4791b7c0192" },
+      { "$oid": "616f1c7697a0c4791b7c0193" }
+    ],
     "timeRange": { 
       "startTime": "2024-09-26 11:00",
       "endTime": "2024-09-26 12:30"

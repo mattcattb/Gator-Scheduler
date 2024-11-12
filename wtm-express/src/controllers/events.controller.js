@@ -1,21 +1,26 @@
 const Event = require("../models/event.js");
 const User = require("../models/user.js");  // Assuming you have a User model
+const mongoose = require('mongoose');
+
 
 const getEvents = async (req, res) => {
     try {
-        const { userId } = req.query;  // Use req.query for query parameters
-        
-        // Check if userId is provided
+        const { userId } = req.query;
+
         if (!userId) {
             return res.status(400).json({ message: 'User ID is required' });
-        }        
-        
-        const user = await User.findById(userId).populate('events'); // get the list of actual events, not just eventIDs
-         
+        }
+
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400).json({ message: 'Invalid User ID format' });
+        }
+
+        const user = await User.findById(userId)
+
         if (!user) return res.status(404).json({ message: 'User not found' });
- 
+
         res.status(200).json(user.events);
-        
+
     } catch (err) {
         console.error(err);
         res.status(500).send('Server error');
@@ -25,44 +30,55 @@ const getEvents = async (req, res) => {
 const postEvent = async (req, res) => {
     try {
         const { userId, title, description, start, end } = req.body;
-        
-        if(!userId || !title || !description || !start || !end){
-            return res.status(400).json({message:'Field information missing.'});
+
+        console.log(userId, title, description, start, end);
+
+        if (!userId || !title || !start || !end) {
+            return res.status(400).json({ message: 'Field information missing.'});
+        }
+
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400).json({ message: 'Invalid User ID format' });
         }
 
         const user = await User.findById(userId);
+
         if (!user) {
-            return res.status(404).json({message: "User not found."});
+            return res.status(404).json({ message: "User not found." });
         }
 
-        const newEvent = new Event({title, description, start, end});
+        const newEvent = new Event({ title, description, start, end });
+
         await newEvent.save();
 
-        user.events.push(newEvent._id); // find the user and then push this _id of the event to it
+        user.events.push(newEvent._id);
         await user.save();
-        
-        res.status(201).json(newEvent); // return this new event
+
+        res.status(201).json(newEvent);
 
     } catch (err) {
         console.error(err);
         res.status(500).send("Server error");
-        
     }
 }
 
-const editEvent = async(req, res) => {
+const editEvent = async (req, res) => {
     try {
-        const { eventId } = req.params;  // Access eventId from URL parameter       
-        const {title, description, start, end} = req.body;
-        
+        const { eventId } = req.params;
+        const { title, description, start, end } = req.body;
+
+        if (!mongoose.Types.ObjectId.isValid(eventId)) {
+            return res.status(400).json({ message: 'Invalid Event ID format' });
+        }
+
         const updatedEvent = await Event.findByIdAndUpdate(
             eventId,
-            {title, description, start, end},
-            {new: true}
-        )
-        
-        if (!updatedEvent){
-            return res.status(404).json({message: 'Event not found'});
+            { title, description, start, end },
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedEvent) {
+            return res.status(404).json({ message: 'Event not found' });
         }
 
         res.status(200).json(updatedEvent);
@@ -73,28 +89,39 @@ const editEvent = async(req, res) => {
     }
 }
 
-const deleteEvent = async(req, res) => {
+const deleteEvent = async (req, res) => {
     try {
-        const { eventId } = req.params;  // Access eventId from URL parameter
+        const { eventId } = req.params;
+        const { userId } = req.query;
+
+        if (!mongoose.Types.ObjectId.isValid(eventId)) {
+            return res.status(400).json({ message: 'Invalid Event ID format' });
+        }
+
         const deletedEvent = await Event.findByIdAndDelete(eventId);
-        if (!deletedEvent){
-            return res.status(404).json({message:'Event not found'});
-        }        
 
-        const {userId} = req.query;
+        if (!deletedEvent) {
+            return res.status(404).json({ message: 'Event not found' });
+        }
 
-        if(userId){
+        if (userId) {
+            if (!mongoose.Types.ObjectId.isValid(userId)) {
+                return res.status(400).json({ message: 'Invalid User ID format' });
+            }
+
             const user = await User.findById(userId);
-            if (user){
+
+            if (user) {
                 user.events = user.events.filter(event => event.toString() !== eventId);
                 await user.save();
             }
         }
 
-        res.status(204).send(); // No content, event deleted
+        res.status(204).send();
+
     } catch (err) {
         console.error(err);
-        res.status(500).send('Server error');        
+        res.status(500).send('Server error');
     }
 }
 

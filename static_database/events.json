@@ -1,69 +1,69 @@
 [
   {
-    "_id": "615f1c7697a0c4791b7c0191",
+    "_id": { "$oid": "615f1c7697a0c4791b7c0191" },
     "title": "Company Picnic",
     "description": "Annual company picnic with food and games.",
     "start": "2024-09-30 10:00",
     "end": "2024-09-30 17:00"
   },
   {
-    "_id": "615f1c7697a0c4791b7c0192",
+    "_id": { "$oid": "615f1c7697a0c4791b7c0192" },
     "title": "Hackathon",
     "description": "24-hour coding event for all developers.",
     "start": "2024-10-05 08:00",
     "end": "2024-10-06 08:00"
   },
   {
-    "_id": "615f1c7697a0c4791b7c0193",
+    "_id": { "$oid": "615f1c7697a0c4791b7c0193" },
     "title": "Town Hall Meeting",
     "description": "Quarterly town hall meeting with the CEO to discuss company updates and answer questions.",
     "start": "2024-10-10 09:00",
     "end": "2024-10-10 11:00"
   },
   {
-    "_id": "615f1c7697a0c4791b7c0194",
+    "_id": { "$oid": "615f1c7697a0c4791b7c0194" },
     "title": "Coding Workshop",
     "description": "Hands-on workshop focusing on advanced JavaScript techniques.",
     "start": "2024-10-15 13:00",
     "end": "2024-10-15 17:00"
   },
   {
-    "_id": "615f1c7697a0c4791b7c0195",
+    "_id": { "$oid": "615f1c7697a0c4791b7c0195" },
     "title": "Marketing Strategy Meeting",
     "description": "Meeting to finalize the marketing plan for the next quarter.",
     "start": "2024-10-20 14:00",
     "end": "2024-10-20 15:30"
   },
   {
-    "_id": "615f1c7697a0c4791b7c0196",
+    "_id": { "$oid": "615f1c7697a0c4791b7c0196" },
     "title": "Annual General Meeting",
     "description": "Annual meeting with shareholders to discuss the year's performance and future outlook.",
     "start": "2024-10-25 16:00",
     "end": "2024-10-25 18:00"
   },
   {
-    "_id": "615f1c7697a0c4791b7c0197",
+    "_id": { "$oid": "615f1c7697a0c4791b7c0197" },
     "title": "Team Building Exercise",
     "description": "A fun day of team building activities to improve collaboration and morale.",
     "start": "2024-10-28 09:00",
     "end": "2024-10-28 17:00"
   },
   {
-    "_id": "615f1c7697a0c4791b7c0198",
+    "_id": { "$oid": "615f1c7697a0c4791b7c0198" },
     "title": "Client Presentation",
     "description": "Presentation of our new product features to key clients.",
     "start": "2024-11-02 10:00",
     "end": "2024-11-02 12:00"
   },
   {
-    "_id": "615f1c7697a0c4791b7c0199",
+    "_id": { "$oid": "615f1c7697a0c4791b7c0199" },
     "title": "Holiday Party",
     "description": "Company holiday party with dinner, dancing, and a gift exchange.",
     "start": "2024-12-15 19:00",
     "end": "2024-12-15 23:59"
   },
   {
-    "_id": "615f1c7697a0c4791b7c0200",
+    "_id": { "$oid": "615f1c7697a0c4791b7c0200" },
     "title": "Budget Planning Meeting",
     "description": "Meeting to plan the budget for the upcoming fiscal year.",
     "start": "2024-12-20 10:00",

@@ -3,16 +3,22 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const connectdb = require('./repository/db');
 
+const User = require('./models/user'); // Import the User model
+
+
+// Load environment variables
+dotenv.config();
+
 const auth = require('./routes/auth.routing');
 const meeting = require('./routes/meeting.routing');
 const events = require('./routes/events.routing');
 const friends = require('./routes/friends.routing');
 
-// Load environment variables
-dotenv.config();
-
 const app = express();
+
+
 app.use(cors()); // THIS IS SO UNSAFE PLEASE DO NOT LEAVE THIS HERE PERMANENTLY -Corey
+
 connectdb();
 
 app.use(express.json()); // Middleware to parse JSON
