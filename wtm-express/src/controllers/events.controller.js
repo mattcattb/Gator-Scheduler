@@ -15,14 +15,16 @@ const getEvents = async (req, res) => {
             return res.status(400).json({ message: 'Invalid User ID format' });
         }
 
-        const user = await User.findById(userId)
+        const user = await User.findById(userId).populate('events'); // Populate events
 
-        if (!user) return res.status(404).json({ message: 'User not found' });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
 
         res.status(200).json(user.events);
 
     } catch (err) {
-        console.error(err);
+        console.error('Error fetching events:', err);
         res.status(500).send('Server error');
     }
 }

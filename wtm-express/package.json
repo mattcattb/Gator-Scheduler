@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npx tsc&&set NODE_ENV=test&&mocha --exit 'dist/test/*.test.js'",
     "start": "npx tsc&&set NODE_ENV='local'&&node ./dist/server.js",
-    "start_js": "NODE_ENV='local' node ./src/server.js"
+    "dev":"NODE_ENV='local' nodemon ./src/server.js"
   },
   "author": "",
   "license": "ISC",
