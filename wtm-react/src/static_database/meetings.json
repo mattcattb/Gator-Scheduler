@@ -1,27 +1,28 @@
 [
-    {
-      "_id": "meetingID123",
-      "name": "Team Meeting",
-      "description": "Discuss project goals",
-      "organizers": ["userID123"],
-      "members": ["userID456", "userID789"],
-      "range": {
-        "days": ["2024-10-08", "2024-10-09"],
-        "start_time": "09:00",
-        "end_time": "17:00"
-      }
+  {
+    "_id": "615f1c7697a0c4791b7c0193",
+    "meetingName": "Team Sync",
+    "meetingDescription": "Weekly team synchronization meeting",
+    "selectedDays": ["Monday", "Wednesday", "Friday"],
+    "organizers": ["616f1c7697a0c4791b7c0196"],
+    "members": ["615f1c7697a0c4791b7c0191", "616f1c7697a0c4791b7c0194"],
+    "timeRange": { 
+      "startTime": "2024-09-25 09:00",
+      "endTime": "2024-09-25 10:00"
     },
-    {
-      "_id": "meetingID456",
-      "name": "Code Review",
-      "description": "Review latest PRs",
-      "organizers": ["userID456", "userID789"],
-      "members": ["userID123"],
-      "range": {
-        "days": ["2024-10-10"],
-        "start_time": "14:00",
-        "end_time": "16:00"
-      }
-    }
-  ]
-  
+    "invitedUsers": ["615f1c7697a0c4791b7c0192"]
+  },
+  {
+    "_id": "615f1c7697a0c4791b7c0198",
+    "meetingName": "Project Kickoff",
+    "meetingDescription": "Kickoff meeting for the new project initiative",
+    "selectedDays": ["Tuesday"],
+    "organizers": ["616f1c7697a0c4791b7c0195"],
+    "members": ["615f1c7697a0c4791b7c0192", "616f1c7697a0c4791b7c0193"],
+    "timeRange": { 
+      "startTime": "2024-09-26 11:00",
+      "endTime": "2024-09-26 12:30"
+    },
+    "invitedUsers": []
+  }
+]

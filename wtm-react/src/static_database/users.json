@@ -1,33 +1,35 @@
 [
-    {
-      "_id": "userID123",
-      "username": "john_doe",
-      "password": "hashedpassword123",
-      "icon": "1",
-      "name": "John Doe",
-      "meetings": ["eventID123", "eventID456"],
-      "friends": ["userID456", "userID789"],
-      "schedule": "scheduleID123"
-    },
-    {
-      "_id": "userID456",
-      "username": "jane_doe",
-      "password": "hashedpassword456",
-      "icon": "2",
-      "name": "Jane Doe",
-      "meetings": ["eventID123", "eventID456"],
-      "friends": ["userID123"],
-      "schedule": "scheduleID456"
-    },
-    {
-      "_id": "userID789",
-      "username": "bob_smith",
-      "password": "hashedpassword789",
-      "icon": "3",
-      "name": "Bob Smith",
-      "meetings": ["eventID123", "eventID456"],
-      "friends": ["userID123"],
-      "schedule": "scheduleID789"
-    }
-  ]
-  
+  {
+    "_id": "616f1c7697a0c4791b7c0195",
+    "name": "Alice Smith",
+    "username": "alice_smith",
+    "password": "password123",
+    "icon": "https://example.com/icons/alice.png",
+    "events": ["615f1c7697a0c4791b7c0191", "615f1c7697a0c4791b7c0192"],
+    "meetings": ["615f1c7697a0c4791b7c0193"],
+    "invited": ["616f1c7697a0c4791b7c0194"],
+    "friends": ["616f1c7697a0c4791b7c0196", "616f1c7697a0c4791b7c0198"]
+  },
+  {
+    "_id": "616f1c7697a0c4791b7c0196",
+    "name": "Bob Johnson",
+    "username": "bob_johnson",
+    "password": "password456",
+    "icon": "https://example.com/icons/bob.png",
+    "events": ["615f1c7697a0c4791b7c0193"],
+    "meetings": ["615f1c7697a0c4791b7c0199", "615f1c7697a0c4791b7c0198"],
+    "invited": ["616f1c7697a0c4791b7c0195"],
+    "friends": ["616f1c7697a0c4791b7c0191"]
+  },
+  {
+    "_id": "616f1c7697a0c4791b7c0197",
+    "name": "Charlie Brown",
+    "username": "charlie_brown",
+    "password": "password789",
+    "icon": "https://example.com/icons/charlie.png",
+    "events": [],
+    "meetings": [],
+    "invited": [],
+    "friends": ["615f1c7697a0c4791b7c0193"]
+  }
+]
