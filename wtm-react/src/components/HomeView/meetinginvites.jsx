@@ -12,7 +12,7 @@ function MeetingInvites({ meetings_invited, onJoin, onReject }) {
     <Box sx={{ padding: 3 }}>
       <Typography variant="h4">Invites to Meetings:</Typography>
       {meetings_invited.map((meeting) => (
-        <MeetingInvitePreview key={meeting.id} meeting={meeting} onJoin={onJoin} onReject={onReject} />
+        <MeetingInvitePreview key={meeting._id} meeting={meeting} onJoin={onJoin} onReject={onReject} />
       ))}
     </Box>
   );

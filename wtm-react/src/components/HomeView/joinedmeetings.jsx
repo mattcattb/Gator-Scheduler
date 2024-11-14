@@ -14,7 +14,7 @@ function JoinedMeetings({ meetings }) {
     <Box sx={{ padding: 3 }}>
       <Typography variant="h4">Joined Meetings</Typography>
       {meetings.map((meeting) => (
-        <MeetingPreview key={meeting.id} meeting={meeting} />
+        <MeetingPreview key={meeting._id} meeting={meeting} />
       ))}
     </Box>
   );
