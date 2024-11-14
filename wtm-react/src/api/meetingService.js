@@ -1,12 +1,16 @@
 // src/api/meetingService.js
 import axios from './axios';
 
-export const fetchMeetings = async (userId) => {
+export const createMeeting = async (userId, meeting) => {
+  
+}
+
+export const fetchJoinedMeetings = async (userId) => {
   try {
-    const response = await axios.get('/api/meetings', {
+    const response = await axios.get('/api/meeting/joined', {
       params: { userId }  // Adjust the endpoint and params as per your backend API
     });
-
+    console.log("RAHRAHRH", response);
     if (response.status === 200) {
       return response.data;
     } else {
@@ -16,11 +20,12 @@ export const fetchMeetings = async (userId) => {
     console.error('Error fetching meetings:', error);
     throw error;
   }
+
 };
 
-export const fetchMeetingInvites = async (userId) => {
+export const fetchInvitedMeetings = async (userId) => {
   try {
-    const response = await axios.get('/api/meeting-invites', {
+    const response = await axios.get('/api/meeting/invited', {
       params: { userId }  // Adjust the endpoint and params as per your backend API
     });
 

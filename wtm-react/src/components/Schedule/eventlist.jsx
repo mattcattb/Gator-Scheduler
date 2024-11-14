@@ -8,7 +8,7 @@ const EventList = ({ events, onEventClick }) => {
       <Typography variant="h6">Events</Typography>
       <List>
         {events.map((event) => (
-          <ListItem button key={event.id} onClick={() => onEventClick(event)}>
+          <ListItem button key={event._id} onClick={() => onEventClick(event)}>
             <ListItemText primary={event.title} secondary={`${event.start} to ${event.end} `} />
           </ListItem>
         ))}

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../context/UserProvider';
 
-import { fetchMeetings, fetchMeetingInvites } from '../api/meetingService';
+import { fetchJoinedMeetings, fetchInvitedMeetings } from '../api/meetingService';
 
 import JoinedMeetings from "../components/HomeView/joinedmeetings";
 import MeetingInvites from "../components/HomeView/meetinginvites";
@@ -9,7 +9,6 @@ import MeetingInvites from "../components/HomeView/meetinginvites";
 import { Typography } from "@mui/material";
 
 export default function HomeView() {
-
 
   const {user} = useContext(UserContext);
   const [meetings, setMeetings] = useState([]);
@@ -26,10 +25,11 @@ export default function HomeView() {
       const load_meetings = async () =>{
         try {
           setLoading(true);
-          const userMeetings = await fetchMeetings(user._id);
-          const userMettingInvites = await fetchMeetingInvites(user._id);
-          setMeetings(userMeetings);
-          setMeetingInvites(userMettingInvites);
+          const userJoinedMeetings = await fetchJoinedMeetings(user._id);
+          // const userMettingInvites = await fetchInvitedMeetings(user._id);
+          const userMeetingInvites = [];
+          setMeetings(userJoinedMeetings);
+          setMeetingInvites(userMeetingInvites);
 
         } catch (error) {
           setError("Failed to load meeting invites");
