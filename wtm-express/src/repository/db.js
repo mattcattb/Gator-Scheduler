@@ -8,6 +8,7 @@ let mongoServer;
 const connectdb = async () => {
     try {
         let mongoURI;
+        console.log(process.env.NODE_ENV);
 
         if (process.env.NODE_ENV === 'test') {
             mongoServer = await MongoMemoryServer.create();
