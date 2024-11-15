@@ -1,10 +1,9 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@mui/material';
 
-import  '../components/MeetingCreation/meetingcreator.css';
+import '../components/MeetingCreation/meetingcreator.css';
 
-import AddMembers from '../components/MeetingCreation/addmembers';
+import InviteForm from '../components/MeetingCreation/inviteform';
 import MeetingOptions from '../components/MeetingCreation/meetingoptions';
 import DescriptionField from '../components/MeetingCreation/descriptionfield';
 
@@ -16,14 +15,13 @@ function MeetingCreator() {
     selectedDays: [true, true, true, true, true, true, true],
     startTime: '',
     endTime: '',
-    members: []
+    invited_members: []  // Change: Add invited_members to state
   });
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
   
     setFormData((prevData) => {
-      // Check if the name starts with 'selectedDays' and contains an index
       if (name.startsWith("selectedDays")) {
         const match = name.match(/\d+/); // Extract the index
         if (match) {
@@ -35,7 +33,6 @@ function MeetingCreator() {
         }
       }
       
-      // Update other fields
       return {
         ...prevData,
         [name]: type === 'checkbox' ? checked : value,
@@ -43,10 +40,10 @@ function MeetingCreator() {
     });
   };
 
-  const handleMembersChange = (newMembers) => {
+  const handleInvitedMembersChange = (newInvitedMembers) => {
     setFormData((prevData) => ({
       ...prevData,
-      onMembersChange: newMembers,
+      invited_members: newInvitedMembers,  // Update: Correctly set invited_members
     }));
   };
 
@@ -57,9 +54,13 @@ function MeetingCreator() {
   
   return (
     <div className="Meeting-creation-container">
-      <DescriptionField meetingName={formData.meetingName} meetingDescription={formData.meetingDescription} handleChange={handleChange} />
-      <MeetingOptions formData={formData} handleChange={handleChange}/>
-      <AddMembers members={formData.members} onMembersChange={handleMembersChange}/>
+      <DescriptionField
+        meetingName={formData.meetingName}
+        meetingDescription={formData.meetingDescription}
+        handleChange={handleChange}
+      />
+      <MeetingOptions formData={formData} handleChange={handleChange} />
+      <InviteForm invited_members={formData.invited_members} onMembersChange={handleInvitedMembersChange} />  {/* Change: updated props */}
       <Button onClick={handleSubmit}>Create Meeting</Button> 
     </div>
   );  
