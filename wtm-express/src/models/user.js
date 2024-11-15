@@ -7,8 +7,9 @@ const userSchema = new Schema({
     icon: { type: String },
     events: { type: [Schema.Types.ObjectId], ref: 'Event', default: [] },
     meetings: { type: [Schema.Types.ObjectId], ref: 'Meeting', default: [] },
-    invited: { type: [Schema.Types.ObjectId], ref: 'User', default: [] },
-    friends: { type: [Schema.Types.ObjectId], ref: 'User', default: [] }
+    invited_meetings: { type: [Schema.Types.ObjectId], ref: 'Meeting', default: [] },
+    friends: { type: [Schema.Types.ObjectId], ref: 'User', default: [] },
+    invited_friends: { type: [Schema.Types.ObjectId], ref: 'User', default: [] },
   });
 
 module.exports = model("User", userSchema);
