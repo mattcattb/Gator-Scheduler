@@ -1,8 +1,14 @@
 require('dotenv').config();
 
+let expect;
+(async () => {
+  const chai = await import('chai');
+  expect = chai.expect;
+})();
+
 const request = require('supertest');
 const app = require('../server.js');
-const { expect } = require('chai');
+;
 
 describe('API Endpoint Tests', () => {
   it('should register a new user', (done) => {
