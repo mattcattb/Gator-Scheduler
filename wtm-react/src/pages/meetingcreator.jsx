@@ -11,8 +11,8 @@ import DescriptionField from '../components/MeetingCreation/descriptionfield';
 function MeetingCreator() {
   
   const [formData, setFormData] = useState({
-    meetingName: '',
-    meetingDescription: '',
+    meetingName: 'Example Meeting',
+    meetingDescription: 'Example Description',
     selectedDays: [true, true, true, true, true, true, true],
     startTime: '',
     endTime: '',
