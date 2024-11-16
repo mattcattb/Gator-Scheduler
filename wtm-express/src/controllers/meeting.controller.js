@@ -32,7 +32,7 @@ const addMeeting = async (req, res) => {
 const getJoinedMeetings = async (req, res) => {
 
   const { userId } = req.query;
-  
+  console.log("inside controller:  " + userId);
   try{
 
     if (!userId) {

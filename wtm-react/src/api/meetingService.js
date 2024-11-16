@@ -49,7 +49,7 @@ export const createMeeting = async (userId, meetingForm) => {
 export const fetchJoinedMeetings = async (userId) => {
   try {
     const response = await axios.get('/api/meeting/joined', {
-      params: { userId }  // Adjust the endpoint and params as per your backend API
+      params: { userId:userId }  // Adjust the endpoint and params as per your backend API
     });
     console.log("RAHRAHRH", response);
     if (response.status === 200) {
