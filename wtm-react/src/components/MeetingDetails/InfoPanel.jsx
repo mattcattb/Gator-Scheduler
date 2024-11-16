@@ -9,15 +9,15 @@ export default function InfoPanel(){
     <div className='info-group'
     style={{display:'flex', flexDirection:'row', gap:'3vw', alignItems:'center'}}>
         <div className='name-group' style={{justifySelf:'center', height:'auto'}}>
-            <Typography variant="h5" gutterBottom>{meetingDetails.name}</Typography>
-            <Typography variant="caption" gutterBottom sx={{maxWidth:"20vw"}}>{meetingDetails.description}</Typography>
+            <Typography variant="h5" gutterBottom>{meetingDetails.meetingName}</Typography>
+            <Typography variant="caption" gutterBottom sx={{maxWidth:"20vw"}}>{meetingDetails.meetingDescription}</Typography>
         </div>
         <Card sx={{maxHeight:"20vh", minWidth:'fit-content'}}>
             <CardHeader title="Organizers"/>
             <CardContent sx={{overflow:'auto'}}>
             {meetingDetails.organizers.map(item =>(
                 //TODO: we need to implement a function to actually put names here once that endpoint exists, it's just IDs now
-                <Typography key={item}>{item}</Typography>)
+                <Typography key={item}>{item.$oid}</Typography>)
             )
             }
             </CardContent>
@@ -27,7 +27,7 @@ export default function InfoPanel(){
             <CardContent sx={{overflow:'auto'}}>
             {meetingDetails.members.map(item =>(
                 //TODO: we need to implement a function to actually put names here once that endpoint exists, it's just IDs now
-                <Typography key={item}>{item}</Typography>)
+                <Typography key={item}>{item.$oid}</Typography>)
             )
             }
             </CardContent>
