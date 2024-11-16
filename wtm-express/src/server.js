@@ -13,6 +13,7 @@ const auth = require('./routes/auth.routing');
 const meeting = require('./routes/meeting.routing');
 const events = require('./routes/events.routing');
 const friends = require('./routes/friends.routing');
+const getUser = require('./routes/user.routing');
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use('/api/auth', auth);
 app.use('/api/events', events);
 app.use('/api/friends', friends);
 app.use('/api/meeting', meeting);
+app.use('/api/users', getUser);
 
 module.exports = app;
 

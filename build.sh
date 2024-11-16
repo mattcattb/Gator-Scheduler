@@ -15,3 +15,7 @@ curl -X POST http://localhost:3004/api/meeting/create \
 -d @testmeeting.json \
 
 echo " "
+
+curl -X GET http://localhost:3004/api/users/673926f419c1f2be83ca097b
+
+echo " "
