@@ -1,8 +1,23 @@
 require('dotenv').config();
 
+let expect;
+(async () => {
+  const chai = await import('chai');
+  expect = chai.expect;
+})();
+
 const request = require('supertest');
 const app = require('../server.js');
-const { expect } = require('chai');
+
+// const { connectdb, disconnectdb } = require('../repository/db');
+// before(async function () {
+//     this.timeout(10000); // Increase timeout if needed
+//     await connectdb(); // Connect to the database before tests
+//   });
+  
+//   after(async function () {
+//     await disconnectdb(); // Disconnect from the database after all tests
+//   });
 
 describe('API Endpoint Tests', () => {
   it('should register a new user', (done) => {
@@ -15,7 +30,9 @@ describe('API Endpoint Tests', () => {
       })
       .expect(201)
       .end((err, res) => {
+        console.log("not-entered");
         if (err) return done(err);
+        console.log("entered");
         expect(res.body).to.have.property('msg', 'User registered successfully');
         done();
       });

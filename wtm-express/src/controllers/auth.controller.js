@@ -23,6 +23,7 @@ const registerUser = async (req, res) => {
       user.password = await bcrypt.hash(password, salt);
   
       await user.save();
+      console.log("route hit");
       res.status(201).json({ msg: 'User registered successfully' });
     } catch (err) {
       console.log(err);
