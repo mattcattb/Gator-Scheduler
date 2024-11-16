@@ -38,7 +38,8 @@ function Login() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(loginData),
-    });
+    }
+  );
 
     if(response.ok){
       const data = await response.json();

@@ -12,26 +12,7 @@ export default function InfoPanel(){
             <Typography variant="h5" gutterBottom>{meetingDetails.meetingName}</Typography>
             <Typography variant="caption" gutterBottom sx={{maxWidth:"20vw"}}>{meetingDetails.meetingDescription}</Typography>
         </div>
-        <Card sx={{maxHeight:"20vh", minWidth:'fit-content'}}>
-            <CardHeader title="Organizers"/>
-            <CardContent sx={{overflow:'auto'}}>
-            {meetingDetails.organizers.map(item =>(
-                //TODO: we need to implement a function to actually put names here once that endpoint exists, it's just IDs now
-                <Typography key={item}>{item.$oid}</Typography>)
-            )
-            }
-            </CardContent>
-        </Card>
-        <Card sx={{maxHeight:"20vh", minWidth:'fit-content'}}>
-        <CardHeader title="Members"/>
-            <CardContent sx={{overflow:'auto'}}>
-            {meetingDetails.members.map(item =>(
-                //TODO: we need to implement a function to actually put names here once that endpoint exists, it's just IDs now
-                <Typography key={item}>{item.$oid}</Typography>)
-            )
-            }
-            </CardContent>
-        </Card>
+        
     </div>
     )
 }

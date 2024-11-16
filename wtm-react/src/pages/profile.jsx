@@ -28,7 +28,7 @@ function Profile() {
             className="user-icon" />
             <div className='user-details'>
               <h2 className="username">{user.name}</h2>
-              <p className="friend-code">Friend Code: {user._id?.$oid}</p>
+              <p className="friend-code">Friend Code: {user._id}</p>
             </div>
           </div>
         </div>
