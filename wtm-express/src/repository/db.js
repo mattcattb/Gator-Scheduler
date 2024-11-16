@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-require('dotenv').config(); // Load environment variables
+require('dotenv').config();
 
 const { MongoMemoryServer } = require('mongodb-memory-server');
 
@@ -8,7 +8,6 @@ let mongoServer;
 const connectdb = async () => {
     try {
         let mongoURI;
-        console.log(process.env.NODE_ENV);
 
         if (process.env.NODE_ENV === 'test') {
             mongoServer = await MongoMemoryServer.create();
@@ -33,7 +32,7 @@ const connectdb = async () => {
         console.log('MongoDB has been connected successfully.');
     } catch (error) {
         console.error('Error: MongoDB did not connect', error);
-        process.exit(1); // Exit the process if MongoDB connection fails
+        process.exit(1);
     }
 };
 
