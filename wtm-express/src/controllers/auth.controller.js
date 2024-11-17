@@ -24,7 +24,25 @@ const registerUser = async (req, res) => {
   
       await user.save();
       console.log("route hit");
-      res.status(201).json({ msg: 'User registered successfully' });
+
+      const responseUser = {
+        _id: user._id.toString(),
+        name: user.name,
+        username: user.username,
+        icon: user.icon || '', // Default to an empty string if not set
+        meetings: user.meetings || [], // Default to an empty array if not set
+        friends: user.friends || [],
+        schedule: user.schedule || []
+      };
+      
+
+      console.log("User registered successfully ", responseUser);
+
+      res.status(201).json({
+        msg: 'User registered successfully',
+        user: responseUser
+      });
+  
     } catch (err) {
       console.log(err);
       res.status(500).send('Server error');
@@ -43,13 +61,22 @@ const loginUser = async (req, res) => {
         if (!compare_passwords) {
             return res.status(400).json({msg: "Username or password is incorrect"})
         }
-        res.json({
-          _id: user._id,
-          icon: user.icon,
+
+        const responseUser = {
+          _id: user._id.toString(),
           name: user.name,
-          meetings: user.meetings,
-          friends: user.friends,
-          schedule: user.schedule
+          username: user.username,
+          icon: user.icon || '',
+          meetings: user.meetings || [],
+          friends: user.friends || [],
+          schedule: user.schedule || []
+        };
+
+        console.log("User logged in successfully ", responseUser)
+    
+        res.json({
+          msg:"User logged in successfully",
+          user: responseUser
         });
     }
     catch (err) {

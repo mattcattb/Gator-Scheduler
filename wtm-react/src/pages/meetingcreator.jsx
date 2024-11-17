@@ -2,13 +2,19 @@ import React, { useState } from 'react';
 import { Button } from '@mui/material';
 
 import '../components/MeetingCreation/meetingcreator.css';
+import {addMeeting} from '../api/meetingService';
 
 import InviteForm from '../components/MeetingCreation/inviteform';
 import MeetingOptions from '../components/MeetingCreation/meetingoptions';
 import DescriptionField from '../components/MeetingCreation/descriptionfield';
 
+import { useNavigate } from 'react-router-dom';
+
+
 function MeetingCreator() {
   
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     meetingName: 'Example Meeting',
     meetingDescription: 'Example Description',
@@ -47,9 +53,15 @@ function MeetingCreator() {
     }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log("Meeting Created:", formData);
     //TODO Further logic to send MeetingData to backend can be added here
+    try {
+      const result = await addMeeting(formData);
+      navigate("/home");
+    }catch(error){
+      console.log("Error occured: ", error);
+    }
   };
   
   return (

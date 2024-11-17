@@ -1,7 +1,7 @@
 // src/api/meetingService.js
 import axios from './axios';
 
-export const createMeeting = async (userId, meetingForm) => {
+export const addMeeting = async (userId, meetingForm) => {
   /* 
     Meeting Form looks like:
     meetingName: 'Example Meeting',
@@ -11,7 +11,6 @@ export const createMeeting = async (userId, meetingForm) => {
     endTime: '',
     members: []
   */
-
 
   try {
     // when meeting created, send meeting requests to invited members through backend
@@ -25,7 +24,7 @@ export const createMeeting = async (userId, meetingForm) => {
         startTime: meetingForm.startTime,
         endTime: meetingForm.endTime
       },
-      invitedUsers: []
+      invitedUsers: meetingForm.invited_members
     }
 
     const response = await axios.post('/api/meeting', {
@@ -33,7 +32,7 @@ export const createMeeting = async (userId, meetingForm) => {
       meeting
     });
     if (response.status === 201) {
-      return response.data;
+      return response;
     } else {
       throw new Error('Error creating meeting');
     }
@@ -49,9 +48,8 @@ export const createMeeting = async (userId, meetingForm) => {
 export const fetchJoinedMeetings = async (userId) => {
   try {
     const response = await axios.get('/api/meeting/joined', {
-      params: { userId:userId }  // Adjust the endpoint and params as per your backend API
+      params: { userId: userId } // Ensure userId is correct
     });
-    console.log("RAHRAHRH", response);
     if (response.status === 200) {
       return response.data;
     } else {
@@ -61,7 +59,6 @@ export const fetchJoinedMeetings = async (userId) => {
     console.error('Error fetching meetings:', error);
     throw error;
   }
-
 };
 
 export const fetchInvitedMeetings = async (userId) => {

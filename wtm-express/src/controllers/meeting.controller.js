@@ -30,61 +30,56 @@ const addMeeting = async (req, res) => {
 }
 
 const getJoinedMeetings = async (req, res) => {
-
   const { userId } = req.query;
-  console.log("inside controller:  " + userId);
-  try{
+  console.log("Inside controller: " + userId);
 
-    if (!userId) {
-      return res.status(400).json({ message: 'User ID is required' });
-    }
+  try {
+      if (!userId) {
+          return res.status(400).json({ error: 'Bad Request', message: 'User ID is required' });
+      }
 
-    if (!mongoose.Types.ObjectId.isValid(userId)) {
-      return res.status(400).json({ message: 'Invalid User ID format' });
-    }
+      if (!mongoose.Types.ObjectId.isValid(userId)) {
+          return res.status(400).json({ error: 'Bad Request', message: 'Invalid User ID format' });
+      }
 
-    const user = await User.findById(userId).populate('meetings'); // Populate meetings
+      const user = await User.findById(userId).populate('meetings');
 
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
+      if (!user) {
+          return res.status(404).json({ error: 'Not Found', message: 'User not found' });
+      }
 
-    res.status(200).json(user.meetings);
-
+      res.status(200).json(user.meetings);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ msg: 'Server error' });
+      console.error(err);
+      res.status(500).json({ error: 'Internal Server Error', message: 'An unexpected error occurred' });
   }
-}
+};
 
 //!! very important to setup an invited meetings section for each user!!!
 const getInvitedMeetings = async (req, res) => {
-  const {userId} = req.query;
+  const { userId } = req.query;
 
-  return;
+  try {
+      if (!userId) {
+          return res.status(400).json({ error: 'Bad Request', message: 'User ID parameter is required' });
+      }
+      
+      if (!mongoose.Types.ObjectId.isValid(userId)) {
+          return res.status(400).json({ error: 'Bad Request', message: 'Invalid User ID format' });
+      }
 
-  try{
-    if (!userId) {
-      return res.status(400).json({message:'User ID parameter is required.'});
-    }
-    if (!mongoose.Types.ObjectId.isValid(userId)) {
-      return res.status(400).json({message:'User ID must be valid.'});
-    }
+      const user = await User.findById(userId).populate('invites');
 
-    const user = await User.findById(user).populate('invites');
+      if (!user) {
+          return res.status(404).json({ error: 'Not Found', message: 'User not found' });
+      }
 
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    res.status(200).json(user.invited);
-
+      res.status(200).json(user.invited);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ msg: 'Server error' });
+      console.error(err);
+      res.status(500).json({ error: 'Internal Server Error', message: 'An unexpected error occurred' });
   }
-}
-
+};
 module.exports = {
     addMeeting,
     getJoinedMeetings,
