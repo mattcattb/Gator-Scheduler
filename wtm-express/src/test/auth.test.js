@@ -34,6 +34,8 @@ describe('API Endpoint Tests', () => {
         if (err) return done(err);
         console.log("entered");
         expect(res.body).to.have.property('msg', 'User registered successfully');
+        expect(res.body).to.have.property('userId');
+        console.log("REGISTER HAS ID: ", res.body.userId);
         done();
       });
   });
@@ -81,7 +83,8 @@ describe('API Endpoint Tests', () => {
       .expect(200)
       .end((err, res) => {
         if (err) return done(err);
-        expect(res.body).to.have.property('_id');
+        expect(res.body).to.have.property('userId');
+        console.log("LOGIN HAS ID: ", res.body.userId);
         done();
       });
   });
