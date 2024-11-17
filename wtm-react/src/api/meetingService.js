@@ -27,7 +27,7 @@ export const addMeeting = async (userId, meetingForm) => {
       invitedUsers: meetingForm.invited_members
     }
 
-    const response = await axios.post('/api/meeting', {
+    const response = await axios.post('/api/meeting/create', {
       userId,
       meeting
     });

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button } from '@mui/material';
 
 import '../components/MeetingCreation/meetingcreator.css';
@@ -9,10 +9,12 @@ import MeetingOptions from '../components/MeetingCreation/meetingoptions';
 import DescriptionField from '../components/MeetingCreation/descriptionfield';
 
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/UserProvider';
 
 
 function MeetingCreator() {
   
+  var {user} = useContext(UserContext);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -57,7 +59,7 @@ function MeetingCreator() {
     console.log("Meeting Created:", formData);
     //TODO Further logic to send MeetingData to backend can be added here
     try {
-      const result = await addMeeting(formData);
+      const result = await addMeeting(user.id, formData);
       navigate("/home");
     }catch(error){
       console.log("Error occured: ", error);

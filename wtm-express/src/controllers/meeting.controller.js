@@ -5,8 +5,10 @@ const mongoose = require('mongoose');
 
 
 const addMeeting = async (req, res) => {
-    const { meetingName, meetingDescription, selectedDays, startTime, endTime, friendUsernames } = req.body;
-    
+    const { meeting: {meetingName, meetingDescription, selectedDays, timeRange, friendUsernames}} = req.body;
+    console.log(req.body);
+    console.log("This is timeRange:", timeRange);
+
     try {
       const invitedUsers = await User.find({ username: { $in: friendUsernames } });
       const newMeeting = new Meeting({
@@ -14,8 +16,8 @@ const addMeeting = async (req, res) => {
         meetingDescription,
         selectedDays,
         timeRange: {
-          startTime: new Date(startTime),
-          endTime: new Date(endTime),
+          startTime: new Date(timeRange.startTime),
+          endTime: new Date(timeRange.endTime),
         },
         invitedUsers: invitedUsers.map(user => user._id),
       });
