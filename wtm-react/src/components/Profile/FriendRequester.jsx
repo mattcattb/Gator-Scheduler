@@ -7,7 +7,6 @@ function FriendRequester({friendID, setFriendID}) {
         console.log("once we have an endpoint to add friend requests, we can do this.")
     }
 
-
     return(
         <div style={{marginBottom:"2rem"}}>
             <h2 style={{margin:'0', marginBottom:"2vh"}}>Add Friends</h2>

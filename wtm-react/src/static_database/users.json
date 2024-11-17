@@ -6,19 +6,18 @@
     "password": "password123",
     "icon": "https://example.com/icons/alice.png",
     "events": [
-      { "$oid": "615f1c7697a0c4791b7c0191" }, 
+      { "$oid": "615f1c7697a0c4791b7c0191" },
       { "$oid": "615f1c7697a0c4791b7c0192" }
     ],
     "meetings": [
       { "$oid": "615f1c7697a0c4791b7c0193" }
     ],
-    "invited": [
-      { "$oid": "616f1c7697a0c4791b7c0194" }
-    ],
+    "invited_meetings": [],
     "friends": [
-      { "$oid": "616f1c7697a0c4791b7c0196" }, 
+      { "$oid": "616f1c7697a0c4791b7c0196" },
       { "$oid": "616f1c7697a0c4791b7c0198" }
-    ]
+    ],
+    "invited_friends": []
   },
   {
     "_id": { "$oid": "616f1c7697a0c4791b7c0196" },
@@ -30,15 +29,14 @@
       { "$oid": "615f1c7697a0c4791b7c0193" }
     ],
     "meetings": [
-      { "$oid": "615f1c7697a0c4791b7c0199" }, 
+      { "$oid": "615f1c7697a0c4791b7c0199" },
       { "$oid": "615f1c7697a0c4791b7c0198" }
     ],
-    "invited": [
-      { "$oid": "616f1c7697a0c4791b7c0195" }
-    ],
+    "invited_meetings": [],
     "friends": [
       { "$oid": "616f1c7697a0c4791b7c0191" }
-    ]
+    ],
+    "invited_friends": []
   },
   {
     "_id": { "$oid": "616f1c7697a0c4791b7c0197" },
@@ -48,9 +46,10 @@
     "icon": "https://example.com/icons/charlie.png",
     "events": [],
     "meetings": [],
-    "invited": [],
+    "invited_meetings": [],
     "friends": [
       { "$oid": "615f1c7697a0c4791b7c0193" }
-    ]
+    ],
+    "invited_friends": []
   }
 ]

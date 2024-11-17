@@ -1,27 +1,27 @@
 import React, { useState } from 'react';
 import { Box, Typography, Chip, TextField } from '@mui/material';
 
-function AddMembers({ members, onMembersChange }) {
-  const [inputValue, setInputValue] = useState(''); // Store the current input value
+function InviteForm({ invited_members, onMembersChange }) {
+  const [newMemberId, setNewMemberId] = useState(''); // Store the current input value
 
   const handleInputChange = (e) => {
-    setInputValue(e.target.value);
+    setNewMemberId(e.target.value);
   };
 
   const handleKeyPress = (e) => {
-    //TODO check if user has entered a valid ID and invite to meeting
-    if (e.key === 'Enter' && inputValue.trim()) {
-      // Add the new ID to members if it doesn't already exist
-      if (!members.some((member) => member === inputValue.trim())) {
-        onMembersChange([...members, inputValue.trim()]);
+    if (e.key === 'Enter' && newMemberId.trim()) {
+      // check if member exists from endpoint..?
+      // TODO make this work!!!
+      if (!invited_members.includes(newMemberId.trim())) {
+        onMembersChange([...invited_members, newMemberId.trim()]);
       }
-      setInputValue(''); // Clear the input field
+      setNewMemberId(''); // Clear the input field
       e.preventDefault(); // Prevent form submission
     }
   };
 
   const handleDelete = (idToRemove) => {
-    onMembersChange(members.filter((id) => id !== idToRemove));
+    onMembersChange(invited_members.filter((id) => id !== idToRemove));
   };
 
   return (
@@ -33,15 +33,14 @@ function AddMembers({ members, onMembersChange }) {
         placeholder="Type friend ID and press Enter"
         variant="outlined"
         fullWidth
-        value={inputValue}
+        value={newMemberId}
         onChange={handleInputChange}
         onKeyPress={handleKeyPress} // Add friend on Enter key press
         sx={{ marginBottom: 2 }}
       />
 
-      {/* Display each selected friend as a Chip */}
       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-        {members.map((id, index) => (
+        {invited_members.map((id, index) => (
           <Chip
             key={index}
             label={id}
@@ -53,4 +52,4 @@ function AddMembers({ members, onMembersChange }) {
   );
 }
 
-export default AddMembers;
+export default InviteForm;

@@ -1,36 +1,32 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../context/UserProvider';
-
-import { fetchMeetings, fetchMeetingInvites } from '../api/meetingService';
-
+import { fetchJoinedMeetings, fetchInvitedMeetings } from '../api/meetingService';
 import JoinedMeetings from "../components/HomeView/joinedmeetings";
 import MeetingInvites from "../components/HomeView/meetinginvites";
-
 import { Typography } from "@mui/material";
 
 export default function HomeView() {
-
-
-  const {user} = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [meetings, setMeetings] = useState([]);
   const [meeting_invites, setMeetingInvites] = useState([]);
   const [loading, setLoading] = useState(true); 
   const [error, setError] = useState(null);
 
   //! fix the user stored to be an actual user object!
-  console.log('HomeView mounted ', user);
+  console.log('HomeView mounted', user);
 
   // Do this when the page loads
   useEffect(() => {
-    if (user && user._id){
-      const load_meetings = async () =>{
+    console.log('useEffect triggered', user);
+    if (user && user._id) {
+      const load_meetings = async () => {
         try {
           setLoading(true);
-          const userMeetings = await fetchMeetings(user._id);
-          const userMettingInvites = await fetchMeetingInvites(user._id);
-          setMeetings(userMeetings);
-          setMeetingInvites(userMettingInvites);
-
+          const userJoinedMeetings = await fetchJoinedMeetings(user._id);
+          // const userMeetingInvites = await fetchInvitedMeetings(user._id);
+          const userMeetingInvites = [];
+          setMeetings(userJoinedMeetings);
+          setMeetingInvites(userMeetingInvites);
         } catch (error) {
           setError("Failed to load meeting invites");
           console.log(error);
@@ -38,18 +34,17 @@ export default function HomeView() {
           setLoading(false);
         }
       }
-
       load_meetings();
     }
   }, [user]);
 
   const onJoin = (meeting_id) => {
-    console.log('Just joined ', meeting_id)
-  }
+    console.log('Just joined ', meeting_id);
+  };
   
   const onReject = (meeting_id) => {
     console.log('Rejected Meeting invite ', meeting_id);
-  }
+  };
 
   if (loading) {
     return <div>Loading...</div>;
