@@ -58,6 +58,7 @@ describe('API Endpoint Tests', () => {
     request(app)
       .post('/api/auth/login')
       .send({
+        name: 'Test User',
         username: 'testuser@example.com',
         password: 'wrongpassword',
       })
@@ -73,13 +74,14 @@ describe('API Endpoint Tests', () => {
     request(app)
       .post('/api/auth/login')
       .send({
+        name: 'Test User',
         username: 'testuser@example.com',
         password: 'password123',
       })
       .expect(200)
       .end((err, res) => {
         if (err) return done(err);
-        expect(res.body).to.have.property('userId');
+        expect(res.body).to.have.property('_id');
         done();
       });
   });
