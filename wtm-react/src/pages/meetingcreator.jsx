@@ -56,10 +56,9 @@ function MeetingCreator() {
   };
 
   const handleSubmit = async () => {
-    console.log("Meeting Created:", formData);
-    //TODO Further logic to send MeetingData to backend can be added here
     try {
-      const result = await addMeeting(user.id, formData);
+      console.log(formData);
+      const result = await addMeeting(user._id, formData);
       navigate("/home");
     }catch(error){
       console.log("Error occured: ", error);

@@ -19,12 +19,11 @@ export const addMeeting = async (userId, meetingForm) => {
       meetingDescription: meetingForm.meetingDescription,
       selectedDays: meetingForm.selectedDays,
       organizers: [userId],
-      members: [meetingForm.members, userId],
       timeRange: {
         startTime: meetingForm.startTime,
         endTime: meetingForm.endTime
       },
-      invitedUsers: meetingForm.invited_members
+      invitedUsers: [meetingForm.invited_members]
     }
 
     const response = await axios.post('/api/meeting/create', {

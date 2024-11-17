@@ -5,21 +5,24 @@ const mongoose = require('mongoose');
 
 
 const addMeeting = async (req, res) => {
-    const { meeting: {meetingName, meetingDescription, selectedDays, timeRange, friendUsernames}} = req.body;
+    const { meeting: {meetingName, meetingDescription, organizers, members, selectedDays, timeRange, friendUsernames, invitedUsers}} = req.body;
     console.log(req.body);
     console.log("This is timeRange:", timeRange);
 
     try {
-      const invitedUsers = await User.find({ username: { $in: friendUsernames } });
+      // This line isn't doing anything right now because meetingService.js doesn't submit a field named "friendUsernames"
+      //const invitedUsers = await User.find({ username: { $in: friendUsernames } });
       const newMeeting = new Meeting({
         meetingName,
         meetingDescription,
         selectedDays,
+        organizers,
+        members,
         timeRange: {
           startTime: new Date(timeRange.startTime),
           endTime: new Date(timeRange.endTime),
         },
-        invitedUsers: invitedUsers.map(user => user._id),
+        invitedUsers: invitedUsers,
       });
   
       const savedMeeting = await newMeeting.save();
