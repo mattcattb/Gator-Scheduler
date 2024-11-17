@@ -12,11 +12,13 @@ const registerUser = async (req, res) => {
       if (user) {
         return res.status(400).json({ msg: 'User already exists' });
       }
-  
+
+      icon = Math.floor(Math.random() * 5) + 1, // this generates the random number through some voodoo magic
       user = new User({
         name,
         username,
         password,
+        icon,
       });
   
       const salt = await bcrypt.genSalt(10);
