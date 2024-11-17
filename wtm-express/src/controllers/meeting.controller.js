@@ -6,8 +6,6 @@ const mongoose = require('mongoose');
 
 const addMeeting = async (req, res) => {
     const { meeting: {meetingName, meetingDescription, organizers, members, selectedDays, timeRange, friendUsernames, invitedUsers}} = req.body;
-    console.log(req.body);
-    console.log("This is timeRange:", timeRange);
 
     try {
       // This line isn't doing anything right now because meetingService.js doesn't submit a field named "friendUsernames"
@@ -36,7 +34,6 @@ const addMeeting = async (req, res) => {
 
 const getJoinedMeetings = async (req, res) => {
   const { userId } = req.query;
-  console.log("Inside controller: " + userId);
 
   try {
       if (!userId) {
@@ -85,8 +82,39 @@ const getInvitedMeetings = async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error', message: 'An unexpected error occurred' });
   }
 };
+
+const getMeetingById = async (req, res) => {
+  const { meetingId } = req.query; // Assuming the meeting ID is passed as a route parameter
+
+  try {
+    // Validate the Meeting ID
+    if (!meetingId) {
+      return res.status(400).json({ error: 'Bad Request', message: 'Meeting ID is required' });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(meetingId)) {
+      return res.status(400).json({ error: 'Bad Request', message: 'Invalid Meeting ID format' });
+    }
+
+    // Fetch the meeting document
+    const meeting = await Meeting.findById(meetingId);
+
+    // If the meeting doesn't exist
+    if (!meeting) {
+      return res.status(404).json({ error: 'Not Found', message: 'Meeting not found' });
+    }
+
+    // Return the meeting document
+    res.status(200).json(meeting);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error', message: 'An unexpected error occurred' });
+  }
+};
+
 module.exports = {
     addMeeting,
     getJoinedMeetings,
-    getInvitedMeetings
+    getInvitedMeetings,
+    getMeetingById
 };

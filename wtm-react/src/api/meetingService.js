@@ -23,7 +23,7 @@ export const addMeeting = async (userId, meetingForm) => {
         startTime: meetingForm.startTime,
         endTime: meetingForm.endTime
       },
-      invitedUsers: [meetingForm.invited_members]
+      invitedUsers: meetingForm.invited_members
     }
 
     const response = await axios.post('/api/meeting/create', {
