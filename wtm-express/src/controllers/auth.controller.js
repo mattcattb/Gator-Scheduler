@@ -33,30 +33,26 @@ const registerUser = async (req, res) => {
 }
 
 const loginUser = async (req, res) => {
-    const { username, password } = req.body;
+  const { username, password } = req.body;
 
-    try {
-        let user = await User.findOne({ username });
-        if (!user) {
-            return res.status(400).json({msg: "Username or password is incorrect"});
-        }
-        const compare_passwords = await bcrypt.compare(password, user.password);
-        if (!compare_passwords) {
-            return res.status(400).json({msg: "Username or password is incorrect"})
-        }
-        res.json({
-          userId: user._id,
-          icon: user.icon,
-          name: user.name,
-          meetings: user.meetings,
-          friends: user.friends,
-          schedule: user.schedule
-        });
+  try {
+    const user = await User.findOne({ username });
+
+    if (!user) {
+      return res.status(400).json({ error: 'Bad Request', message: 'Username or password is incorrect' });
     }
-    catch (err) {
-        res.status(500).send('Server error');
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ error: 'Bad Request', message: 'Username or password is incorrect' });
     }
-}
+
+    res.json({ message: 'User logged in successfully', userId: user._id.toString() });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error', message: 'An unexpected error occurred' });
+  }
+};
 
 module.exports = {
     registerUser,

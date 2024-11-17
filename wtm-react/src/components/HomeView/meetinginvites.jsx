@@ -5,7 +5,7 @@ import { Box, Typography } from '@mui/material';
 function MeetingInvites({ meetings_invited, onJoin, onReject }) {
   
   if (meetings_invited.length === 0) {
-    return (<Typography variant="h4">No Invites!</Typography>);
+    return (<Typography variant="h4">No Meeting Invites!</Typography>);
   }
 
   return (

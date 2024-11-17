@@ -3,9 +3,30 @@ import { useState } from 'react';
 import {Box, Chip} from '@mui/material'
 import { LoginGroup } from '../components/Login/logingroup';
 import {UserContext} from '../context/UserProvider';
-import userData from '../static_database/users.json';
 
 import "../components/Login/login.css"
+
+
+const admin_user =   {
+  "_id": "616f1c7697a0c4791b7c0195" ,
+  "name": "Alice Smith",
+  "username": "alice_smith",
+  "password": "password123",
+  "icon": "https://example.com/icons/alice.png",
+  "events": [
+    "615f1c7697a0c4791b7c0191",
+    "615f1c7697a0c4791b7c0192" 
+  ],
+  "meetings": [
+    "615f1c7697a0c4791b7c0193" 
+  ],
+  "invited_meetings": [],
+  "friends": [
+    "616f1c7697a0c4791b7c0196" ,
+    "616f1c7697a0c4791b7c0198" 
+  ],
+  "invited_friends": []
+}
 
 function Login() {
 
@@ -17,46 +38,67 @@ function Login() {
   const [nameLogin, setNameLogin] = useState('');
   const [nameRegister, setNameRegister] = useState('');
 
-  async function doLogin(name, username, password, navigate){ // called when a user clicks login
+  async function doLogin(name, username, password, navigate){ 
     const loginData = {
       name: name,
       username: username,
       password: password
     };
     console.log("Login Attempted:", loginData);
+  
     if(username === 'admin' && password === 'admin'){
       sessionStorage.setItem('token', 123456789);
-      setUser(userData[0]);
+      setUser(admin_user);
       console.log('token added to session storage');
-      navigate("/home")
-      return
-    }
-
-    const response = await fetch(`${process.env.REACT_APP_BACKEND}api/auth/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(loginData),
-    });
-
-    if(response.ok){
-      const data = await response.json();
-      console.log(data);
-      console.log('User logged in successfully:', data);
-      sessionStorage.setItem('token', data.userId);
-      setUser(data);
       navigate("/home");
+      return;
+    }
+  
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND}api/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(loginData),
+      });
+  
+      if(response.ok){
+        const data = await response.json();
+        const userId = data.userId;
+        
+        const userResponse = await fetch(`${process.env.REACT_APP_BACKEND}api/user/${userId}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+  
+        if (userResponse.ok) {
+          const userData = await userResponse.json();
+          console.log("User data fetched successfully:", userData);
+  
+          sessionStorage.setItem('token', userId);
+          setUser(userData);
+          navigate("/home");
+        } else {
+          console.error('Failed to fetch user data');
+        }
+      } else {
+        console.error('Login failed:', await response.json());
+      }
+    } catch (error) {
+      console.error('Network error:', error);
     }
   }
   
-  async function doRegister(name, username, password, navigate){ // called when a user clicks register
+  async function doRegister(name, username, password, navigate){ 
     const registerData = {
       name: name,
       username: username,
       password: password
     };
-
+  
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND}api/auth/register`, {
         method: 'POST',
@@ -65,22 +107,34 @@ function Login() {
         },
         body: JSON.stringify(registerData),
       });
-
-      const data = await response.json();
+  
       if (response.ok) {
-        console.log('User registered successfully:', data);
-        sessionStorage.setItem('token', 123456789);
-        setUser(userData[0]);
-        navigate("/home");
+        const data = await response.json();
+        const userId = data.userId;
+  
+        const userResponse = await fetch(`${process.env.REACT_APP_BACKEND}api/user/${userId}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+  
+        if (userResponse.ok) {
+          const userData = await userResponse.json();
+          console.log("User data fetched successfully:", userData);
+  
+          sessionStorage.setItem('token', userId);
+          setUser(userData);
+          navigate("/home");
+        } else {
+          console.error('Failed to fetch user data');
+        }
       } else {
-        console.error('Error:', data.msg);
+        console.error('Registration failed:', await response.json());
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Network error:', error);
     }
-
-    console.log("Register Attempted:", registerData);
   }
 
   return (
