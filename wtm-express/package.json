@@ -4,7 +4,7 @@
   "description": "back end server for WhenToMeet-alike",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV='test' mocha --exit 'src/test/auth.test.js'",
+    "test": "cross-env NODE_ENV='test' mocha --exit 'src/test/*.test.js'",
     "start": "cross-env NODE_ENV='local' node ./src/server.js",
     "dev": "cross-env NODE_ENV='local' nodemon ./src/server.js"
   },

@@ -23,8 +23,7 @@ const registerUser = async (req, res) => {
       user.password = await bcrypt.hash(password, salt);
   
       await user.save();
-      console.log("route hit");
-      res.status(201).json({ msg: 'User registered successfully' });
+      res.status(201).json({ msg: 'User registered successfully', userId: user._id });
     } catch (err) {
       console.log(err);
       res.status(500).send('Server error');
@@ -44,7 +43,7 @@ const loginUser = async (req, res) => {
             return res.status(400).json({msg: "Username or password is incorrect"})
         }
         res.json({
-          _id: user._id,
+          userId: user._id,
           icon: user.icon,
           name: user.name,
           meetings: user.meetings,
