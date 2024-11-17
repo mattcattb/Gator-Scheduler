@@ -34,7 +34,7 @@ app.use('/api/auth', auth);
 app.use('/api/events', events);
 app.use('/api/friends', friends);
 app.use('/api/meeting', meeting);
-app.use('/api/users', getUser);
+app.use('/api/user', getUser);
 
 module.exports = app;
 
