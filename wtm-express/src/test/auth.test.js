@@ -35,7 +35,21 @@ describe('API Endpoint Tests', () => {
         console.log("entered");
         expect(res.body).to.have.property('msg', 'User registered successfully');
         expect(res.body).to.have.property('userId');
-        console.log("REGISTER HAS ID: ", res.body.userId);
+        done();
+      });
+  });
+
+  it('should fail to register a user with missing username', (done) => {
+    request(app)
+      .post('/api/auth/register')
+      .send({
+        name: 'Test User',
+        password: 'password123',
+      })
+      .expect(400)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.body).to.have.property('msg', 'Username is required');
         done();
       });
   });
@@ -67,7 +81,21 @@ describe('API Endpoint Tests', () => {
       .expect(400)
       .end((err, res) => {
         if (err) return done(err);
-        expect(res.body).to.have.property('msg', 'Username or password is incorrect');
+        expect(res.body).to.have.property('message', 'Username or password is incorrect');
+        done();
+      });
+  });
+
+  it('should fail login with missing username', (done) => {
+    request(app)
+      .post('/api/auth/login')
+      .send({
+        password: 'password123',
+      })
+      .expect(400)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.body).to.have.property('message', 'Username is required');
         done();
       });
   });
@@ -84,7 +112,6 @@ describe('API Endpoint Tests', () => {
       .end((err, res) => {
         if (err) return done(err);
         expect(res.body).to.have.property('userId');
-        console.log("LOGIN HAS ID: ", res.body.userId);
         done();
       });
   });
