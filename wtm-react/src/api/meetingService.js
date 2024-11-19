@@ -76,3 +76,56 @@ export const fetchInvitedMeetings = async (userId) => {
     throw error;
   }
 };
+
+// leave meeting
+export const leaveMeeting = async (userId, meetingId) => {
+  try {
+    const response = await axios.put('/api/meeting/leave', {
+      params: { userId, meetingId }
+    });
+
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error('Error leaving meeting');
+    }
+  } catch (error) {
+    console.error('Error leaving meeting:', error);
+    throw error;
+  }
+}
+
+export const joinMeeting = async (userId, meetingId) => {
+  try {
+    const response = await axios.put('/api/meeting/join', {
+      params: { userId, meetingId }
+    });
+
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error('Error joining meeting');
+    }
+  } catch (error) {
+    console.error('Error joining meeting:', error);
+    throw error;
+  }
+}
+
+export const rejectMeeting = async (userId, meetingId) => {
+  try{
+    const response = await axios.put('/api/meeting/reject', {
+      params: { userId, meetingId }
+    });
+
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error('Error rejecting meeting');
+    }
+  }catch (error) {
+    console.error('Error rejecting meeting:', error);
+    throw error;
+  }
+
+}

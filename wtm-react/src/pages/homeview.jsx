@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../context/UserProvider';
-import { fetchJoinedMeetings, fetchInvitedMeetings } from '../api/meetingService';
+import { fetchJoinedMeetings, fetchInvitedMeetings, joinMeeting, leaveMeeting } from '../api/meetingService';
 import JoinedMeetings from "../components/HomeView/joinedmeetings";
 import MeetingInvites from "../components/HomeView/meetinginvites";
 import { Typography } from "@mui/material";
@@ -17,7 +17,7 @@ export default function HomeView() {
 
   // Do this when the page loads
   useEffect(() => {
-    console.log('useEffect triggered', user);
+    console.log('FDFDF triggered', user);
     if (user && user._id) {
       const load_meetings = async () => {
         try {
@@ -40,10 +40,26 @@ export default function HomeView() {
 
   const onJoin = (meeting_id) => {
     console.log('Just joined ', meeting_id);
+    try {
+      // Call the joinMeeting API
+      joinMeeting(user._id, meeting_id);
+      setMeetingInvites(meeting_invites.filter(meeting => meeting._id !== meeting_id));
+      setMeetings([...meetings, meeting_id]);
+    }catch(error){
+      console.error('Error joining meeting:', error);
+    }
   };
   
   const onReject = (meeting_id) => {
     console.log('Rejected Meeting invite ', meeting_id);
+
+    try {
+      // Call the leaveMeeting API
+      leaveMeeting(user._id, meeting_id);
+      setMeetingInvites(meeting_invites.filter(meeting => meeting._id !== meeting_id));
+    }catch(error){
+      console.error('Error rejecting meeting invite:', error);
+    }
   };
 
   if (loading) {
