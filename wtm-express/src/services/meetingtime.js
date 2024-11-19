@@ -1,4 +1,5 @@
 import { User, UserDoc } from '../models/user';
+const Event = require('../models/event');
 
 export const findMeetingTimes = async (userIds, days, time_start, time_end) => {
   /*
@@ -7,16 +8,17 @@ export const findMeetingTimes = async (userIds, days, time_start, time_end) => {
     userIds is an array of user ids. Users have schedules that can be looked at to make this determination
   */
   
+  try {
+  // Fetch users and events
+  const users = await User.find({ _id: { $in: userIds } }).populate('events');
+  const events = users.flatMap(user => user.events);
+
   
-  // Fetch users and their schedules
-  const users = await User.find({ _id: { $in: userIds } }).select('name schedules');
 
-  // Placeholder for the logic to calculate suitable meeting times
-  const suitableTimes = []; // This will contain the times that fit the criteria
 
-  // TODO: Implement algorithm to determine meeting times
-  // For example: Iterate through users' schedules and find common available times
-  // that fit the meeting parameters (minTime, maxTime, dayRange).
 
   return suitableTimes;
+  } catch (err) {
+    console.error(`Error fetching events: ${err}`);
+  }
 };
