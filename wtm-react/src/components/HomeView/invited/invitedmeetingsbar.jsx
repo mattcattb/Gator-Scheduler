@@ -1,8 +1,8 @@
 import React from 'react';
-import MeetingInvitePreview from './meetinginvitepreview';  // Import the MeetingPreview component
+import MeetingInvitePreview from './invitedmeetingspreview';  // Import the MeetingPreview component
 import { Box, Typography } from '@mui/material';
 
-function MeetingInvites({ meetings_invited, onJoin, onReject }) {
+function InvitedMeetingsBar({ meetings_invited, onJoin, onReject }) {
   
   if (meetings_invited.length === 0) {
     return (<Typography variant="h4">No Meeting Invites!</Typography>);
@@ -18,4 +18,4 @@ function MeetingInvites({ meetings_invited, onJoin, onReject }) {
   );
 }
 
-export default MeetingInvites;
+export default InvitedMeetingsBar;

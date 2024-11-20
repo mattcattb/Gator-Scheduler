@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 
 const addMeeting = async (req, res) => {
-    const { meeting: {meetingName, meetingDescription, organizers, members, selectedDays, timeRange, friendUsernames, invitedUsers}} = req.body;
+    const { meeting: {meetingName, meetingDescription, organizers, members, selectedDays, timeRange, friendUsernames, invitedUsers}, userId} = req.body;
 
     try {
       // This line isn't doing anything right now because meetingService.js doesn't submit a field named "friendUsernames"
@@ -25,6 +25,11 @@ const addMeeting = async (req, res) => {
   
       const savedMeeting = await newMeeting.save();
   
+      // Update the user to include this meeting in their meetings array
+      await User.findByIdAndUpdate(userId, { $push: { meetings: savedMeeting._id } });
+
+      //TODO: add this meeting id to meeting invite list of everyone requested
+
       res.status(201).json({ msg: 'Meeting created successfully', meeting: savedMeeting });
     } catch (err) {
       console.error(err);
@@ -52,7 +57,7 @@ const getJoinedMeetings = async (req, res) => {
 
       res.status(200).json(user.meetings);
   } catch (err) {
-      console.error(err);
+      console.error("ERROR OCCURED: ", err);
       res.status(500).json({ error: 'Internal Server Error', message: 'An unexpected error occurred' });
   }
 };
@@ -70,7 +75,7 @@ const getInvitedMeetings = async (req, res) => {
           return res.status(400).json({ error: 'Bad Request', message: 'Invalid User ID format' });
       }
 
-      const user = await User.findById(userId).populate('invites');
+      const user = await User.findById(userId).populate('invited_meetings');
 
       if (!user) {
           return res.status(404).json({ error: 'Not Found', message: 'User not found' });

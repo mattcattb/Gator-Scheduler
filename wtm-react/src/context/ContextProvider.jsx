@@ -2,13 +2,16 @@
 import React from 'react';
 import { UserProvider } from './UserProvider';
 import { MeetingDetailsProvider } from './MeetingDetailsProvider';
+import { MeetingContextProvider } from './MeetingProvider';
 
 const ContextProvider = ({ children }) => {
   return (
     <UserProvider>
-      <MeetingDetailsProvider>
-        {children}
-      </MeetingDetailsProvider>
+      <MeetingContextProvider>
+        <MeetingDetailsProvider>
+          {children}
+        </MeetingDetailsProvider>
+      </MeetingContextProvider>
     </UserProvider>
   );
 };

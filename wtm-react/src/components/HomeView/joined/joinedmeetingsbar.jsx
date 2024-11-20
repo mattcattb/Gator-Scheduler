@@ -1,23 +1,21 @@
 import React from 'react';
-import MeetingPreview from './meetingpreview';  // Import the MeetingPreview component
+import MeetingPreview from './joinedmeetingpreview';  // Import the MeetingPreview component
 import { Box, Typography } from '@mui/material';
 
-function JoinedMeetings({ meetings }) {
+function JoinedMeetingsBar({ meetings, onLeave }) {
   
+  console.log("in the joined meetings bar with following meetings: ", meetings);
   if (meetings.length === 0) {
     return (<Typography variant="h4">No meetings joined yet</Typography>);
   }
-  
-  
-
   return (
     <Box sx={{ padding: 3 }}>
       <Typography variant="h4">Joined Meetings</Typography>
       {meetings.map((meeting) => (
-        <MeetingPreview key={meeting._id} meeting={meeting} />
+        <MeetingPreview key={meeting._id} meeting={meeting} onLeave={onLeave} />
       ))}
     </Box>
   );
 }
 
-export default JoinedMeetings;
+export default JoinedMeetingsBar;

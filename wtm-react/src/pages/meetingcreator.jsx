@@ -2,18 +2,20 @@ import React, { useState, useContext } from 'react';
 import { Button } from '@mui/material';
 
 import '../components/MeetingCreation/meetingcreator.css';
-import {addMeeting} from '../api/meetingService';
 
 import InviteForm from '../components/MeetingCreation/inviteform';
 import MeetingOptions from '../components/MeetingCreation/meetingoptions';
 import DescriptionField from '../components/MeetingCreation/descriptionfield';
 
 import { useNavigate } from 'react-router-dom';
+
 import { UserContext } from '../context/UserProvider';
+import { MeetingContext } from '../context/MeetingProvider';
 
 
 function MeetingCreator() {
   
+  const { addMeeting } = useContext(MeetingContext);
   var {user} = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -57,8 +59,8 @@ function MeetingCreator() {
 
   const handleSubmit = async () => {
     try {
-      console.log(formData);
-      const result = await addMeeting(user._id, formData);
+      
+      await addMeeting(user._id, formData);
       navigate("/home");
     }catch(error){
       console.log("Error occured: ", error);

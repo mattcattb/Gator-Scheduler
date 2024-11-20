@@ -1,7 +1,7 @@
 // src/api/meetingService.js
 import axios from './axios';
 
-export const addMeeting = async (userId, meetingForm) => {
+export const addMeetingAPI = async (userId, meetingForm) => {
   /* 
     Meeting Form looks like:
     meetingName: 'Example Meeting',
@@ -31,7 +31,7 @@ export const addMeeting = async (userId, meetingForm) => {
       meeting
     });
     if (response.status === 201) {
-      return response;
+      return response.meeting;
     } else {
       throw new Error('Error creating meeting');
     }
@@ -44,7 +44,7 @@ export const addMeeting = async (userId, meetingForm) => {
 
 }
 
-export const fetchJoinedMeetings = async (userId) => {
+export const fetchJoinedMeetingsAPI = async (userId) => {
   try {
     const response = await axios.get('/api/meeting/joined', {
       params: { userId: userId } // Ensure userId is correct
@@ -60,10 +60,10 @@ export const fetchJoinedMeetings = async (userId) => {
   }
 };
 
-export const fetchInvitedMeetings = async (userId) => {
+export const fetchInvitedMeetingsAPI = async (userId) => {
   try {
     const response = await axios.get('/api/meeting/invited', {
-      params: { userId }  // Adjust the endpoint and params as per your backend API
+      params: { userId: userId }  // Adjust the endpoint and params as per your backend API
     });
 
     if (response.status === 200) {
@@ -78,7 +78,7 @@ export const fetchInvitedMeetings = async (userId) => {
 };
 
 // leave meeting
-export const leaveMeeting = async (userId, meetingId) => {
+export const leaveMeetingAPI = async (userId, meetingId) => {
   try {
     const response = await axios.put('/api/meeting/leave', {
       params: { userId, meetingId }
@@ -95,7 +95,7 @@ export const leaveMeeting = async (userId, meetingId) => {
   }
 }
 
-export const joinMeeting = async (userId, meetingId) => {
+export const joinMeetingAPI = async (userId, meetingId) => {
   try {
     const response = await axios.put('/api/meeting/join', {
       params: { userId, meetingId }
@@ -112,7 +112,7 @@ export const joinMeeting = async (userId, meetingId) => {
   }
 }
 
-export const rejectMeeting = async (userId, meetingId) => {
+export const rejectMeetingAPI = async (userId, meetingId) => {
   try{
     const response = await axios.put('/api/meeting/reject', {
       params: { userId, meetingId }
