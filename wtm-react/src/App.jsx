@@ -65,12 +65,13 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/home" element={<ProtectedRoute><HomeView /></ProtectedRoute>} />
-            <Route path="/" element={<ProtectedRoute><HomeView /></ProtectedRoute>} />
             <Route path="/login" element={<LoginOnlyRoute><Login /></LoginOnlyRoute>} />
             <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
             <Route path="/schedule" element={<ProtectedRoute><Schedule /></ProtectedRoute>} />
             <Route path="/create" element={<ProtectedRoute><MeetingCreator/></ProtectedRoute>} />
             <Route path="/meeting/:id" element={<ProtectedRoute><MeetingDetails /></ProtectedRoute>} /> {/* Dynamic route for meeting details */}
+
+            <Route path="*" element={<ProtectedRoute><HomeView /></ProtectedRoute>}/>
           </Routes>
         </div>
       </ThemeProvider>

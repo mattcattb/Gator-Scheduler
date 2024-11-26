@@ -66,7 +66,10 @@ export const fetchInvitedMeetingsAPI = async (userId) => {
       params: { userId: userId }  // Adjust the endpoint and params as per your backend API
     });
 
+    console.log("fetch of invited meetings:", response);
+
     if (response.status === 200) {
+      console.log("data of invited meetings:", response.data);
       return response.data;
     } else {
       throw new Error('Error fetching meeting invites');
@@ -96,10 +99,15 @@ export const leaveMeetingAPI = async (userId, meetingId) => {
 }
 
 export const joinMeetingAPI = async (userId, meetingId) => {
+
+  var submitData = {
+    userId: userId,
+    meetingId: meetingId,
+  }
+  console.log(submitData)
+
   try {
-    const response = await axios.put('/api/meeting/join', {
-      params: { userId, meetingId }
-    });
+    const response = await axios.put('/api/meeting/join', submitData);
 
     if (response.status === 200) {
       return response.data;
