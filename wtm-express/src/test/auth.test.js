@@ -25,14 +25,12 @@ describe('API Endpoint Tests', () => {
       .post('/api/auth/register')
       .send({
         name: 'Test User',
-        username: 'testuser@example.com',
+        username: 'testuser',
         password: 'password123',
       })
       .expect(201)
       .end((err, res) => {
-        console.log("not-entered");
         if (err) return done(err);
-        console.log("entered");
         expect(res.body).to.have.property('msg', 'User registered successfully');
         expect(res.body).to.have.property('userId');
         done();
@@ -59,7 +57,7 @@ describe('API Endpoint Tests', () => {
       .post('/api/auth/register')
       .send({
         name: 'Test User',
-        username: 'testuser@example.com',
+        username: 'testuser',
         password: 'password123',
       })
       .expect(400)
@@ -70,12 +68,27 @@ describe('API Endpoint Tests', () => {
       });
   });
 
+  it('should fail to register with missing fields', (done) => {
+    request(app)
+      .post('/api/auth/register')
+      .send({
+        username: 'incompleteuser',
+        // Missing name and password
+      })
+      .expect(400)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.body).to.have.property('msg').that.includes('Missing required fields');
+        done();
+      });
+  });
+
   it('should fail login with incorrect password', (done) => {
     request(app)
       .post('/api/auth/login')
       .send({
         name: 'Test User',
-        username: 'testuser@example.com',
+        username: 'testuser',
         password: 'wrongpassword',
       })
       .expect(400)
@@ -105,13 +118,14 @@ describe('API Endpoint Tests', () => {
       .post('/api/auth/login')
       .send({
         name: 'Test User',
-        username: 'testuser@example.com',
+        username: 'testuser',
         password: 'password123',
       })
       .expect(200)
       .end((err, res) => {
         if (err) return done(err);
         expect(res.body).to.have.property('userId');
+        console.log("LOGIN HAS ID: ", res.body.userId);
         done();
       });
   });
