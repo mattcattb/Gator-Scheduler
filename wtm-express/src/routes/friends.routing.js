@@ -1,9 +1,8 @@
 const { Router } = require('express');
 const router = Router();
 
-const { addFriends } = require("../controllers/friends.controller");
+const { addFriend } = require("../controllers/friends.controller");
 
-// Add a friend
-router.post('/', addFriends);
+router.post('/addFriend', addFriend);
 
 module.exports = router;

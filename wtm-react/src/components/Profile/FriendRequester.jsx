@@ -1,27 +1,69 @@
 import { TextField, Button } from "@mui/material";
-import "./profile.css"
+import axios from "axios";
+import { useContext } from "react";
+import { UserContext } from "../../context/UserProvider";
+import "./profile.css";
 
-function FriendRequester({friendID, setFriendID}) {
-    function sendFriendRequest(friendID) {
-        console.log(friendID)
-        console.log("once we have an endpoint to add friend requests, we can do this.")
+function FriendRequester({ friendID, setFriendID }) {
+    const { user } = useContext(UserContext);
+
+    console.log("HERE");
+    console.log(user._id);
+    console.log(friendID);
+    console.log("ENDHERE");
+
+    async function sendFriendRequest(friendID) {
+        if (!friendID) {
+            alert("Please enter a friend's ID!");
+            return;
+        }
+
+        if (!user || !user._id) {
+            alert("You need to be logged in to send a friend request!");
+            return;
+        }
+
+        try {
+            const response = await axios.post("/api/friends/addFriend", {
+                userId: user._id,
+                friendId: friendID,
+            });
+
+            if (response.status === 200) {
+                alert("Friend request sent successfully!");
+            }
+        } catch (error) {
+            if (error.response) {
+                alert(error.response.data.message || "An error occurred.");
+            } else {
+                console.error(error);
+                alert("Could not connect to the server. Please try again later.");
+            }
+        }
     }
 
-    return(
-        <div style={{marginBottom:"2rem"}}>
-            <h2 style={{margin:'0', marginBottom:"2vh"}}>Add Friends</h2>
-            <div style={{display:'flex', justifyContent:'space-between', gap:'1rem'}}>
+    return (
+        <div style={{ marginBottom: "2rem" }}>
+            <h2 style={{ margin: "0", marginBottom: "2vh" }}>Add Friends</h2>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
                 <TextField
-                label="Type Your Friend's ID Here!"
-                value={friendID}
-                onChange={(event) => {
-                    setFriendID(event.target.value)
-                }}
+                    label="Type Your Friend's ID Here!"
+                    value={friendID}
+                    onChange={(event) => {
+                        setFriendID(event.target.value);
+                    }}
                 />
-                <Button className="request-button" onClick={() => {sendFriendRequest(friendID)}}>+</Button>
+                <Button
+                    className="request-button"
+                    onClick={() => {
+                        sendFriendRequest(friendID);
+                    }}
+                >
+                    +
+                </Button>
             </div>
         </div>
-    )
+    );
 }
 
 export default FriendRequester;
