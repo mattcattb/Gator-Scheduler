@@ -1,36 +1,34 @@
 const Event = require("../models/event.js");
-const User = require("../models/user.js");  // Assuming you have a User model
+const User = require("../models/user.js");
 
-const { findById } = require('../models/user');
-
-
-const addFriends = async (req, res) => {
+const addFriend = async (req, res) => {
     try {
-        const { userId, friendId } = req.body;
+        const { userId, friendname } = req.body;
 
-        // Find the user and the friend
-        const user = await findById(userId);
-        const friend = await findById(friendId);
+        const user = await User.findById(userId);
+        const friend = await User.findOne({ username: friendname });
 
         if (!user || !friend) {
-            return res.status(404).json({ message: 'User or Friend not found' });
+            return res.status(404).json({ message: 'User or Friend not found.' });
         }
 
-        // Check if they are already friends
-        if (user.friends.includes(friendId)) {
-            return res.status(400).json({ message: 'Already friends' });
+        if (user.friends.includes(friend._id)) {
+            return res.status(400).json({ message: 'Already friends.' });
         }
 
-        // Add the friend to the user's friends list
-        user.friends.push(friendId);
+        if (user.invited_friends.includes(friend._id)) {
+            return res.status(400).json({ message: 'Already sent invite.' });
+        }
+
+        user.invited_friends.push(friend._id);
         await user.save();
 
-        res.status(200).json({ message: 'Friend added successfully' });
+        res.status(200).json({ message: 'Friend added successfully!' });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        res.status(500).json({ message: 'Server error.', error });
     }
 }
 
 module.exports = {
-    addFriends
+    addFriend
 };
