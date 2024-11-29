@@ -1,5 +1,5 @@
 
-const User = require("../models/user.js");  // Assuming you have a User model
+const User = require("../models/user.js");
 const Meeting = require("../models/meeting.js")
 const mongoose = require('mongoose');
 
@@ -152,11 +152,43 @@ const getMeetingById = async (req, res) => {
   }
 };
 
+const leaveMeeting = async (req, res) => {
+    console.log("HERE");
+    console.log("ENDHERE");
+    const { userId, meetingId } = req.body;
+    if (!userId || !meetingId) {
+        return res.status(400).json({ error: "userId and meetingId are required" });
+    }
+
+    const in_meeting = await Meeting.findOne({ _id: meetingId, organizers: { $in: [userId] } });
+    
+    if (in_meeting) {
+        return res.status(400).json({ error: "Organizers cannot leave their own meetings"})
+    }
+
+    try {
+        await User.findByIdAndUpdate(
+            userId,
+            { $pull: { meetings: meetingId }, }
+        );
+
+        await Meeting.findByIdAndUpdate(
+            meetingId,
+            { $pull: { members: userId } }
+        )
+    } catch (err) {
+
+        console.error(err);
+        res.status(500).json({ msg: 'Server error' });
+    }
+}
+
 
 module.exports = {
     addMeeting,
     getJoinedMeetings,
     getInvitedMeetings,
     getMeetingById,
-    joinMeeting
+    leaveMeeting,
+    joinMeeting,
 };
