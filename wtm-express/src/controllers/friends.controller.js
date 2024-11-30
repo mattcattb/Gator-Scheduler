@@ -1,4 +1,5 @@
 const User = require("../models/user.js");
+const mongoose = require('mongoose');
 
 const sendFriendRequest = async (req, res) => {
     try {
@@ -20,9 +21,10 @@ const sendFriendRequest = async (req, res) => {
         }
 
         user.invited_friends.push(friend._id);
+        friend.invited_friends.push(user._id);
         await user.save();
 
-        res.status(200).json({ message: 'Friend added successfully!' });
+        res.status(200).json({ message: 'Successfully sent friend request!' });
     } catch (error) {
         res.status(500).json({ message: 'Server error.', error });
     }
@@ -44,10 +46,13 @@ const acceptFriendRequest = async (req, res) => {
         }
 
         user.friends.push(friend._id);
-        friend.friends.push(user._id);
-
         user.invited_friends = user.invited_friends.filter(
             (id) => id.toString() !== friend._id.toString()
+        );
+
+        friend.friends.push(user._id);
+        friend.invited_friends = friend.invited_friends.filter(
+            (id) => id.toString() !== user._id.toString()
         );
 
         await user.save();
@@ -77,6 +82,10 @@ const rejectFriendRequest = async (req, res) => {
         user.invited_friends = user.invited_friends.filter(
             (id) => id.toString() !== friend._id.toString()
         );
+        
+        friend.invited_friends = friend.invited_friends.filter(
+            (id) => id.toString() !== user._id.toString()
+        );
 
         await user.save();
 
@@ -92,10 +101,18 @@ const unfriendUser = async (req, res) => {
         const { userId, friendId } = req.body;
 
         const user = await User.findById(userId);
-        const friend = await User.findById(friendId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found.' });
+        }
 
-        if (!user || !friend) {
-            return res.status(404).json({ message: 'User or Friend not found.' });
+        const isFriend = user.friends.some(id => id.toString() === friendId.toString());
+        if (!isFriend) {
+            return res.status(400).json({ message: 'Users are not friends.' });
+        }
+        
+        const friend = await User.findById(friendId);
+        if (!friend) {
+            return res.status(404).json({ message: 'Friend user does not exist.'});
         }
 
         user.friends = user.friends.filter((id) => id.toString() !== friend._id.toString());
