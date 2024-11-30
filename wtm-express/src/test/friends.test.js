@@ -12,7 +12,6 @@ let userId, friendId;
 
 describe('Friend API Endpoint Tests', () => {
     before(async () => {
-        // Register a user
         const userRes = await request(app).post('/api/auth/register').send({
             name: 'User One',
             username: 'userone',

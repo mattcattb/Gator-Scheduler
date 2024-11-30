@@ -10,7 +10,7 @@ const request = require('supertest');
 const app = require('../server.js');
 let testUserId, testMeetingId, invitedUserId;
 
-describe('Enhanced Meeting API Endpoint Tests', () => {
+describe('Meeting API Endpoint Tests', () => {
   before(async () => {
     const userRes = await request(app).post('/api/auth/register').send({
       name: 'Organizer User',
