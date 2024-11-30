@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcryptjs');
 
 const { addMeeting, getInvitedMeetings, getJoinedMeetings, getMeetingById, leaveMeeting, deleteMeeting, joinMeeting } = require("../controllers/meeting.controller");
 
