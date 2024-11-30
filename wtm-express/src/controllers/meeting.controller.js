@@ -65,7 +65,8 @@ const joinMeeting = async (req, res) => {
       {
         $push: { members: userId }
       }
-    )
+    );
+    res.status(200).json({ msg: "Meeting joined successfully." });
   } catch (err) {
     console.error(err);
     res.status(500).json({ msg: 'Server error' });
@@ -153,16 +154,14 @@ const getMeetingById = async (req, res) => {
 };
 
 const leaveMeeting = async (req, res) => {
-    console.log("HERE");
-    console.log("ENDHERE");
     const { userId, meetingId } = req.body;
     if (!userId || !meetingId) {
         return res.status(400).json({ error: "userId and meetingId are required" });
     }
 
-    const in_meeting = await Meeting.findOne({ _id: meetingId, organizers: { $in: [userId] } });
+    const is_organizer = await Meeting.findOne({ _id: meetingId, organizers: { $in: [userId] } });
     
-    if (in_meeting) {
+    if (is_organizer) {
         return res.status(400).json({ error: "Organizers cannot leave their own meetings"})
     }
 
@@ -175,11 +174,44 @@ const leaveMeeting = async (req, res) => {
         await Meeting.findByIdAndUpdate(
             meetingId,
             { $pull: { members: userId } }
-        )
+        );
+        res.status(200).json({ msg: "Left meeting successfully" });
+
     } catch (err) {
 
         console.error(err);
         res.status(500).json({ msg: 'Server error' });
+    }
+}
+
+const deleteMeeting = async (req, res) => {
+    const { userId, meetingId } = req.body;
+    if (!userId || !meetingId) {
+        return res.status(400).json({ error: "userId and meetingId are required" });
+    }
+
+    try {
+        const meeting = await Meeting.findById(meetingId);
+
+        if (!meeting) {
+            return res.status(404).json({ error: "Meeting not found" });
+        }
+
+        if (!meeting.organizers.includes(userId)) {
+            return res.status(403).json({ error: "Only organizers can delete meetings" });
+        }
+
+        await User.updateMany(
+            { $or: [{ meetings: meetingId }, { invited_meetings: meetingId }] },
+            { $pull: { meetings: meetingId, invited_meetings: meetingId } }
+        );
+
+        await Meeting.findByIdAndDelete(meetingId);
+
+        res.status(200).json({ msg: "Meeting deleted successfully" });
+    } catch (err) {
+        console.error("Error deleting meeting:", err);
+        res.status(500).json({ error: "Server error", message: err.message });
     }
 }
 
@@ -190,5 +222,6 @@ module.exports = {
     getInvitedMeetings,
     getMeetingById,
     leaveMeeting,
+    deleteMeeting,
     joinMeeting,
 };
