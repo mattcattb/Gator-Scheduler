@@ -7,11 +7,6 @@ import "./profile.css";
 function FriendRequester({ friendID, setFriendID }) {
     const { user } = useContext(UserContext);
 
-    console.log("HERE");
-    console.log(user._id);
-    console.log(friendID);
-    console.log("ENDHERE");
-
     async function sendFriendRequest(friendID) {
         if (!friendID) {
             alert("Please enter a friend's ID!");
@@ -24,7 +19,7 @@ function FriendRequester({ friendID, setFriendID }) {
         }
 
         try {
-            const response = await axios.post("/api/friends/addFriend", {
+            const response = await axios.post("/api/friends/request", {
                 userId: user._id,
                 friendId: friendID,
             });
