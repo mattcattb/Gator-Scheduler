@@ -29,7 +29,7 @@ const addMeeting = async (req, res) => {
       await User.findByIdAndUpdate(userId, { $push: { meetings: savedMeeting._id } });
 
       //TODO: add this meeting id to meeting invite list of everyone requested
-      console.log("invited members:", invitedUsers)
+      //console.log("invited members:", invitedUsers)
       for (const userId of invitedUsers) {
         await User.findByIdAndUpdate(
           userId,
