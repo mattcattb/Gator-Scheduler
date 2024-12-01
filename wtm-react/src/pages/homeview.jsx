@@ -11,7 +11,9 @@ export default function HomeView() {
   const { user } = useContext(UserContext);
   const { meetings, meetingInvites, loadMeetings, joinMeeting, leaveMeeting, rejectMeeting, loading, error } = useContext(MeetingContext);
 
-  // Do this when the page loads
+  //! fix the user stored to be an actual user object!
+  console.log('HomeView mounted, user: ', user); 
+  
   useEffect(() => {
     const mountMeetings = async () => {
       if (user && user._id) {
