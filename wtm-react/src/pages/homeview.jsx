@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { UserContext } from '../context/UserProvider';
 import { MeetingContext } from '../context/MeetingProvider';
@@ -20,31 +20,7 @@ export default function HomeView() {
     if (user && user._id) {
       loadMeetings(user._id);
     }
-  }, []);
-
-  const onJoin = (meeting_id) => {
-    console.log('Just joined ', meeting_id);
-    try {
-      // Call the joinMeeting API
-      joinMeeting(user._id, meeting_id);
-      setMeetingInvites(meeting_invites.filter(meeting => meeting._id !== meeting_id));
-      setMeetings([...meetings, meeting_id]);
-    }catch(error){
-      console.error('Error joining meeting:', error);
-    }
-  };
-  
-  const onReject = (meeting_id) => {
-    console.log('Rejected Meeting invite ', meeting_id);
-
-    try {
-      // Call the leaveMeeting API
-      leaveMeeting(user._id, meeting_id);
-      setMeetingInvites(meeting_invites.filter(meeting => meeting._id !== meeting_id));
-    }catch(error){
-      console.error('Error rejecting meeting invite:', error);
-    }
-  };
+  }, [user, loadMeetings]);
 
   if (loading) {
     return <div>Loading...</div>;
