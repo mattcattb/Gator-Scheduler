@@ -1,14 +1,20 @@
 import React, { useState, useContext } from 'react';
+import { useNavigate } from "react-router-dom";
 
 import { Card, CardContent, Typography, Box, Chip, Button } from '@mui/material';
 import { UserContext } from '../../../context/UserProvider';
 
 function InvitedMeetingsPreview({ meeting, onJoin, onReject }) {
+  const navigate = useNavigate();
 
-  const user = useContext(UserContext);
+  const {user} = useContext(UserContext);
 
   const handleJoin = () => {
     onJoin(user._id, meeting._id);
+    setTimeout(() => {
+      // Redirect after delay
+      window.location.reload();
+    }, 1000);
   };
 
   const handleReject = () => {
@@ -16,10 +22,11 @@ function InvitedMeetingsPreview({ meeting, onJoin, onReject }) {
   };
 
   const daysOfWeek = ['su', 'm', 't', 'w', 'th', 'f', 'sa'];
+  var selectedDays = daysOfWeek.filter((_, index) => meeting.selectedDays[index] === "true");
 
   // Function to check if a day is selected
   const isDaySelected = (day) => {
-    return meeting.range.days.includes(day);
+    return selectedDays.includes(day);
   };
 
   return (
@@ -28,7 +35,7 @@ function InvitedMeetingsPreview({ meeting, onJoin, onReject }) {
         <Typography variant="h5" gutterBottom>{meeting.name}</Typography>
         <Typography variant="body2" sx={{ marginBottom: 2 }}>{meeting.description}</Typography>
         <Typography variant="caption" display="block" gutterBottom>{`Organizers: ${meeting.organizers.length}`}</Typography>
-        <Typography variant="caption" display="block" gutterBottom>{`Time: ${meeting.range.start_time} - ${meeting.range.end_time}`}</Typography>
+        <Typography variant="caption" display="block" gutterBottom>{`Time: ${meeting.timeRange.startTime} - ${meeting.timeRange.endTime}`}</Typography>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 2 }}>
           {daysOfWeek.map((day) => (
             <Chip

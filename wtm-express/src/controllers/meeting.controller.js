@@ -1,5 +1,5 @@
 
-const User = require("../models/user.js");  // Assuming you have a User model
+const User = require("../models/user.js");
 const Meeting = require("../models/meeting.js")
 const mongoose = require('mongoose');
 
@@ -29,12 +29,48 @@ const addMeeting = async (req, res) => {
       await User.findByIdAndUpdate(userId, { $push: { meetings: savedMeeting._id } });
 
       //TODO: add this meeting id to meeting invite list of everyone requested
+      //console.log("invited members:", invitedUsers)
+      for (const userId of invitedUsers) {
+        await User.findByIdAndUpdate(
+          userId,
+          { $push: { invited_meetings: savedMeeting._id } },
+        );
+      }
 
       res.status(201).json({ msg: 'Meeting created successfully', meeting: savedMeeting });
     } catch (err) {
       console.error(err);
       res.status(500).json({ msg: 'Server error' });
     }
+}
+
+const joinMeeting = async (req, res) => {
+  const { userId, meetingId } = req.body;
+
+  if (!userId || !meetingId) {
+    return res.status(400).json({ error: "userId and meetingId are required" });
+  }
+  
+  try {
+    await User.findByIdAndUpdate(
+      userId,
+      {
+        $pull: { invited_meetings: meetingId },
+        $push: { meetings: meetingId },
+      }
+    );
+
+    await Meeting.findByIdAndUpdate(
+      meetingId,
+      {
+        $push: { members: userId }
+      }
+    );
+    res.status(200).json({ msg: "Meeting joined successfully." });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: 'Server error' });
+  }
 }
 
 const getJoinedMeetings = async (req, res) => {
@@ -81,7 +117,7 @@ const getInvitedMeetings = async (req, res) => {
           return res.status(404).json({ error: 'Not Found', message: 'User not found' });
       }
 
-      res.status(200).json(user.invited);
+      res.status(200).json(user.invited_meetings);
   } catch (err) {
       console.error(err);
       res.status(500).json({ error: 'Internal Server Error', message: 'An unexpected error occurred' });
@@ -117,9 +153,75 @@ const getMeetingById = async (req, res) => {
   }
 };
 
+const leaveMeeting = async (req, res) => {
+    const { userId, meetingId } = req.body;
+    if (!userId || !meetingId) {
+        return res.status(400).json({ error: "userId and meetingId are required" });
+    }
+
+    const is_organizer = await Meeting.findOne({ _id: meetingId, organizers: { $in: [userId] } });
+    
+    if (is_organizer) {
+        return res.status(400).json({ error: "Organizers cannot leave their own meetings"})
+    }
+
+    try {
+        await User.findByIdAndUpdate(
+            userId,
+            { $pull: { meetings: meetingId }, }
+        );
+
+        await Meeting.findByIdAndUpdate(
+            meetingId,
+            { $pull: { members: userId } }
+        );
+        res.status(200).json({ msg: "Left meeting successfully" });
+
+    } catch (err) {
+
+        console.error(err);
+        res.status(500).json({ msg: 'Server error' });
+    }
+}
+
+const deleteMeeting = async (req, res) => {
+    const { userId, meetingId } = req.body;
+    if (!userId || !meetingId) {
+        return res.status(400).json({ error: "userId and meetingId are required" });
+    }
+
+    try {
+        const meeting = await Meeting.findById(meetingId);
+
+        if (!meeting) {
+            return res.status(404).json({ error: "Meeting not found" });
+        }
+
+        if (!meeting.organizers.includes(userId)) {
+            return res.status(403).json({ error: "Only organizers can delete meetings" });
+        }
+
+        await User.updateMany(
+            { $or: [{ meetings: meetingId }, { invited_meetings: meetingId }] },
+            { $pull: { meetings: meetingId, invited_meetings: meetingId } }
+        );
+
+        await Meeting.findByIdAndDelete(meetingId);
+
+        res.status(200).json({ msg: "Meeting deleted successfully" });
+    } catch (err) {
+        console.error("Error deleting meeting:", err);
+        res.status(500).json({ error: "Server error", message: err.message });
+    }
+}
+
+
 module.exports = {
     addMeeting,
     getJoinedMeetings,
     getInvitedMeetings,
-    getMeetingById
+    getMeetingById,
+    leaveMeeting,
+    deleteMeeting,
+    joinMeeting,
 };

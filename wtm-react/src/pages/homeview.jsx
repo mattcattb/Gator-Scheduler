@@ -13,14 +13,17 @@ export default function HomeView() {
 
   //! fix the user stored to be an actual user object!
   console.log('HomeView mounted, user: ', user); 
-
-  // Do this when the page loadsbom
+  
   useEffect(() => {
-    console.log('Load trigger');
-    if (user && user._id) {
-      loadMeetings(user._id);
+    const mountMeetings = async () => {
+      if (user && user._id) {
+        await loadMeetings(user._id);
+      }
     }
-  }, [user, loadMeetings]);
+
+    mountMeetings();
+  }
+  , [user, loadMeetings]);
 
   if (loading) {
     return <div>Loading...</div>;

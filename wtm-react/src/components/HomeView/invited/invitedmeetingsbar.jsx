@@ -8,10 +8,12 @@ function InvitedMeetingsBar({ meetings_invited, onJoin, onReject }) {
     return (<Typography variant="h4">No Meeting Invites!</Typography>);
   }
 
+  const filteredArray = meetings_invited.filter(item => item !== undefined);
+
   return (
     <Box sx={{ padding: 3 }}>
       <Typography variant="h4">Invites to Meetings:</Typography>
-      {meetings_invited.map((meeting) => (
+      {filteredArray.map((meeting) => (
         <MeetingInvitePreview key={meeting._id} meeting={meeting} onJoin={onJoin} onReject={onReject} />
       ))}
     </Box>

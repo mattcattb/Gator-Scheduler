@@ -1,8 +1,15 @@
 {
-    "meetingName": "Scrum",
-    "meetingDescription": "Its scrumming time",
-    "selectedDays": ["Monday", "Wednesday"],
-    "startTime": "2024-11-12T10:00:00.000Z",
-    "endTime": "2024-11-12T11:00:00.000Z",
-    "friendUsernames": ["john_doe", "jane_smith"]
+    "meeting": {
+        "meetingName": "Scrum",
+        "meetingDescription": "Its scrumming time",
+        "organizers": ["674a1fe795cd9f20507d57cc"],
+        "members": [],
+        "selectedDays": ["Monday", "Wednesday"],
+        "timeRange": {
+            "startTime": "2024-11-12T10:00:00.000Z",
+            "endTime": "2024-11-12T11:00:00.000Z"
+        },
+        "invitedUsers": []
+    },
+    "userId": "674a1fe795cd9f20507d57cc"
   }

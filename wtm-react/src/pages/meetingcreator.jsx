@@ -59,7 +59,6 @@ function MeetingCreator() {
 
   const handleSubmit = async () => {
     try {
-      
       await addMeeting(user._id, formData);
       navigate("/home");
     }catch(error){

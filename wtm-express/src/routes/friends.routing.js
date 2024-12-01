@@ -1,9 +1,11 @@
-const { Router } = require('express');
-const router = Router();
+const express = require('express');
+const router = express.Router();
 
-const { addFriends } = require("../controllers/friends.controller");
+const { sendFriendRequest, acceptFriendRequest, rejectFriendRequest, unfriendUser } = require("../controllers/friends.controller");
 
-// Add a friend
-router.post('/', addFriends);
+router.post('/request', sendFriendRequest);
+router.put('/accept', acceptFriendRequest);
+router.put('/reject', rejectFriendRequest);
+router.delete('/unfriend', unfriendUser);
 
 module.exports = router;

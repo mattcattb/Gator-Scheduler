@@ -9,32 +9,23 @@ let expect;
 const request = require('supertest');
 const app = require('../server.js');
 
-// const { connectdb, disconnectdb } = require('../repository/db');
-// before(async function () {
-//     this.timeout(10000); // Increase timeout if needed
-//     await connectdb(); // Connect to the database before tests
-//   });
-  
-//   after(async function () {
-//     await disconnectdb(); // Disconnect from the database after all tests
-//   });
+describe('Auth API Endpoint Tests', () => {
+  let userId;
 
-describe('API Endpoint Tests', () => {
   it('should register a new user', (done) => {
     request(app)
       .post('/api/auth/register')
       .send({
         name: 'Test User',
-        username: 'testuser@example.com',
+        username: 'testuser',
         password: 'password123',
       })
       .expect(201)
       .end((err, res) => {
-        console.log("not-entered");
         if (err) return done(err);
-        console.log("entered");
         expect(res.body).to.have.property('msg', 'User registered successfully');
         expect(res.body).to.have.property('userId');
+        userId = res.body.userId;
         done();
       });
   });
@@ -49,7 +40,8 @@ describe('API Endpoint Tests', () => {
       .expect(400)
       .end((err, res) => {
         if (err) return done(err);
-        expect(res.body).to.have.property('msg', 'Username is required');
+        expect(res.body).to.have.property('error', 'Bad Request');
+        expect(res.body).to.have.property('msg', 'Missing required fields: username');
         done();
       });
   });
@@ -59,13 +51,29 @@ describe('API Endpoint Tests', () => {
       .post('/api/auth/register')
       .send({
         name: 'Test User',
-        username: 'testuser@example.com',
+        username: 'testuser',
         password: 'password123',
+      })
+      .expect(409)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.body).to.have.property('error', 'Conflict');
+        expect(res.body).to.have.property('msg', 'User already exists');
+        done();
+      });
+  });
+
+  it('should fail to register with missing fields', (done) => {
+    request(app)
+      .post('/api/auth/register')
+      .send({
+        username: 'incompleteuser',
       })
       .expect(400)
       .end((err, res) => {
         if (err) return done(err);
-        expect(res.body).to.have.property('msg', 'User already exists');
+        expect(res.body).to.have.property('error', 'Bad Request');
+        expect(res.body).to.have.property('msg').that.includes('Missing required fields');
         done();
       });
   });
@@ -74,14 +82,14 @@ describe('API Endpoint Tests', () => {
     request(app)
       .post('/api/auth/login')
       .send({
-        name: 'Test User',
-        username: 'testuser@example.com',
+        username: 'testuser',
         password: 'wrongpassword',
       })
       .expect(400)
       .end((err, res) => {
         if (err) return done(err);
-        expect(res.body).to.have.property('message', 'Username or password is incorrect');
+        expect(res.body).to.have.property('error', 'Bad Request');
+        expect(res.body).to.have.property('msg', 'Username or password is incorrect');
         done();
       });
   });
@@ -95,7 +103,8 @@ describe('API Endpoint Tests', () => {
       .expect(400)
       .end((err, res) => {
         if (err) return done(err);
-        expect(res.body).to.have.property('message', 'Username is required');
+        expect(res.body).to.have.property('error', 'Bad Request');
+        expect(res.body).to.have.property('msg', 'Missing required fields: username');
         done();
       });
   });
@@ -104,14 +113,45 @@ describe('API Endpoint Tests', () => {
     request(app)
       .post('/api/auth/login')
       .send({
-        name: 'Test User',
-        username: 'testuser@example.com',
+        username: 'testuser',
         password: 'password123',
       })
       .expect(200)
       .end((err, res) => {
         if (err) return done(err);
+        expect(res.body).to.have.property('msg', 'User logged in successfully');
         expect(res.body).to.have.property('userId');
+        done();
+      });
+  });
+
+  it('should fail to delete a user with incorrect password', (done) => {
+    request(app)
+      .delete('/api/auth/delete')
+      .send({
+        userId,
+        password: 'wrongpassword',
+      })
+      .expect(403)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.body).to.have.property('error', 'Forbidden');
+        expect(res.body).to.have.property('msg', 'Password is incorrect');
+        done();
+      });
+  });
+
+  it('should delete the user successfully', (done) => {
+    request(app)
+      .delete('/api/auth/delete')
+      .send({
+        userId,
+        password: 'password123',
+      })
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.body).to.have.property('msg', 'User deleted successfully');
         done();
       });
   });
