@@ -83,6 +83,8 @@ export const fetchInvitedMeetingsAPI = async (userId) => {
 // leave meeting
 export const leaveMeetingAPI = async (userId, meetingId) => {
   try {
+    console.log("Inside leave meeting API, userId and meetingID is ",userId, meetingId);
+
     const response = await axios.put('/api/meeting/leave', {
       params: { userId, meetingId }
     });
