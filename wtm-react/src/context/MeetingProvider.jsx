@@ -47,6 +47,7 @@ export const MeetingContextProvider = ({children}) => {
 
   // leave already joined meeting
   const leaveMeeting = useCallback(async (userId, meetingId) => {
+    console.log("Leaving meeting with id: ", meetingId, " and user id: ", userId);
     if (userId && meetingId) {
       try {
         await leaveMeetingAPI(userId, meetingId);
@@ -60,7 +61,7 @@ export const MeetingContextProvider = ({children}) => {
 
   // join invited meeting
   const joinMeeting = useCallback(async (userId, meetingInviteId) => {
-    if (userId, meetingInviteId) {
+    if (userId && meetingInviteId) {
       try{
         const newMeeting = await joinMeetingAPI(userId, meetingInviteId);
         setMeetings(prevMeetings => [...prevMeetings, newMeeting]);

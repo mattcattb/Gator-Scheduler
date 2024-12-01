@@ -155,6 +155,7 @@ const getMeetingById = async (req, res) => {
 
 const leaveMeeting = async (req, res) => {
     const { userId, meetingId } = req.body;
+
     if (!userId || !meetingId) {
         return res.status(400).json({ error: "userId and meetingId are required" });
     }

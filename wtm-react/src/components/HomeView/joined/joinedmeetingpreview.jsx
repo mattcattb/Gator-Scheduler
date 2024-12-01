@@ -8,7 +8,7 @@ function JoinedMeetingPreview({ meeting, onLeave }) {
   
   const navigate = useNavigate();
   
-  const user = useContext(UserContext);
+  const {user, setUser} = useContext(UserContext);
 
   const handleMeetingClick = () => {
     navigate(`/meeting/${meeting._id}`);  // Use _id since that is the correct field in the provided data
@@ -16,6 +16,8 @@ function JoinedMeetingPreview({ meeting, onLeave }) {
 
   const handleLeave = (e) => {
     e.stopPropagation(); // stopclick event triggering handle meeting click
+    console.log("Leave button pressed...");
+    console.log("user:", user);
     onLeave(user._id, meeting._id)
   }
 
