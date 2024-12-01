@@ -14,13 +14,37 @@ export default function HomeView() {
   //! fix the user stored to be an actual user object!
   console.log('HomeView mounted, user: ', user); 
 
-  // Do this when the page loads
+  // Do this when the page loadsbom
   useEffect(() => {
     console.log('Load trigger');
     if (user && user._id) {
       loadMeetings(user._id);
     }
-  }, [user, loadMeetings]);
+  }, []);
+
+  const onJoin = (meeting_id) => {
+    console.log('Just joined ', meeting_id);
+    try {
+      // Call the joinMeeting API
+      joinMeeting(user._id, meeting_id);
+      setMeetingInvites(meeting_invites.filter(meeting => meeting._id !== meeting_id));
+      setMeetings([...meetings, meeting_id]);
+    }catch(error){
+      console.error('Error joining meeting:', error);
+    }
+  };
+  
+  const onReject = (meeting_id) => {
+    console.log('Rejected Meeting invite ', meeting_id);
+
+    try {
+      // Call the leaveMeeting API
+      leaveMeeting(user._id, meeting_id);
+      setMeetingInvites(meeting_invites.filter(meeting => meeting._id !== meeting_id));
+    }catch(error){
+      console.error('Error rejecting meeting invite:', error);
+    }
+  };
 
   if (loading) {
     return <div>Loading...</div>;
