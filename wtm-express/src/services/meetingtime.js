@@ -81,7 +81,7 @@ const findFreeIntervals = (
     days
 ) => {
     // Create ranges for possible days
-    dayIntervals = [];
+    const dayIntervals = [];
     days.forEach((day) => {
         dayIntervals.push({
             start: dateParser(`${day} ${time_start}`),
@@ -134,7 +134,7 @@ const findFreeIntervals = (
     return freeIntervals;
 };
 
-export const findMeetingTimes = async (userIds, days, time_start, time_end) => {
+const findMeetingTimes = async (userIds, days, time_start, time_end) => {
     try {
         // Fetch users and events
         const users = await User.find({ _id: { $in: userIds } }).populate(
@@ -156,7 +156,6 @@ export const findMeetingTimes = async (userIds, days, time_start, time_end) => {
         {
             "start": "YYYY-MM-DD HH:MM",
             "end": "YYYY-MM-DD HH:MM",
-        
         }
         */
 
@@ -170,3 +169,5 @@ export const findMeetingTimes = async (userIds, days, time_start, time_end) => {
         console.error(`Error fetching events: ${err}`);
     }
 };
+
+module.exports = { findMeetingTimes };
