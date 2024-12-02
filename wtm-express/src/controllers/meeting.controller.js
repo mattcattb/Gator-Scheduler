@@ -158,7 +158,8 @@ const leaveMeeting = async (req, res) => {
     const { userId, meetingId } = req.body;
 
     if (!userId || !meetingId) {
-        return res.status(400).json({ error: "userId and meetingId are required" });
+
+        return res.status(400).json({ error: `userId and meetingId are required for user ${userId} and meetingId ${meetingId}` });
     }
 
     const is_organizer = await Meeting.findOne({ _id: meetingId, organizers: { $in: [userId] } });
