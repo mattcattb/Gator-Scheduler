@@ -1,6 +1,7 @@
 // src/api/eventService.js
 import axios from './axios';
 
+
 export const fetchEvents = async (userId) => {
   try {
     const response = await axios.get('/api/events', {

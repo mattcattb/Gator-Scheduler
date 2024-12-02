@@ -1,6 +1,42 @@
 // src/api/meetingService.js
 import axios from './axios';
 
+export const deleteMeetingAPI = async (userId, meetingId) => {
+  try {
+    const response = await axios.delete('/api/meeting/delete', {
+      data: {userId:userId, meetingId:meetingId} 
+    });
+
+    if (response.status === 200) {
+      console.log("Meeting deleted successfully");
+      return response.data;
+    } else {
+      console.error('Error deleting meeting', response);
+      throw new Error('Error deleting meeting');
+    }
+
+
+  } catch (error) {
+    console.error('Error deleting meeting:', error);
+    throw error;
+  }
+}
+
+export const sendMeetingInviteAPI = async (meetingId, userId, friendId) => {
+  try {
+    const response = await axios.post('/api/meeting/invite', { meetingId, userId, friendId });
+
+    if (response.status === 201) {
+      console.log("Meeting invite sent successfully");
+    } else {
+      throw new Error('Error sending meeting invite');
+    }
+  } catch (error) {
+    console.error('Error sending meeting invite:', error);
+    throw error;
+  }
+}
+
 export const addMeetingAPI = async (userId, meetingForm) => {
   /* 
     Meeting Form looks like:
@@ -86,7 +122,7 @@ export const leaveMeetingAPI = async (userId, meetingId) => {
     console.log("Inside leave meeting API, userId and meetingID is ",userId, meetingId);
 
     const response = await axios.put('/api/meeting/leave', {
-      params: { userId, meetingId }
+      userId, meetingId 
     });
 
     if (response.status === 200) {
