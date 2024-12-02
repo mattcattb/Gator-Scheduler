@@ -1,7 +1,8 @@
 
 const User = require("../models/user.js");
-const Meeting = require("../models/meeting.js")
+const Meeting = require("../models/meeting.js");
 const mongoose = require('mongoose');
+const { findMeetingTimes } = require('../services/meetingtime.js');
 
 
 const addMeeting = async (req, res) => {
@@ -42,7 +43,7 @@ const addMeeting = async (req, res) => {
       console.error(err);
       res.status(500).json({ msg: 'Server error' });
     }
-}
+};
 
 const joinMeeting = async (req, res) => {
   const { userId, meetingId } = req.body;
@@ -71,7 +72,7 @@ const joinMeeting = async (req, res) => {
     console.error(err);
     res.status(500).json({ msg: 'Server error' });
   }
-}
+};
 
 const getJoinedMeetings = async (req, res) => {
   const { userId } = req.query;
@@ -162,7 +163,7 @@ const leaveMeeting = async (req, res) => {
     const is_organizer = await Meeting.findOne({ _id: meetingId, organizers: { $in: [userId] } });
     
     if (is_organizer) {
-        return res.status(400).json({ error: "Organizers cannot leave their own meetings"})
+        return res.status(400).json({ error: "Organizers cannot leave their own meetings"});
     }
 
     try {
@@ -182,7 +183,7 @@ const leaveMeeting = async (req, res) => {
         console.error(err);
         res.status(500).json({ msg: 'Server error' });
     }
-}
+};
 
 const deleteMeeting = async (req, res) => {
     const { userId, meetingId } = req.body;
@@ -213,7 +214,7 @@ const deleteMeeting = async (req, res) => {
         console.error("Error deleting meeting:", err);
         res.status(500).json({ error: "Server error", message: err.message });
     }
-}
+};
 
 
 module.exports = {
