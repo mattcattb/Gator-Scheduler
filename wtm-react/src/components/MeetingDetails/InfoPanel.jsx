@@ -3,10 +3,12 @@ import { MeetingDetailsContext } from '../../context/MeetingDetailsProvider';
 import { Card, Typography, CardHeader, CardContent } from '@mui/material';
 
 export default function InfoPanel(){
-    const {meetingDetails} = useContext(MeetingDetailsContext);
+
+  // collect meeting information from context    
+  const {meetingDetails} = useContext(MeetingDetailsContext);
     
-    const [members, setMembers] = useState([]);
-    const [organizers, setOrganizers] = useState([]);
+  const [members, setMembers] = useState([]);
+  const [organizers, setOrganizers] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {

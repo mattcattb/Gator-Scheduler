@@ -8,7 +8,9 @@ import Schedule from './pages/schedule';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar/navbar';
 import ContextProvider from './context/ContextProvider'
-import './App.css';
+
+
+import './styles/App.css';
 
 import { ThemeProvider } from '@mui/material/styles';
 import gatorTheme from './globalTheme';

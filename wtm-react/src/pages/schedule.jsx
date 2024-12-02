@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useCalendarApp, ScheduleXCalendar } from '@schedule-x/react';
 import { createViewMonthGrid, createViewWeek, createViewMonthAgenda } from '@schedule-x/calendar';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 
 import { createEventsServicePlugin } from '@schedule-x/events-service';
 import '@schedule-x/theme-default/dist/index.css';
@@ -22,6 +22,7 @@ function Schedule() {
 
   const plugins = [createEventsServicePlugin()];
 
+  // handles events with the schedule-x calender being clicked.
   const callbacks = {
     onEventClick(calendarEvent) {
       setSelectedEvent(calendarEvent);
@@ -33,6 +34,7 @@ function Schedule() {
     }
   };
 
+  // config for actual schedule-x calender
   const config = {
     views: [createViewWeek(), createViewMonthGrid(), createViewMonthAgenda()],
     events: events,
@@ -46,6 +48,7 @@ function Schedule() {
 
   const calendar = useCalendarApp(config, plugins);
 
+  // on load, fetch all that users events and display them on the calender
   useEffect(() => {
     const getEvents = async () => {
       if (user && user._id) {
@@ -60,11 +63,13 @@ function Schedule() {
     getEvents();
   }, [user]);
 
+  // modal closed
   const handleCloseModal = () => {
     setEditEventModalOpen(false);
     setSelectedEvent(null);
   };
 
+  // clicking submit on the edit modal should update the event and submit it to database while updating the calendar
   const handleEditSubmit = async (updatedEvent) => {
     try {
       await updateEvent(updatedEvent._id, updatedEvent);
@@ -77,6 +82,7 @@ function Schedule() {
     }
   };
 
+  // clicking delete on the edit modal should delete the event from the database and update the calendar
   const handleDeleteEvent = async (eventId) => {
     try {
       await deleteEvent(eventId, user._id);
@@ -89,6 +95,7 @@ function Schedule() {
     }
   };
 
+  // clicking the add event button should open up the add event modal
   const handleAddEvent = async (newEvent) => {
     try {
       const event = await addEvent(user._id, newEvent);
@@ -101,6 +108,7 @@ function Schedule() {
     }
   };
 
+  // clicking the event on the calender should open up the edit modal with the selected event
   const handleEventClick = (event) => {
     setSelectedEvent(event);
     setEditEventModalOpen(true);
@@ -108,7 +116,8 @@ function Schedule() {
 
   return (
     <>
-      <Button onClick={() => setAddEventModalOpen(true)} variant="contained" color="primary" sx={{ mb: 2 }}>
+      <Typography variant="h4">Schedule</Typography>
+      <Button onClick={() => setAddEventModalOpen(true)} variant="contained" color="primary">
         Add Event
       </Button>
       <ScheduleXCalendar calendarApp={calendar} style={{ width: '80%', height: '400px', margin: '0 auto' }} />

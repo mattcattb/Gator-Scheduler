@@ -10,6 +10,10 @@ const gatorTheme = createTheme({
     },
   },
   typography: {
+    allVariants:{
+      textAlign: 'center',
+      padding: '0.5rem',
+    },
     h1: {
       fontSize: '2.5rem',
       fontWeight: 'bold',
@@ -37,18 +41,8 @@ const gatorTheme = createTheme({
   },
   components: {
     MuiButton: {
-      styleOverrides: {
-        root: {
-          maxHeight: '100%',
-          minHeight: '100%',
-          backgroundColor: 'rgb(193, 226, 227)', // Background color
-          color: 'black', // Text color
-          // Add any other default styles you want here
-          '&:hover': {
-            backgroundColor: 'rgb(170, 200, 202)', // Optional hover effect
-          },
-        },
-      },
+      padding: '1rem',
+      margin: '10rem',
     },
   },
 });
