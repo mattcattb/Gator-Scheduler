@@ -1,6 +1,5 @@
 import { TextField, Box } from "@mui/material";
-
-import "./login.css"
+import "../../styles/login.css"
 
 export function LoginFields({username, setUsername, password, setPassword, name, setName}){
     return(

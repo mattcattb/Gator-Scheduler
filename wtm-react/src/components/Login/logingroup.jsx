@@ -2,7 +2,7 @@ import { Box, Button } from "@mui/material";
 import {LoginFields} from "./loginfields.jsx" 
 import { useNavigate } from 'react-router-dom';
 
-import "./login.css"
+import "../../styles/login.css"
 
 export function LoginGroup({headerPrompt, buttonPrompt, username, setUsername, password, setPassword, button, name, setName}){
   const navigate = useNavigate();

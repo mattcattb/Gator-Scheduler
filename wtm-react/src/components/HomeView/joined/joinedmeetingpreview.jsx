@@ -8,7 +8,7 @@ function JoinedMeetingPreview({ meeting, onLeave }) {
   
   const navigate = useNavigate();
   
-  const {user, setUser} = useContext(UserContext);
+  const {user} = useContext(UserContext);
 
   const handleMeetingClick = () => {
     navigate(`/meeting/${meeting._id}`);  // Use _id since that is the correct field in the provided data

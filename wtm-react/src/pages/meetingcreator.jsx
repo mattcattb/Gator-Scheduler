@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Button, Card, CardContent, CardActions } from '@mui/material';
+import { Button, Card, CardContent, CardActions, Typography } from '@mui/material';
 
 import InviteForm from '../components/MeetingCreation/inviteform';
 import MeetingOptions from '../components/MeetingCreation/meetingoptions';
@@ -66,8 +66,8 @@ function MeetingCreator() {
   
   return (
     <div className='meeting-creator-page'>
-      <h1>Testing Card Visibility</h1>  
-      <Card variant="outlined" style={{margin:'50px auto', maxWidth: '800px'}}>
+        <Typography  className='page-title' variant='h4'>Create a Meeting</Typography>
+        <Card variant="outlined" style={{margin:'50px auto', maxWidth: '800px'}}>
         <CardContent>
           <DescriptionField
             meetingName={formData.meetingName}

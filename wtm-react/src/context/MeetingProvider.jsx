@@ -1,4 +1,4 @@
-import {React, useState, useEffect, useCallback, createContext} from "react";
+import {React, useState, useCallback, createContext} from "react";
 import { fetchJoinedMeetingsAPI, fetchInvitedMeetingsAPI, addMeetingAPI, leaveMeetingAPI, joinMeetingAPI, rejectMeetingAPI} from '../api/meetingService';
 
 export const MeetingContext = createContext();
@@ -77,7 +77,8 @@ export const MeetingContextProvider = ({children}) => {
   const rejectMeeting = useCallback(async (userId, meetingInviteId) => {
     if (userId && meetingInviteId) {
       try{
-        const newMeeting = await rejectMeetingAPI(userId, meetingInviteId);
+        const response = await rejectMeetingAPI(userId, meetingInviteId);
+        console.log("Rejected with response: ", response);
         setMeetingInvites(prevInvites => prevInvites.filter(invite => invite._id !== meetingInviteId));
       } catch (error) {
         setError("Failed to join meeting.")

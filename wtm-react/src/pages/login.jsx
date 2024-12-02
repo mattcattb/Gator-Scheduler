@@ -4,7 +4,7 @@ import {Box, Chip} from '@mui/material'
 import { LoginGroup } from '../components/Login/logingroup';
 import {UserContext} from '../context/UserProvider';
 
-import "../components/Login/login.css"
+import "../styles/login.css"
 
 
 const admin_user =   {

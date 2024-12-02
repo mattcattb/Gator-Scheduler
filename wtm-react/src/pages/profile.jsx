@@ -3,7 +3,7 @@ import { UserContext } from '../context/UserProvider';
 import FriendCardBay from '../components/Profile/FriendCardBay';
 import FriendRequester from '../components/Profile/FriendRequester';
 
-import "../components/Profile/profile.css"
+import "../styles/profile.css"
 
 function iconIdToPath(id){
   const map = new Map([

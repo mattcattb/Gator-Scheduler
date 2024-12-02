@@ -10,37 +10,8 @@ import Navbar from './components/Navbar/navbar';
 import ContextProvider from './context/ContextProvider'
 import './App.css';
 
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-
-const gatorTheme = createTheme({
-  palette: {
-    primary: {
-      main: '#FA4616',
-    },
-    secondary: {
-      main: '#0021A5',
-    },
-  },
-  typography: {
-    fontFamily: 'Arial, sans-serif',
-  },
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          maxHeight: '100%',
-          minHeight: '100%',
-          backgroundColor: 'rgb(193, 226, 227)', // Background color
-          color: 'black', // Text color
-          // Add any other default styles you want here
-          '&:hover': {
-            backgroundColor: 'rgb(170, 200, 202)', // Optional hover effect
-          },
-        },
-      },
-    },
-  },
-});
+import { ThemeProvider } from '@mui/material/styles';
+import gatorTheme from './globalTheme';
 
 const hasToken = () => {
   const token = sessionStorage.getItem('token');

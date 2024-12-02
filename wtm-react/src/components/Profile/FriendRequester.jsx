@@ -2,7 +2,7 @@ import { TextField, Button } from "@mui/material";
 import axios from "axios";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserProvider";
-import "./profile.css";
+import "../../styles/profile.css";
 
 function FriendRequester({ friendID, setFriendID }) {
     const { user } = useContext(UserContext);

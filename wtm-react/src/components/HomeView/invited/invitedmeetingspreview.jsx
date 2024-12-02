@@ -1,11 +1,9 @@
-import React, { useState, useContext } from 'react';
-import { useNavigate } from "react-router-dom";
+import React, { useContext } from 'react';
 
 import { Card, CardContent, Typography, Box, Chip, Button } from '@mui/material';
 import { UserContext } from '../../../context/UserProvider';
 
 function InvitedMeetingsPreview({ meeting, onJoin, onReject }) {
-  const navigate = useNavigate();
 
   const {user} = useContext(UserContext);
 
