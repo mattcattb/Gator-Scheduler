@@ -12,11 +12,13 @@ import { MeetingContext } from '../context/MeetingProvider';
 
 
 function MeetingCreator() {
-  
+  // Page for Creating Meetings that other members can join and take part in. 
+
   const { addMeeting } = useContext(MeetingContext);
   var {user} = useContext(UserContext);
   const navigate = useNavigate();
 
+  // this form will hold all the meeting details as a json file.
   const [formData, setFormData] = useState({
     meetingName: 'Example Meeting',
     meetingDescription: 'Example Description',
@@ -26,6 +28,7 @@ function MeetingCreator() {
     invited_members: []
   });
 
+  // function for making changes to the meeting
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
   
@@ -48,6 +51,7 @@ function MeetingCreator() {
     });
   };
 
+  // function for adding a new member to the invited members list.
   const handleInvitedMembersChange = (newInvitedMembers) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -55,6 +59,7 @@ function MeetingCreator() {
     }));
   };
 
+  // function for submitting meeting. Submits to backend and goes back to home.
   const handleSubmit = async () => {
     try {
       await addMeeting(user._id, formData);
@@ -63,6 +68,7 @@ function MeetingCreator() {
     }
   };
   
+  // Page in JSX, providing many forms to allow you to select your meeting details.
   return (
     <div className='meeting-creator-page'>
         <Typography  className='page-title' variant='h4'>Create a Meeting</Typography>

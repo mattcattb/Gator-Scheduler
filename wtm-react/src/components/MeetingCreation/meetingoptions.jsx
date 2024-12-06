@@ -8,6 +8,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import DaysToggleField from './daytogglefield';
 
 export default function MeetingOptions({formData, handleChange}) {
+  // some of the specific time based meeting options such as start time, end time and date. 
   return (
     <Box>
       <DaysToggleField selectedDays={formData.selectedDays} handleChange={handleChange}/>

@@ -14,6 +14,7 @@ import EditModal from "../components/Schedule/editeventmodal.jsx";
 import AddEventModal from '../components/Schedule/addeventmodal.jsx';
 
 function Schedule() {
+  // This page shows your schedule and allows you to update it as you wish.
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [editEventModalOpen, setEditEventModalOpen] = useState(false);

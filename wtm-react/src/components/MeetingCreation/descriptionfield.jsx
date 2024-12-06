@@ -2,6 +2,7 @@ import React from 'react'
 import {Box, TextField} from '@mui/material'
 
 export default function DescriptionField({meetingName, meetingDescription, handleChange}) {
+  // field for changing the meetings name or description. 
   return (
     <Box className="section" sx={{ margin: 2 }}>
       <TextField

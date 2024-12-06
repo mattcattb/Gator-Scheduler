@@ -2,6 +2,7 @@
 import axios from './axios';
 
 export const deleteMeetingAPI = async (userId, meetingId) => {
+  // send a delete meeting request to backend.
   try {
     const response = await axios.delete('/api/meeting/delete', {
       data: {userId:userId, meetingId:meetingId} 
@@ -20,6 +21,7 @@ export const deleteMeetingAPI = async (userId, meetingId) => {
 }
 
 export const sendMeetingInviteAPI = async (meetingId, userId, friendId) => {
+  // send a meeting invite from a user to a friend
   try {
     const response = await axios.post('/api/meeting/invite', { meetingId, userId, friendId });
 
@@ -33,6 +35,7 @@ export const sendMeetingInviteAPI = async (meetingId, userId, friendId) => {
 }
 
 export const addMeetingAPI = async (userId, meetingForm) => {
+  // send a userID and a meeting to be added from the backend
   /* 
     Meeting Form looks like:
     meetingName: 'Example Meeting',
@@ -75,6 +78,7 @@ export const addMeetingAPI = async (userId, meetingForm) => {
 }
 
 export const fetchJoinedMeetingsAPI = async (userId) => {
+  // fetch all joined meetings from the backend. 
   try {
     const response = await axios.get('/api/meeting/joined', {
       params: { userId: userId } // Ensure userId is correct
@@ -90,6 +94,7 @@ export const fetchJoinedMeetingsAPI = async (userId) => {
 };
 
 export const fetchInvitedMeetingsAPI = async (userId) => {
+  // fetch all meetings you were invited to from backend
   try {
     const response = await axios.get('/api/meeting/invited', {
       params: { userId: userId }  // Adjust the endpoint and params as per your backend API
@@ -106,8 +111,8 @@ export const fetchInvitedMeetingsAPI = async (userId) => {
   }
 };
 
-// leave meeting
 export const leaveMeetingAPI = async (userId, meetingId) => {
+  // send a leave meeting request to backend
   try {
 
     const response = await axios.put('/api/meeting/leave', {
@@ -125,7 +130,7 @@ export const leaveMeetingAPI = async (userId, meetingId) => {
 }
 
 export const joinMeetingAPI = async (userId, meetingId) => {
-
+  // send a join meeting request to backend
   var submitData = {
     userId: userId,
     meetingId: meetingId,
@@ -145,6 +150,7 @@ export const joinMeetingAPI = async (userId, meetingId) => {
 }
 
 export const rejectMeetingAPI = async (userId, meetingId) => {
+  // send a reject a meeting invite to backend 
   try{
     const response = await axios.put('/api/meeting/reject', {
       params: { userId, meetingId }

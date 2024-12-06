@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import { Box, Typography, Chip, TextField } from '@mui/material';
 
 function InviteForm({ invited_members, onMembersChange }) {
-  const [newMemberId, setNewMemberId] = useState(''); // Store the current input value
+  // form to invite members to a meeting being created.
+
+  const [newMemberId, setNewMemberId] = useState(''); // Store the ID of the member being typed in
 
   const handleInputChange = (e) => {
+    // handle the editing of the memberId
     setNewMemberId(e.target.value);
   };
 
   const handleKeyPress = (e) => {
+    // handle if the enter key is pressed, set new member to be invited
     if (e.key === 'Enter' && newMemberId.trim()) {
       // check if member exists from endpoint..?
       // TODO make this work!!!
@@ -21,6 +25,7 @@ function InviteForm({ invited_members, onMembersChange }) {
   };
 
   const handleDelete = (idToRemove) => {
+    // handles if you click the delete x next to a member
     onMembersChange(invited_members.filter((id) => id !== idToRemove));
   };
 

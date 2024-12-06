@@ -7,6 +7,7 @@ export default function DaysToggleField({selectedDays, handleChange}) {
   const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
   const handleToggle = (dayIndex) => {
+    // changes the day index depending on if it was toggled to be included or not.
     const newDays = [...selectedDays];
     newDays[dayIndex] = !newDays[dayIndex];
     handleChange({ target: { name: 'selectedDays', value: newDays } });

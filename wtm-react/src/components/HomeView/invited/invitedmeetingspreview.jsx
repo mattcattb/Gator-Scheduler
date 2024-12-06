@@ -4,10 +4,12 @@ import { Card, CardContent, Typography, Box, Chip, Button } from '@mui/material'
 import { UserContext } from '../../../context/UserProvider';
 
 function InvitedMeetingsPreview({ meeting, onJoin, onReject }) {
-
+  // card that previews the meeting a user is invited to, allowing them to decline it or accept it.
   const {user} = useContext(UserContext);
 
   const handleJoin = () => {
+    // when the join button is pressed, join meeting with api and redirect 
+    console.log("Join button pressed...");
     onJoin(user._id, meeting._id);
     setTimeout(() => {
       // Redirect after delay
@@ -16,6 +18,8 @@ function InvitedMeetingsPreview({ meeting, onJoin, onReject }) {
   };
 
   const handleReject = () => {
+    // if rejected, do the onreject for the backend
+    console.log("Reject button pressed...");
     onReject(user._id, meeting._id);
   };
 

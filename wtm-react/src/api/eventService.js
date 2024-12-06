@@ -3,6 +3,7 @@ import axios from './axios';
 
 
 export const fetchEvents = async (userId) => {
+  // fetch events from backend
   try {
     const response = await axios.get('/api/events', {
       params: { userId }
@@ -19,6 +20,7 @@ export const fetchEvents = async (userId) => {
 };
 
 export const addEvent = async (userId, event) => {
+  // add event to user in backend
   try {
     const response = await axios.post('/api/events', { userId, ...event });
     return response.data;
@@ -28,6 +30,7 @@ export const addEvent = async (userId, event) => {
 };
 
 export const updateEvent = async (eventId, event) => {
+  // set a put request to update and event 
   try {
     const response = await axios.put(`/api/events/${eventId}`, event);
     return response.data;
@@ -37,6 +40,7 @@ export const updateEvent = async (eventId, event) => {
 };
 
 export const deleteEvent = async (eventId, userId) => {
+  // send delete request to delete and event from a user!
   try {
     await axios.delete(`/api/events/${eventId}`, {
       params: { userId }
