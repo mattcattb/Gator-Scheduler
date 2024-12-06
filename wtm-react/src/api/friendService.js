@@ -2,6 +2,7 @@ import axios from './axios';
 
 
 export const sendFriendRequestAPI = async (userId, friendId) => {
+    // send friend request to API
     if (!friendId) {
         alert("Please enter a friend's ID!");
         return;

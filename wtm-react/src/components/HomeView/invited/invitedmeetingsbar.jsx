@@ -3,7 +3,7 @@ import MeetingInvitePreview from './invitedmeetingspreview';  // Import the Meet
 import { Box, Typography } from '@mui/material';
 
 function InvitedMeetingsBar({ meetings_invited, onJoin, onReject }) {
-  
+  // bar that displays a bunch of meeting invite preview cards based off what meetings the user was invited to. 
   if (meetings_invited.length === 0) {
     return (<Typography variant="h4">No Meeting Invites!</Typography>);
   }

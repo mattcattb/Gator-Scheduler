@@ -4,7 +4,6 @@ const Meeting = require("../models/meeting.js");
 const mongoose = require('mongoose');
 const { findMeetingTimes } = require('../services/meetingtime.js');
 
-
 const addMeeting = async (req, res) => {
     const { meeting: {meetingName, meetingDescription, organizers, members, selectedDays, timeRange, friendUsernames, invitedUsers}, userId} = req.body;
 

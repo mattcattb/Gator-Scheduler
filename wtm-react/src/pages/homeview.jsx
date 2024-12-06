@@ -8,6 +8,7 @@ import InvitedMeetingsBar from "../components/HomeView/invited/invitedmeetingsba
 import { Typography } from "@mui/material";
 
 export default function HomeView() {
+  // homeview page component! Stores the meetings joined and meeting invites for a user.
   const { user } = useContext(UserContext);
   const { meetings, meetingInvites, loadMeetings, joinMeeting, leaveMeeting, rejectMeeting, loading, error } = useContext(MeetingContext);
 
@@ -15,6 +16,7 @@ export default function HomeView() {
   console.log('HomeView mounted, user: ', user); 
   
   useEffect(() => {
+    // on load or when user and loadMeetings are accessed or used, load all the meetings from a user. 
     const mountMeetings = async () => {
       if (user && user._id) {
         await loadMeetings(user._id);
@@ -25,14 +27,17 @@ export default function HomeView() {
   }
   , [user, loadMeetings]);
 
+  // return if app is loading content
   if (loading) {
     return <div>Loading...</div>;
   }
 
+  // return if error occured
   if (error) {
     return <div>{error}</div>;
   }
 
+  // return heading and bars displaying users joined meetings and invited meetings.
   return (
     <div className='HomeView' style={{ padding: '20px', maxWidth: '1200px', margin: 'auto' }}>
       <Typography variant='h2' gutterBottom>Welcome, {user ? user.name : 'Guest'}!</Typography>
