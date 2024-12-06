@@ -139,7 +139,7 @@ function Login() {
 
   return (
     <Box className="login-page">
-      {/* consider moving to a component for styling */}
+      {/* Both parts of the login page inherit the same component, just with different injected data. */}
       <LoginGroup className="login-group"
         headerPrompt={"Already Registered?"}
         buttonPrompt={"Click to Login!"}
@@ -160,12 +160,6 @@ function Login() {
         button={doRegister}
         name={nameRegister}
         setName={setNameRegister}/>
-      <Chip label='just use "admin" and "admin" for now' style={{
-        display: 'flex',
-        alignSelf: 'center',
-        width: 'fit-content',
-        margin: 'auto',
-      }}></Chip>
     </Box>
   );
 }
