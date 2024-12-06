@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 
+// MongoDB format for meeting
 const meetingSchema = new Schema({
     meetingName: { type: String, required: true },
     meetingDescription: { type: String },
@@ -19,12 +20,7 @@ const meetingSchema = new Schema({
         startTime: { type: Date, required: true},
         endTime: { type: Date, required: true},
     },
-    /* creator: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-    }, */
-    invitedUsers: [{
+        invitedUsers: [{
         type: Schema.Types.ObjectId,
         ref: 'User',
     }],
