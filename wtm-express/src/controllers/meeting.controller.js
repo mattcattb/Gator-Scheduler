@@ -219,6 +219,38 @@ const deleteMeeting = async (req, res) => {
 };
 
 
+const rejectMeeting = async (req, res) => {
+    const { meetingId, userId } = req.body;
+
+    try {
+        // Fetch the meeting by ID
+        const meeting = await Meeting.findById(meetingId);
+        if (!meeting) {
+            return res.status(404).json({ message: "Meeting not found." });
+        }
+
+        // Check if the user is in the invited list
+        if (!meeting.invitedUsers.includes(userId)) {
+            return res.status(400).json({ message: "User is not invited to this meeting." });
+        }
+
+        // Remove user from invited list, and remove meeting from users invited meetings
+        meeting.invitedUsers = meeting.invitedUsers.filter(user => user.toString() !== userId);
+        const user = await User.findById(userId);
+        user.invited_meetings = user.invited_meetings.filter(meet => meet.toString() !== meetingID);
+
+
+        await meeting.save();
+        await user.save();
+
+        res.status(200).json({ message: "Meeting invitation rejected successfully." });
+    } catch (error) {
+        console.error("Error rejecting meeting:", error);
+        res.status(500).json({ message: "An error occurred while rejecting the meeting invitation." });
+    }
+};
+
+
 module.exports = {
     addMeeting,
     getJoinedMeetings,
@@ -227,4 +259,5 @@ module.exports = {
     leaveMeeting,
     deleteMeeting,
     joinMeeting,
+    rejectMeeting
 };
