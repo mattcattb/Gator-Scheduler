@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { addMeeting, getInvitedMeetings, getJoinedMeetings, getMeetingById, leaveMeeting, deleteMeeting, joinMeeting } = require("../controllers/meeting.controller");
+const { addMeeting, getInvitedMeetings, getJoinedMeetings, getMeetingById, leaveMeeting, deleteMeeting, joinMeeting, rejectMeeting } = require("../controllers/meeting.controller");
 // Create all meeting routes from controller
 router.post('/create', addMeeting);
 router.get('/joined', getJoinedMeetings);

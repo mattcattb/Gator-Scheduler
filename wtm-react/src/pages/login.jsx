@@ -93,6 +93,8 @@ function Login() {
       username: username,
       password: password
     };
+
+    console.log(process.env.REACT_APP_BACKEND);
   
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND}api/auth/register`, {
@@ -121,10 +123,13 @@ function Login() {
           setUser(userData);
           navigate("/home");
         } else {
+          console.log(userResponse);
         }
       } else {
+        
       }
     } catch (error) {
+      console.log(error);
     }
   }
 
