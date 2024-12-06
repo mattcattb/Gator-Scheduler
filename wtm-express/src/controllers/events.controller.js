@@ -25,7 +25,6 @@ const getEvents = async (req, res) => {
         res.status(200).json(user.events);
 
     } catch (err) {
-        console.error('Error fetching events:', err);
         res.status(500).send('Server error');
     }
 };
@@ -35,8 +34,6 @@ const postEvent = async (req, res) => {
     try {
         const { userId, title, description, start, end } = req.body;
 
-        console.log(userId, title, description, start, end);
-        
         // Validate request
         if (!userId || !title || !start || !end) {
             return res.status(400).json({ message: 'Field information missing.'});
@@ -63,7 +60,6 @@ const postEvent = async (req, res) => {
         res.status(201).json(newEvent);
 
     } catch (err) {
-        console.error(err);
         res.status(500).send("Server error");
     }
 };
@@ -93,7 +89,6 @@ const editEvent = async (req, res) => {
         res.status(200).json(updatedEvent);
 
     } catch (err) {
-        console.error(err);
         res.status(500).send('Server Error');
     }
 };
@@ -133,7 +128,6 @@ const deleteEvent = async (req, res) => {
         res.status(204).send();
 
     } catch (err) {
-        console.error(err);
         res.status(500).send('Server error');
     }
 };

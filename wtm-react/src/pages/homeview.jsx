@@ -10,9 +10,6 @@ import { Typography } from "@mui/material";
 export default function HomeView() {
   const { user } = useContext(UserContext);
   const { meetings, meetingInvites, loadMeetings, joinMeeting, leaveMeeting, rejectMeeting, loading, error } = useContext(MeetingContext);
-
-  //! fix the user stored to be an actual user object!
-  console.log('HomeView mounted, user: ', user); 
   
   useEffect(() => {
     const mountMeetings = async () => {
@@ -25,15 +22,15 @@ export default function HomeView() {
   }
   , [user, loadMeetings]);
 
-  if (loading) {
+  if (loading) { //fail if the data has not come in yet
     return <div>Loading...</div>;
   }
 
-  if (error) {
+  if (error) { //fail if something has gone wrong in the web request
     return <div>{error}</div>;
   }
 
-  return (
+  return ( //display proper attributes using the Joined and Invited Bars if everything worked successfully
     <div className='HomeView' style={{ padding: '20px', maxWidth: '1200px', margin: 'auto' }}>
       <Typography variant='h2' gutterBottom>Welcome, {user ? user.name : 'Guest'}!</Typography>
       <JoinedMeetingsBar meetings={meetings} onLeave={leaveMeeting}/>

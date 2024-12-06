@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 function JoinedMeetingsBar({ meetings, onLeave }) {
   const navigate = useNavigate();
 
-  console.log("in the joined meetings bar with following meetings: ", meetings);
   if (meetings.length === 0) {
     return (<Typography variant="h4">No meetings joined yet</Typography>);
   }
@@ -16,7 +15,6 @@ function JoinedMeetingsBar({ meetings, onLeave }) {
   // Handle meeting click
   const handleMeetingClick = (meetingId) => {
     navigate(`/meeting/${meetingId}`);
-    console.log("clicked on meeting ", meetingId);
   };
 
   // Handle leave meeting
