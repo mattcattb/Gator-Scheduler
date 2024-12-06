@@ -8,16 +8,13 @@ export const deleteMeetingAPI = async (userId, meetingId) => {
     });
 
     if (response.status === 200) {
-      console.log("Meeting deleted successfully");
       return response.data;
     } else {
-      console.error('Error deleting meeting', response);
       throw new Error('Error deleting meeting');
     }
 
 
   } catch (error) {
-    console.error('Error deleting meeting:', error);
     throw error;
   }
 }
@@ -27,12 +24,10 @@ export const sendMeetingInviteAPI = async (meetingId, userId, friendId) => {
     const response = await axios.post('/api/meeting/invite', { meetingId, userId, friendId });
 
     if (response.status === 201) {
-      console.log("Meeting invite sent successfully");
     } else {
       throw new Error('Error sending meeting invite');
     }
   } catch (error) {
-    console.error('Error sending meeting invite:', error);
     throw error;
   }
 }
@@ -74,7 +69,6 @@ export const addMeetingAPI = async (userId, meetingForm) => {
 
   } catch(error)
   {
-    console.error('Error creating meeting:', error);
     throw error;
   }
 
@@ -91,7 +85,6 @@ export const fetchJoinedMeetingsAPI = async (userId) => {
       throw new Error('Error fetching meetings');
     }
   } catch (error) {
-    console.error('Error fetching meetings:', error);
     throw error;
   }
 };
@@ -102,16 +95,13 @@ export const fetchInvitedMeetingsAPI = async (userId) => {
       params: { userId: userId }  // Adjust the endpoint and params as per your backend API
     });
 
-    console.log("fetch of invited meetings:", response);
 
     if (response.status === 200) {
-      console.log("data of invited meetings:", response.data);
       return response.data;
     } else {
       throw new Error('Error fetching meeting invites');
     }
   } catch (error) {
-    console.error('Error fetching meeting invites:', error);
     throw error;
   }
 };
@@ -119,7 +109,6 @@ export const fetchInvitedMeetingsAPI = async (userId) => {
 // leave meeting
 export const leaveMeetingAPI = async (userId, meetingId) => {
   try {
-    console.log("Inside leave meeting API, userId and meetingID is ",userId, meetingId);
 
     const response = await axios.put('/api/meeting/leave', {
       userId, meetingId 
@@ -131,7 +120,6 @@ export const leaveMeetingAPI = async (userId, meetingId) => {
       throw new Error('Error leaving meeting');
     }
   } catch (error) {
-    console.error('Error leaving meeting:', error);
     throw error;
   }
 }
@@ -142,7 +130,6 @@ export const joinMeetingAPI = async (userId, meetingId) => {
     userId: userId,
     meetingId: meetingId,
   }
-  console.log(submitData)
 
   try {
     const response = await axios.put('/api/meeting/join', submitData);
@@ -153,7 +140,6 @@ export const joinMeetingAPI = async (userId, meetingId) => {
       throw new Error('Error joining meeting');
     }
   } catch (error) {
-    console.error('Error joining meeting:', error);
     throw error;
   }
 }
@@ -170,7 +156,6 @@ export const rejectMeetingAPI = async (userId, meetingId) => {
       throw new Error('Error rejecting meeting');
     }
   }catch (error) {
-    console.error('Error rejecting meeting:', error);
     throw error;
   }
 

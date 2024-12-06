@@ -63,7 +63,6 @@ export default function InfoPanel(){
         setMembers(fetchedMembers);
         setOrganizers(fetchedOrganizers);
       } catch (e) {
-        console.error('Error in fetchData:', e);
       }
     };
 
@@ -71,8 +70,6 @@ export default function InfoPanel(){
   }, [meetingDetails]);
 
   useEffect(() => {
-    console.log("Members:", members);
-    console.log("Organizers:", organizers);
     }, [members, organizers]);
 
 

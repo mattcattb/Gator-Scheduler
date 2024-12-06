@@ -12,19 +12,14 @@ export const MeetingContextProvider = ({children}) => {
   const loadMeetings = useCallback(async (userId) => {
     if (userId) {
         try {
-          console.log("Loading meetings inside context provider...");
           setLoading(true);
           const [userJoinedMeetings, userMeetingInvites] = await Promise.all([
               fetchJoinedMeetingsAPI(userId),
               fetchInvitedMeetingsAPI(userId)
           ]);
-          console.log("Fetched meetings:", userJoinedMeetings);
-          console.log("Fetched invites:", userMeetingInvites);
-
           setMeetings(userJoinedMeetings);
           setMeetingInvites(userMeetingInvites);
         } catch (error) {
-          console.error("Failed to load meetings: ", error);
             setError("Failed to load meeting...");
         } finally {
             setLoading(false);
@@ -40,21 +35,18 @@ export const MeetingContextProvider = ({children}) => {
         setMeetings(prevMeetings => [...prevMeetings, newMeeting]);
       } catch (error){
         setError("Failed to add meeting.")
-        console.log("Error occured: ", error)
       }
     }
   }, []);
 
   // leave already joined meeting
   const leaveMeeting = useCallback(async (userId, meetingId) => {
-    console.log("Leaving meeting with id: ", meetingId, " and user id: ", userId);
     if (userId && meetingId) {
       try {
         await leaveMeetingAPI(userId, meetingId);
         setMeetings(prevMeetings => prevMeetings.filter(meeting => meeting._id !== meetingId));
       } catch (error) {
         setError("Failed to leave meeting.")
-        console.log("Error occured: ", error);
       }
     }
   }, [])
@@ -68,7 +60,6 @@ export const MeetingContextProvider = ({children}) => {
         setMeetingInvites(prevInvites => prevInvites.filter(invite => invite._id !== meetingInviteId));
       } catch (error) {
         setError("Failed to join meeting.")
-        console.log("Error occured: ", error);
       }
     }
   }, []);
@@ -78,11 +69,9 @@ export const MeetingContextProvider = ({children}) => {
     if (userId && meetingInviteId) {
       try{
         const response = await rejectMeetingAPI(userId, meetingInviteId);
-        console.log("Rejected with response: ", response);
         setMeetingInvites(prevInvites => prevInvites.filter(invite => invite._id !== meetingInviteId));
       } catch (error) {
         setError("Failed to join meeting.")
-        console.log("Error occured: ", error);
       }
     }
   }, [])

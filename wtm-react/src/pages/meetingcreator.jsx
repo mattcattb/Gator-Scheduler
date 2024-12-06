@@ -60,7 +60,6 @@ function MeetingCreator() {
       await addMeeting(user._id, formData);
       navigate("/home");
     } catch(error){
-      console.log("Error occured: ", error);
     }
   };
   
@@ -68,15 +67,18 @@ function MeetingCreator() {
     <div className='meeting-creator-page'>
         <Typography  className='page-title' variant='h4'>Create a Meeting</Typography>
         <Card variant="outlined" style={{margin:'50px auto', maxWidth: '800px'}}>
+        {/* 1st input field for taking in name and date */}
         <CardContent>
           <DescriptionField
             meetingName={formData.meetingName}
             meetingDescription={formData.meetingDescription}
             handleChange={handleChange}
           />
+          {/* subsections to handle time configuration and ad-hoc adding of users to meetings */}
           <MeetingOptions formData={formData} handleChange={handleChange} />
           <InviteForm invited_members={formData.invited_members} onMembersChange={handleInvitedMembersChange} />
         </CardContent>
+        {/* simple submission button */}
         <CardActions>
           <Button onClick={handleSubmit}>Create Meeting</Button>
         </CardActions>

@@ -6,6 +6,7 @@ import "../../styles/login.css"
 
 export function LoginGroup({headerPrompt, buttonPrompt, username, setUsername, password, setPassword, button, name, setName}){
   const navigate = useNavigate();
+  // There are lots of properties here, but it's all quite straightforward. Just attribute injection.
     return(
       <Box className="all-login-groups">
         <h2 className="login-headertext">{headerPrompt}</h2>

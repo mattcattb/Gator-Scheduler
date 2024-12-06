@@ -27,10 +27,8 @@ function Schedule() {
     onEventClick(calendarEvent) {
       setSelectedEvent(calendarEvent);
       setEditEventModalOpen(true);
-      console.log('onEventClick', calendarEvent);
     },
     onDayClick(day) {
-      console.log('onDayClick', day);
     }
   };
 
@@ -56,7 +54,6 @@ function Schedule() {
           const events = await fetchEvents(user._id);
           setEvents(events);
         } catch (error) {
-          console.log("Error fetching events:", error);
         }
       }
     };
@@ -78,7 +75,6 @@ function Schedule() {
       calendar.eventsService.update(updatedEvent._id, updatedEvent);
       setEditEventModalOpen(false);
     } catch (error) {
-      console.error("Error updating event:", error);
     }
   };
 
@@ -91,7 +87,6 @@ function Schedule() {
       calendar.eventsService.remove(eventId);
       setEditEventModalOpen(false);
     } catch (error) {
-      console.error("Error deleting event:", error);
     }
   };
 
@@ -104,7 +99,6 @@ function Schedule() {
       calendar.eventsService.add(event);
       setAddEventModalOpen(false);
     } catch (error) {
-      console.error("Error adding event:", error);
     }
   };
 

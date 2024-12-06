@@ -18,7 +18,6 @@ export default function DetailsPanel(){
     const processDaysToggle = () => {
         let output = []
         output = daysOfWeek.filter((value, index) => booleans[index])
-        console.log(output);
         
         //TODO: Once the API exists, we can use this function to update the event window for an event
     }

@@ -44,15 +44,13 @@ function Login() {
       username: username,
       password: password
     };
-    console.log("Login Attempted:", loginData);
   
-    if(username === 'admin' && password === 'admin'){
-      sessionStorage.setItem('token', 123456789);
-      setUser(admin_user);
-      console.log('token added to session storage');
-      navigate("/home");
-      return;
-    }
+    // if(username === 'admin' && password === 'admin'){
+    //   sessionStorage.setItem('token', 123456789);
+    //   setUser(admin_user);
+    //   navigate("/home");
+    //   return;
+    // }
   
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND}api/auth/login`, {
@@ -76,19 +74,16 @@ function Login() {
   
         if (userResponse.ok) {
           const userData = await userResponse.json();
-          console.log("User data fetched successfully:", userData);
+
   
           sessionStorage.setItem('token', userId);
           setUser(userData);
           navigate("/home");
         } else {
-          console.error('Failed to fetch user data');
         }
       } else {
-        console.error('Login failed:', await response.json());
       }
     } catch (error) {
-      console.error('Network error:', error);
     }
   }
   
@@ -121,25 +116,21 @@ function Login() {
   
         if (userResponse.ok) {
           const userData = await userResponse.json();
-          console.log("User data fetched successfully:", userData);
   
           sessionStorage.setItem('token', userId);
           setUser(userData);
           navigate("/home");
         } else {
-          console.error('Failed to fetch user data');
         }
       } else {
-        console.error('Registration failed:', await response.json());
       }
     } catch (error) {
-      console.error('Network error:', error);
     }
   }
 
   return (
     <Box className="login-page">
-      {/* consider moving to a component for styling */}
+      {/* Both parts of the login page inherit the same component, just with different injected data. */}
       <LoginGroup className="login-group"
         headerPrompt={"Already Registered?"}
         buttonPrompt={"Click to Login!"}
@@ -160,12 +151,6 @@ function Login() {
         button={doRegister}
         name={nameRegister}
         setName={setNameRegister}/>
-      <Chip label='just use "admin" and "admin" for now' style={{
-        display: 'flex',
-        alignSelf: 'center',
-        width: 'fit-content',
-        margin: 'auto',
-      }}></Chip>
     </Box>
   );
 }

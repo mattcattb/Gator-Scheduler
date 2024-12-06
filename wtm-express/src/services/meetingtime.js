@@ -166,7 +166,6 @@ const findMeetingTimes = async (userIds, days, time_start, time_end) => {
 
         return freeIntervals;
     } catch (err) {
-        console.error(`Error fetching events: ${err}`);
     }
 };
 

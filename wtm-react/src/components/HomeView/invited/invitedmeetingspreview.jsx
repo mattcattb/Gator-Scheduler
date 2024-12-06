@@ -8,7 +8,6 @@ function InvitedMeetingsPreview({ meeting, onJoin, onReject }) {
   const {user} = useContext(UserContext);
 
   const handleJoin = () => {
-    console.log("Join button pressed...");
     onJoin(user._id, meeting._id);
     setTimeout(() => {
       // Redirect after delay
@@ -17,7 +16,6 @@ function InvitedMeetingsPreview({ meeting, onJoin, onReject }) {
   };
 
   const handleReject = () => {
-    console.log("Reject button pressed...");
     onReject(user._id, meeting._id);
   };
 
