@@ -22,12 +22,10 @@ function MeetingDetails() {
         );
         if(response.ok){
           const data = await response.json();
-          console.log(data);
           setMeetingDetails(data);
         }
       }
       catch(e) {
-        console.log("implement proper meeting details fetch", e);
       }
    }
    fetchMeetingData();
@@ -46,8 +44,11 @@ function MeetingDetails() {
       gap:'2vh',
       width:'55%'
     }}>
+      {/* info handles displaying users currently in the event */}
       <InfoPanel></InfoPanel>
+      {/* details shows best time and allows for event configuration */}
       <DetailsPanel></DetailsPanel>
+      {/* invite field handles adding new users to the meeting */}
       <InviteField></InviteField>
     </div>
   )

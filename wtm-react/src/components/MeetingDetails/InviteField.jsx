@@ -14,20 +14,16 @@ export default function InviteField(){
     const navigate = useNavigate(); // Hook for navigation
 
     async function sendMeetingInvite(requestID){
-        console.log("Sending the meeting invite...");
         //TODO: Implement once an endpoint exists
     }
 
     async function handleDeleteMeeting(){
 
         try {
-            console.log("Deleting meeting...")
             await deleteMeetingAPI(user._id, meetingDetails._id)        
-            console.log("Meeting deleted successfully!")
 
             navigate('/home')
         } catch (error) {
-            console.error("Error deleting meeting: ", error)
         }
     }   
 

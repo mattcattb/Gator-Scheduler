@@ -21,6 +21,7 @@ function Profile() {
   const [friendID, setFriendID] = useState('');
 
     return (
+      // the first div is one big heap of slop so that i could accomplish the alignment successfully
       <div>
         <div className="profile-container">
           <div className="user-info">
@@ -32,6 +33,7 @@ function Profile() {
             </div>
           </div>
         </div>
+        {/* these two components handle adding friends and showing added friends respectively */}
         <div className='friends-section'>
           <FriendRequester friendID={friendID} setFriendID={setFriendID}/>
           <FriendCardBay/>

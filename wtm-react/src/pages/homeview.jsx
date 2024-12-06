@@ -11,9 +11,6 @@ export default function HomeView() {
   // homeview page component! Stores the meetings joined and meeting invites for a user.
   const { user } = useContext(UserContext);
   const { meetings, meetingInvites, loadMeetings, joinMeeting, leaveMeeting, rejectMeeting, loading, error } = useContext(MeetingContext);
-
-  //! fix the user stored to be an actual user object!
-  console.log('HomeView mounted, user: ', user); 
   
   useEffect(() => {
     // on load or when user and loadMeetings are accessed or used, load all the meetings from a user. 
@@ -27,18 +24,15 @@ export default function HomeView() {
   }
   , [user, loadMeetings]);
 
-  // return if app is loading content
-  if (loading) {
+  if (loading) { //fail if the data has not come in yet
     return <div>Loading...</div>;
   }
 
-  // return if error occured
-  if (error) {
+  if (error) { //fail if something has gone wrong in the web request
     return <div>{error}</div>;
   }
 
-  // return heading and bars displaying users joined meetings and invited meetings.
-  return (
+  return ( //display proper attributes using the Joined and Invited Bars if everything worked successfully
     <div className='HomeView' style={{ padding: '20px', maxWidth: '1200px', margin: 'auto' }}>
       <Typography variant='h2' gutterBottom>Welcome, {user ? user.name : 'Guest'}!</Typography>
       <JoinedMeetingsBar meetings={meetings} onLeave={leaveMeeting}/>

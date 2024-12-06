@@ -15,7 +15,6 @@ export const fetchEvents = async (userId) => {
       throw new Error('Error fetching events');
     }
   } catch (error) {
-    console.error('Error fetching events:', error);
     throw error;
   }
 };
@@ -26,7 +25,6 @@ export const addEvent = async (userId, event) => {
     const response = await axios.post('/api/events', { userId, ...event });
     return response.data;
   } catch (error) {
-    console.error('Error adding event:', error);
     throw error;
   }
 };
@@ -37,7 +35,6 @@ export const updateEvent = async (eventId, event) => {
     const response = await axios.put(`/api/events/${eventId}`, event);
     return response.data;
   } catch (error) {
-    console.error('Error updating event:', error);
     throw error;
   }
 };
@@ -49,7 +46,6 @@ export const deleteEvent = async (eventId, userId) => {
       params: { userId }
     });
   } catch (error) {
-    console.error('Error deleting event:', error);
     throw error;
   }
 };
