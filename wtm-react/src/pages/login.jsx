@@ -93,8 +93,6 @@ function Login() {
       username: username,
       password: password
     };
-
-    console.log(process.env.REACT_APP_BACKEND);
   
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND}api/auth/register`, {
