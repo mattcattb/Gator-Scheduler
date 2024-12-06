@@ -1,13 +1,14 @@
 require('dotenv').config();
 
+// Import testing utilities
 let expect;
 (async () => {
   const chai = await import('chai');
   expect = chai.expect;
 })();
 
-const request = require('supertest');
-const app = require('../server.js');
+const request = require('supertest'); // For HTTP request testing
+const app = require('../server.js'); // Application server
 
 /*
 describe('API Endpoints Tests', () => {

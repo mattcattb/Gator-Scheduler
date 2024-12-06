@@ -1,23 +1,26 @@
 require('dotenv').config();
 
+// Import necessary libraries for testing
 let expect;
 (async () => {
   const chai = await import('chai');
   expect = chai.expect;
 })();
 
-const request = require('supertest');
-const app = require('../server.js');
-let testUserId, testMeetingId, invitedUserId;
+const request = require('supertest'); // For HTTP request testing
+const app = require('../server.js'); // Application server
 
+let testUserId, testMeetingId, invitedUserId; // Variables to store test data
+
+// Test suite for Meeting API Endpoints
 describe('Meeting API Endpoint Tests', () => {
+  // Setup: Create test users and a test meeting
   before(async () => {
     const userRes = await request(app).post('/api/auth/register').send({
       name: 'Organizer User',
       username: 'organizeruser',
       password: 'password123',
     });
-
     testUserId = userRes.body.userId;
 
     const invitedUserRes = await request(app).post('/api/auth/register').send({
@@ -25,13 +28,12 @@ describe('Meeting API Endpoint Tests', () => {
       username: 'inviteduser',
       password: 'password123',
     });
-
     invitedUserId = invitedUserRes.body.userId;
 
     const meetingRes = await request(app).post('/api/meeting/create').send({
       meeting: {
         meetingName: 'Test Meeting',
-        meetingDescription: 'This is a test meeting.',
+        meetingDescription: 'This is a test meeting',
         organizers: [testUserId],
         members: [],
         selectedDays: ['Monday', 'Wednesday'],
@@ -43,10 +45,10 @@ describe('Meeting API Endpoint Tests', () => {
       },
       userId: testUserId,
     });
-
     testMeetingId = meetingRes.body.meeting._id;
   });
 
+  // Cleanup: Delete test users after tests
   after(async () => {
     if (testUserId) {
       await request(app).post('/api/auth/delete').send({ userId: testUserId, password: 'password123' });
@@ -56,6 +58,7 @@ describe('Meeting API Endpoint Tests', () => {
     }
   });
 
+  // Test: Retrieve meetings where the user is invited
   it('should retrieve invited meetings for a user', (done) => {
     request(app)
       .get(`/api/meeting/invited?userId=${invitedUserId}`)
@@ -68,6 +71,7 @@ describe('Meeting API Endpoint Tests', () => {
       });
   });
 
+  // Test: Allow a user to join a meeting
   it('should allow a user to join a meeting', (done) => {
     request(app)
       .put('/api/meeting/join')
@@ -78,11 +82,12 @@ describe('Meeting API Endpoint Tests', () => {
       .expect(200)
       .end((err, res) => {
         if (err) return done(err);
-        expect(res.body).to.have.property('msg', 'Meeting joined successfully.');
+        expect(res.body).to.have.property('msg', 'Meeting joined successfully');
         done();
       });
   });
 
+  // Test: Retrieve meetings the user has joined
   it('should retrieve joined meetings for the invited user', (done) => {
     request(app)
       .get(`/api/meeting/joined?userId=${invitedUserId}`)
@@ -95,6 +100,7 @@ describe('Meeting API Endpoint Tests', () => {
       });
   });
 
+  // Test: Allow a user to leave a meeting
   it('should allow the invited user to leave the meeting', (done) => {
     request(app)
       .put('/api/meeting/leave')
@@ -110,6 +116,7 @@ describe('Meeting API Endpoint Tests', () => {
       });
   });
 
+  // Test: Prevent a non-organizer from deleting a meeting
   it('should prevent a non-organizer from deleting a meeting', (done) => {
     request(app)
       .delete('/api/meeting/delete')
@@ -125,6 +132,7 @@ describe('Meeting API Endpoint Tests', () => {
       });
   });
 
+  // Test: Allow the organizer to delete the meeting
   it('should allow the organizer to delete the meeting', (done) => {
     request(app)
       .delete('/api/meeting/delete')
@@ -140,3 +148,4 @@ describe('Meeting API Endpoint Tests', () => {
       });
   });
 });
+

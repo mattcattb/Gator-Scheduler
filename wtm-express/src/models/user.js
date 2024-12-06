@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 
+// MongoDB format for user
 const userSchema = new Schema({
     name: { type: String, require: true },
     username: { type: String, require: true },
