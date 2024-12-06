@@ -39,7 +39,6 @@ const registerUser = async (req, res) => {
         await user.save();
         res.status(201).json({ msg: 'User registered successfully', userId: user._id });
     } catch (err) {
-        console.error(err);
         res.status(500).json({ error: 'Internal Server Error', msg: 'An unexpected error occurred' });
     }
 };
@@ -67,7 +66,6 @@ const loginUser = async (req, res) => {
 
         res.status(200).json({ msg: 'User logged in successfully', userId: user._id.toString() });
     } catch (err) {
-        console.error(err);
         res.status(500).json({ error: 'Internal Server Error', msg: 'An unexpected error occurred' });
     }
 };
@@ -95,7 +93,6 @@ const deleteUser = async (req, res) => {
 
         res.status(200).json({ msg: 'User deleted successfully' });
     } catch (err) {
-        console.error(err);
         res.status(500).json({ error: 'Internal Server Error', msg: 'An unexpected error occurred' });
     }
 };

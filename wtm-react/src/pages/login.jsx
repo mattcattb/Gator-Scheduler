@@ -44,12 +44,10 @@ function Login() {
       username: username,
       password: password
     };
-    console.log("Login Attempted:", loginData);
   
     // if(username === 'admin' && password === 'admin'){
     //   sessionStorage.setItem('token', 123456789);
     //   setUser(admin_user);
-    //   console.log('token added to session storage');
     //   navigate("/home");
     //   return;
     // }
@@ -76,19 +74,16 @@ function Login() {
   
         if (userResponse.ok) {
           const userData = await userResponse.json();
-          console.log("User data fetched successfully:", userData);
+
   
           sessionStorage.setItem('token', userId);
           setUser(userData);
           navigate("/home");
         } else {
-          console.error('Failed to fetch user data');
         }
       } else {
-        console.error('Login failed:', await response.json());
       }
     } catch (error) {
-      console.error('Network error:', error);
     }
   }
   
@@ -121,19 +116,15 @@ function Login() {
   
         if (userResponse.ok) {
           const userData = await userResponse.json();
-          console.log("User data fetched successfully:", userData);
   
           sessionStorage.setItem('token', userId);
           setUser(userData);
           navigate("/home");
         } else {
-          console.error('Failed to fetch user data');
         }
       } else {
-        console.error('Registration failed:', await response.json());
       }
     } catch (error) {
-      console.error('Network error:', error);
     }
   }
 

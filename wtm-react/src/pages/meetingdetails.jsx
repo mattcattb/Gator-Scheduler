@@ -22,12 +22,10 @@ function MeetingDetails() {
         );
         if(response.ok){
           const data = await response.json();
-          console.log(data);
           setMeetingDetails(data);
         }
       }
       catch(e) {
-        console.log("implement proper meeting details fetch", e);
       }
    }
    fetchMeetingData();

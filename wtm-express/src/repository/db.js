@@ -12,13 +12,11 @@ const connectdb = async () => {
         if (process.env.NODE_ENV === 'test') {
             mongoServer = await MongoMemoryServer.create();
             mongoURI = mongoServer.getUri();
-            console.log(`Using in-memory MongoDB for testing at: ${mongoURI}`);
         } else {
             mongoURI = process.env.NODE_ENV === 'local'
                 ? process.env.LOCAL_MONGO_URI
                 : process.env.MONGO_URI;
 
-            console.log(`Attempting to connect to MongoDB at: ${mongoURI}`);
         }
 
         await mongoose.connect(mongoURI, {
@@ -29,9 +27,7 @@ const connectdb = async () => {
             } : undefined
         });
 
-        console.log('MongoDB has been connected successfully.');
     } catch (error) {
-        console.error('Error: MongoDB did not connect', error);
         process.exit(1);
     }
 };
@@ -44,7 +40,6 @@ const disconnectdb = async () => {
         await mongoServer.stop();
     }
 
-    console.log('MongoDB connection closed.');
 };
 
 module.exports = { connectdb, disconnectdb };

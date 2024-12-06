@@ -29,8 +29,6 @@ const addMeeting = async (req, res) => {
       // Update the user to include this meeting in their meetings array
       await User.findByIdAndUpdate(userId, { $push: { meetings: savedMeeting._id } });
 
-      //TODO: add this meeting id to meeting invite list of everyone requested
-      //console.log("invited members:", invitedUsers)
       for (const userId of invitedUsers) {
         await User.findByIdAndUpdate(
           userId,
@@ -40,7 +38,6 @@ const addMeeting = async (req, res) => {
 
       res.status(201).json({ msg: 'Meeting created successfully', meeting: savedMeeting });
     } catch (err) {
-      console.error(err);
       res.status(500).json({ msg: 'Server error' });
     }
 };
@@ -69,7 +66,6 @@ const joinMeeting = async (req, res) => {
     );
     res.status(200).json({ msg: "Meeting joined successfully." });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ msg: 'Server error' });
   }
 };
@@ -94,7 +90,6 @@ const getJoinedMeetings = async (req, res) => {
 
       res.status(200).json(user.meetings);
   } catch (err) {
-      console.error("ERROR OCCURED: ", err);
       res.status(500).json({ error: 'Internal Server Error', message: 'An unexpected error occurred' });
   }
 };
@@ -120,7 +115,6 @@ const getInvitedMeetings = async (req, res) => {
 
       res.status(200).json(user.invited_meetings);
   } catch (err) {
-      console.error(err);
       res.status(500).json({ error: 'Internal Server Error', message: 'An unexpected error occurred' });
   }
 };
@@ -149,7 +143,6 @@ const getMeetingById = async (req, res) => {
     // Return the meeting document
     res.status(200).json(meeting);
   } catch (err) {
-    console.error(err);
     res.status(500).json({ error: 'Internal Server Error', message: 'An unexpected error occurred' });
   }
 };
@@ -182,7 +175,6 @@ const leaveMeeting = async (req, res) => {
 
     } catch (err) {
 
-        console.error(err);
         res.status(500).json({ msg: 'Server error' });
     }
 };
@@ -213,7 +205,6 @@ const deleteMeeting = async (req, res) => {
 
         res.status(200).json({ msg: "Meeting deleted successfully" });
     } catch (err) {
-        console.error("Error deleting meeting:", err);
         res.status(500).json({ error: "Server error", message: err.message });
     }
 };

@@ -60,7 +60,6 @@ function MeetingCreator() {
       await addMeeting(user._id, formData);
       navigate("/home");
     } catch(error){
-      console.log("Error occured: ", error);
     }
   };
   

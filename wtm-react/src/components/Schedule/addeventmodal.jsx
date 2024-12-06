@@ -43,8 +43,6 @@ export default function AddEventModal({
       end: format(end, 'yyyy-MM-dd HH:mm'),
     };
 
-    console.log('New Event:', newEvent);
-
     // Call the handleSubmit function passed as a prop to handle the new event
     handleSubmit(newEvent);
     handleClose(); // Close the modal

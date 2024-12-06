@@ -13,7 +13,6 @@ export const sendFriendRequestAPI = async (userId, friendId) => {
     }
 
     try {
-        console.log("sending friend request: userID: ", userId, ", friendID: ", friendId);
         const response = await axios.post("/api/friends/request", {
             userId: userId,
             friendId: friendId,
@@ -24,7 +23,6 @@ export const sendFriendRequestAPI = async (userId, friendId) => {
             return response.data;
         }
     } catch (error) {
-        console.error("Error with response: ", error);
         throw error;
     }
 }
