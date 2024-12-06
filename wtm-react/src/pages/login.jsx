@@ -46,13 +46,13 @@ function Login() {
     };
     console.log("Login Attempted:", loginData);
   
-    if(username === 'admin' && password === 'admin'){
-      sessionStorage.setItem('token', 123456789);
-      setUser(admin_user);
-      console.log('token added to session storage');
-      navigate("/home");
-      return;
-    }
+    // if(username === 'admin' && password === 'admin'){
+    //   sessionStorage.setItem('token', 123456789);
+    //   setUser(admin_user);
+    //   console.log('token added to session storage');
+    //   navigate("/home");
+    //   return;
+    // }
   
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND}api/auth/login`, {
