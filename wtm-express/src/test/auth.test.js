@@ -1,17 +1,20 @@
 require('dotenv').config();
 
+// Import testing utilities
 let expect;
 (async () => {
   const chai = await import('chai');
   expect = chai.expect;
 })();
 
-const request = require('supertest');
-const app = require('../server.js');
+const request = require('supertest'); // For HTTP request testing
+const app = require('../server.js'); // Application server
 
+// Test suite for Authentication API Endpoints
 describe('Auth API Endpoint Tests', () => {
   let userId;
 
+  // Test: Register a new user successfully
   it('should register a new user', (done) => {
     request(app)
       .post('/api/auth/register')
@@ -30,6 +33,7 @@ describe('Auth API Endpoint Tests', () => {
       });
   });
 
+  // Test: Fail to register a user due to missing username
   it('should fail to register a user with missing username', (done) => {
     request(app)
       .post('/api/auth/register')
@@ -45,7 +49,7 @@ describe('Auth API Endpoint Tests', () => {
         done();
       });
   });
-
+  // Test: Fail to register a user due to user already existing
   it('should fail to register an already existing user', (done) => {
     request(app)
       .post('/api/auth/register')
@@ -62,7 +66,7 @@ describe('Auth API Endpoint Tests', () => {
         done();
       });
   });
-
+  // Test: Fail to register a user due to missing information
   it('should fail to register with missing fields', (done) => {
     request(app)
       .post('/api/auth/register')
@@ -77,7 +81,7 @@ describe('Auth API Endpoint Tests', () => {
         done();
       });
   });
-
+  // Test: Fail to login user due to incorrect password
   it('should fail login with incorrect password', (done) => {
     request(app)
       .post('/api/auth/login')
@@ -93,7 +97,7 @@ describe('Auth API Endpoint Tests', () => {
         done();
       });
   });
-
+ // Test: Fail to login due to missing username
   it('should fail login with missing username', (done) => {
     request(app)
       .post('/api/auth/login')
@@ -108,7 +112,7 @@ describe('Auth API Endpoint Tests', () => {
         done();
       });
   });
-
+  // Test: Successful login 
   it('should login successfully with correct credentials', (done) => {
     request(app)
       .post('/api/auth/login')
@@ -124,7 +128,7 @@ describe('Auth API Endpoint Tests', () => {
         done();
       });
   });
-
+ // Test: Fail to delete user due to wrong password
   it('should fail to delete a user with incorrect password', (done) => {
     request(app)
       .delete('/api/auth/delete')
@@ -140,7 +144,7 @@ describe('Auth API Endpoint Tests', () => {
         done();
       });
   });
-
+  // Test: Successfully delete user
   it('should delete the user successfully', (done) => {
     request(app)
       .delete('/api/auth/delete')
