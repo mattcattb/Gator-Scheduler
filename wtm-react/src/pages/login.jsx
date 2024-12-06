@@ -123,13 +123,10 @@ function Login() {
           setUser(userData);
           navigate("/home");
         } else {
-          console.log(userResponse);
         }
       } else {
-        
       }
     } catch (error) {
-      console.log(error);
     }
   }
 
