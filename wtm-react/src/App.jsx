@@ -2,7 +2,7 @@ import React from 'react';
 import HomeView from './pages/homeview';
 import MeetingCreator from './pages/meetingcreator';
 import MeetingDetails from './pages/meetingdetails';
-import Login from './pages/login';
+import LoginPage from './pages/login';
 import Profile from './pages/profile';
 import Schedule from './pages/schedule';
 import { Routes, Route, Navigate } from 'react-router-dom';
@@ -38,7 +38,7 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/home" element={<ProtectedRoute><HomeView /></ProtectedRoute>} />
-            <Route path="/login" element={<LoginOnlyRoute><Login /></LoginOnlyRoute>} />
+            <Route path="/login" element={<LoginOnlyRoute><LoginPage /></LoginOnlyRoute>} />
             <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
             <Route path="/schedule" element={<ProtectedRoute><Schedule /></ProtectedRoute>} />
             <Route path="/create" element={<ProtectedRoute><MeetingCreator/></ProtectedRoute>} />

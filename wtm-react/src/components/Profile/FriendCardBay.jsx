@@ -1,4 +1,3 @@
-import { Button } from '@mui/material';
 import { useContext } from 'react';
 import { UserContext } from '../../context/UserProvider';
 import users from "../../static_database/users.json"
