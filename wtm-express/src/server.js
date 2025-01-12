@@ -20,7 +20,13 @@ const app = express();
 
 app.use(cors()); // THIS IS SO UNSAFE PLEASE DO NOT LEAVE THIS HERE PERMANENTLY -Corey
 
-connectdb();
+connectdb()
+    .then(() => {
+        console.log('Database connected');
+    })
+    .catch(err => {
+        console.error('Database connection failed:', err);
+    });
 
 app.use(express.json()); // Middleware to parse JSON
 
