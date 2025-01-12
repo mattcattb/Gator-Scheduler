@@ -19,8 +19,14 @@ export const UserProvider = ({ children }) => {
     }
   }, [user]);
 
+  const logoutUser = () => {
+    setUser(null)
+    sessionStorage.removeItem('user')
+
+  }
+
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, logoutUser }}>
       {children}
     </UserContext.Provider>
   );
