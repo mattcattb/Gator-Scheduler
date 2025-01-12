@@ -1,6 +1,6 @@
 // src/services/userService.js
-export const doLogin = async (name, username, password) => {
-  const loginData = { name, username, password };
+export const doLogin = async (username, password) => {
+  const loginData = { username, password };
   
   try {
     const response = await fetch(`${process.env.REACT_APP_BACKEND}api/auth/login`, {

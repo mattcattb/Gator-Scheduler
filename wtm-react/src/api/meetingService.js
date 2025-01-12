@@ -1,4 +1,3 @@
-// src/api/meetingService.js
 import axios from './axios';
 
 export const deleteMeetingAPI = async (userId, meetingId) => {
@@ -36,15 +35,6 @@ export const sendMeetingInviteAPI = async (meetingId, userId, friendId) => {
 
 export const addMeetingAPI = async (userId, meetingForm) => {
   // send a userID and a meeting to be added from the backend
-  /* 
-    Meeting Form looks like:
-    meetingName: 'Example Meeting',
-    meetingDescription: 'Example Description',
-    selectedDays: [true, true, true, true, true, true, true],
-    startTime: '',
-    endTime: '',
-    members: []
-  */
 
   try {
     // when meeting created, send meeting requests to invited members through backend

@@ -5,17 +5,15 @@ import { useNavigate } from 'react-router-dom'
 import BetterLoginGroup from '../components/Login/betterLoginGroup'
 import BetterRegisterGroup from '../components/Login/betterRegisterGroup';
 
-import { doLogin, doRegister } from '../api/userService';
 
 import "../styles/login.css"
-import { Button } from '@mui/material';
 
 // todo: Seperate into Login and Authentication Page
 
 function LoginPage() {
   const navigate = useNavigate()
 
-  const { setUser } = useContext(UserContext);
+  const { doLogin, doRegister } = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState('');
   const [isLogin, setIsLogin] = useState(true);
 
@@ -39,8 +37,6 @@ function LoginPage() {
 	const handleLogin = async () => {
 		const result = await doLogin(loginForm.username, loginForm.password);
 		if (result.success) {
-			sessionStorage.setItem('token', result.userId);
-			setUser(result.userData);
 			navigate("/home")
 		} else {
 			setErrorMessage(result.message)
@@ -50,14 +46,11 @@ function LoginPage() {
 	const handleRegister = async () => {
 		const result = await doRegister(registerForm.name, registerForm.username, registerForm.password);
     if (result.success) {
-      sessionStorage.setItem('token', result.userId);
-      setUser(result.userData);
       navigate("/home");
     } else {
       setErrorMessage(result.message);
     }		
 	}
-
 
 	return( 
 		<div className='min-h-screen flex items-start justify-center mt-20'>

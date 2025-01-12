@@ -1,5 +1,7 @@
 import React, { useState, createContext, useEffect } from 'react';
 
+import { doLogin, doRegister } from '../api/userService';
+
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
@@ -20,7 +22,13 @@ export const UserProvider = ({ children }) => {
     } else {
       sessionStorage.removeItem('user');
     }
-  }, [user]);
+
+    if (token) {
+      sessionStorage.setItem('token', JSON.stringify(token));
+    } else {
+      sessionStorage.removeItem('token');
+    }
+  }, [user, token]);
 
   const logoutUser = () => {
     setToken(null);
@@ -29,8 +37,40 @@ export const UserProvider = ({ children }) => {
     sessionStorage.removeItem('token');
   }
 
+  const handleLogin = async (username, password) => {
+
+    try {
+      const result = await doLogin(username, password);
+      if (result.success) {
+        setToken(result.token);
+        setUser(result.userData);
+        return {success:true}
+      } else {
+        return { success:false, message:result.message }
+      }
+    } catch (error) {
+      return {success:false, message:"An error occured during login."}
+    }
+  }
+
+  const handleRegister = async (name, username, password) => {
+    try {
+      const result = await doRegister(name, username, password);
+      if (result.success) {
+        setToken(result.token);
+        setUser(result.userData);
+        return {success:true};
+      } else {
+        return {success: false, message:result.message}
+      }
+    } catch (error) {
+      return {success: false, message: 'an error occured during registration.'};
+    }
+  }
+
+
   return (
-    <UserContext.Provider value={{ user, token, setToken, setUser, logoutUser }}>
+    <UserContext.Provider value={{ user, token, setToken, setUser, logoutUser, handleLogin, handleRegister }}>
       {children}
     </UserContext.Provider>
   );
