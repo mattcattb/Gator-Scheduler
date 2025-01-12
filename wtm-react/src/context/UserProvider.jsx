@@ -1,6 +1,6 @@
 import React, { useState, createContext, useEffect } from 'react';
 
-import { doLogin, doRegister } from '../api/userService';
+import { doLoginAPI, doRegisterAPI } from '../api/authService';
 
 export const UserContext = createContext();
 
@@ -40,14 +40,12 @@ export const UserProvider = ({ children }) => {
   const handleLogin = async (username, password) => {
 
     try {
-      const result = await doLogin(username, password);
-      if (result.success) {
-        setToken(result.token);
-        setUser(result.userData);
-        return {success:true}
-      } else {
-        return { success:false, message:result.message }
-      }
+      const result = await doLoginAPI(username, password);
+      console.log("result: ", result)
+      setToken(result.token);
+      setUser(result.userData);
+      return {success: true, message: "User was logged in!"}
+
     } catch (error) {
       return {success:false, message:"An error occured during login."}
     }
@@ -55,16 +53,13 @@ export const UserProvider = ({ children }) => {
 
   const handleRegister = async (name, username, password) => {
     try {
-      const result = await doRegister(name, username, password);
-      if (result.success) {
-        setToken(result.token);
-        setUser(result.userData);
-        return {success:true};
-      } else {
-        return {success: false, message:result.message}
-      }
+      const result = await doRegisterAPI(name, username, password);
+      setToken(result.token);
+      setUser(result.userData);
+      return {success:true, message: 'User was registered!'};
+      
     } catch (error) {
-      return {success: false, message: 'an error occured during registration.'};
+      return {success: false, message: 'An error occured during registration.'};
     }
   }
 

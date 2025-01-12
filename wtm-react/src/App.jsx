@@ -13,13 +13,13 @@ import './styles/App.css';
 import { UserContext } from './context/UserProvider';
 
 const ProtectedRoute = ({ children }) => {
-  const token = useContext(UserContext);
-  return token ? children : <Navigate to="/login" />;
+  const {token} = useContext(UserContext);
+  return token ? children : <Navigate to="/login" replace/>;
 };
 
 const LoginOnlyRoute = ({ children }) => {
-  const token = useContext(UserContext);
-  return token ? <Navigate to="/home" /> : children;
+  const {token} = useContext(UserContext);
+  return token ? <Navigate to="/home" replace/> : children;
 };
 
 function App() {

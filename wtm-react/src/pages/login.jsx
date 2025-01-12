@@ -40,6 +40,7 @@ function LoginPage() {
 		console.log(result)
     
     if (result.success) {
+      console.log("going home...")
 			navigate("/home")
 		} else {
 			setErrorMessage(result.message)
@@ -53,6 +54,7 @@ function LoginPage() {
     console.log(result)
     
     if (result.success) {
+      console.log("going home...")
       navigate("/home");
     } else {
       setErrorMessage(result.message);

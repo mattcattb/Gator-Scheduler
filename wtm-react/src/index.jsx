@@ -7,7 +7,7 @@ import reportWebVitals from './reportWebVitals';
 
 import ContextProvider from './context/ContextProvider'
 import { ThemeProvider } from '@mui/material/styles';
-import gatorTheme from './globalTheme';
+import gatorTheme from './styles/globalTheme';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
