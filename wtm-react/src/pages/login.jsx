@@ -62,9 +62,13 @@ function LoginPage() {
 	}
 
 	return( 
-		<div className='min-h-screen flex items-start justify-center mt-20'>
+		<div className='min-h-screen flex flex-col items-center mt-20 gap-5'>
       {errorMessage && <div className="error-message">{errorMessage}</div>}
-      <div className=''>
+      <div className='p-4 text-2xl'>
+        <h1>Welcome to Gator Scheduler!</h1>
+      </div>
+      <div className='m-4 justify-center'>
+
         <div className="flex justify-center mb-6">
           <button
             className={`px-4 py-2 font-semibold text-sm ${

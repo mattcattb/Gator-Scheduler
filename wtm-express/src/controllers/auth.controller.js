@@ -55,14 +55,16 @@ const registerUser = async (req, res) => {
           userId: user._id.toString(),         
         });
     } catch (err) {
-        res.status(500).json({ error: 'Internal Server Error', msg: 'An unexpected error occurred' });
+      console.error('Error registering user: ', err);
+
+      res.status(500).json({ error: 'Internal Server Error', msg: 'An unexpected error occurred' });
     }
 };
 
 // Login controller
 const loginUser = async (req, res) => {
   const { username, password } = req.body;
-
+  debugger;
   // Validate input
   const errorMessage = validateFields(req.body, ['username', 'password']);
   if (errorMessage) {
@@ -94,7 +96,8 @@ const loginUser = async (req, res) => {
         userId: user._id.toString(), 
       });
   } catch (err) {
-      res.status(500).json({ error: 'Internal Server Error', msg: 'An unexpected error occurred' });
+    console.error('Error logging in user: ', err);
+    res.status(500).json({ error: 'Internal Server Error', msg: 'An unexpected error occurred' });
   }
 };
 

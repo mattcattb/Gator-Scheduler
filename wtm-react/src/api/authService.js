@@ -9,10 +9,10 @@ export const doLoginAPI = async (username, password) => {
       username:username,
       password:password
     })
-    console.log("login response inside LoginAPI: ", loginResponse)
+    console.log("response from api/auth/login: ", loginResponse)
     const userId = loginResponse.data.userId;
     const userResponse = await axios.get(`/api/user/${userId}`);
-    console.log("user response: ", userResponse)
+    console.log("response from /api/user/$id: ", userResponse)
     return {
       ...loginResponse.data,
       userData: userResponse.data,

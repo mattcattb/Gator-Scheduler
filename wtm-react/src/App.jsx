@@ -13,7 +13,9 @@ import './styles/App.css';
 import { UserContext } from './context/UserProvider';
 
 const ProtectedRoute = ({ children }) => {
+  console.log("checking if following is valid: ", children)
   const {token} = useContext(UserContext);
+  console.log(token)
   return token ? children : <Navigate to="/login" replace/>;
 };
 

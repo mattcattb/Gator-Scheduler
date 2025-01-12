@@ -30,7 +30,7 @@ export const UserProvider = ({ children }) => {
     }
   }, [user, token]);
 
-  const logoutUser = () => {
+  const handleLogout = () => {
     setToken(null);
     setUser(null);
     sessionStorage.removeItem('user');
@@ -41,7 +41,7 @@ export const UserProvider = ({ children }) => {
 
     try {
       const result = await doLoginAPI(username, password);
-      console.log("result: ", result)
+      console.log("doLoginAPI result: ", result)
       setToken(result.token);
       setUser(result.userData);
       return {success: true, message: "User was logged in!"}
@@ -65,7 +65,7 @@ export const UserProvider = ({ children }) => {
 
 
   return (
-    <UserContext.Provider value={{ user, token, setToken, setUser, logoutUser, handleLogin, handleRegister }}>
+    <UserContext.Provider value={{ user, token, setToken, setUser, handleLogout, handleLogin, handleRegister }}>
       {children}
     </UserContext.Provider>
   );
