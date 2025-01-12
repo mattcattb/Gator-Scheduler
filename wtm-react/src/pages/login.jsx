@@ -13,7 +13,7 @@ import "../styles/login.css"
 function LoginPage() {
   const navigate = useNavigate()
 
-  const { doLogin, doRegister } = useContext(UserContext);
+  const { handleLogin, handleRegister } = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState('');
   const [isLogin, setIsLogin] = useState(true);
 
@@ -34,17 +34,24 @@ function LoginPage() {
   };
 
 
-	const handleLogin = async () => {
-		const result = await doLogin(loginForm.username, loginForm.password);
-		if (result.success) {
+	const login = async () => {
+    console.log("submitting login: ", loginForm)
+		const result = await handleLogin(loginForm.username, loginForm.password);
+		console.log(result)
+    
+    if (result.success) {
 			navigate("/home")
 		} else {
 			setErrorMessage(result.message)
 		}
 	}
 
-	const handleRegister = async () => {
-		const result = await doRegister(registerForm.name, registerForm.username, registerForm.password);
+	const register = async () => {
+    console.log("submitting register: ", registerForm)
+
+		const result = await handleRegister(registerForm.name, registerForm.username, registerForm.password);
+    console.log(result)
+    
     if (result.success) {
       navigate("/home");
     } else {
@@ -75,8 +82,8 @@ function LoginPage() {
           </button>
         </div>
 
-        {isLogin? <BetterLoginGroup loginForm={loginForm} setLoginForm={setLoginForm} doLogin={handleLogin}/> :    
-        <BetterRegisterGroup registerForm={registerForm} setRegisterForm={setRegisterForm} doRegister={handleRegister}/>}			
+        {isLogin? <BetterLoginGroup loginForm={loginForm} setLoginForm={setLoginForm} doLogin={login}/> :    
+        <BetterRegisterGroup registerForm={registerForm} setRegisterForm={setRegisterForm} doRegister={register}/>}			
       </div>
 
 		</div>

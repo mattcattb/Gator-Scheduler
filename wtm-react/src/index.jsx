@@ -5,11 +5,19 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 
+import ContextProvider from './context/ContextProvider'
+import { ThemeProvider } from '@mui/material/styles';
+import gatorTheme from './globalTheme';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
   <React.StrictMode>
-    <App />
+    <ContextProvider>
+      <ThemeProvider theme={gatorTheme}>
+        <App />
+      </ThemeProvider>
+    </ContextProvider>
   </React.StrictMode>
   </BrowserRouter>
 );

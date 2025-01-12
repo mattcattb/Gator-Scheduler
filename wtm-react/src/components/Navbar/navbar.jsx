@@ -17,7 +17,7 @@ function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className='flex flex-row justify-center'>
           <div className="flex items-center m-3">
-            {nav_data.map(({linkto, text}) => (<div className='m-4'><Link to={linkto}>{text}</Link></div>))}
+            {nav_data.map(({linkto, text}) => (<div className='m-4' key={linkto}><Link to={linkto}>{text}</Link></div>))}
           </div>
         </div>
       </div>
