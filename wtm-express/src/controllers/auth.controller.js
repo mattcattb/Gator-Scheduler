@@ -1,5 +1,7 @@
 const User = require("../models/user.js");
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
 
 // Utility function to validate required fields
 const validateFields = (fields, requiredFields) => {
@@ -17,7 +19,7 @@ const registerUser = async (req, res) => {
     // Validate input
     const errorMessage = validateFields(req.body, ['name', 'username', 'password']);
     if (errorMessage) {
-        return res.status(400).json({ error: 'Bad Request', msg: errorMessage });
+        return res.status(400).json({ error: 'Bad Request', message: errorMessage });
     }
 
     try {
@@ -41,7 +43,17 @@ const registerUser = async (req, res) => {
         user.password = await bcrypt.hash(password, salt);
 
         await user.save();
-        res.status(201).json({ msg: 'User registered successfully', userId: user._id });
+
+        const token = jwt.sign(
+          {userId: user._id},
+          process.env.JWT_SECRET,
+          {expiresIn: '24h'}
+        );
+
+        res.status(201).json({ 
+          token: token,
+          userId: user._id.toString(),         
+        });
     } catch (err) {
         res.status(500).json({ error: 'Internal Server Error', msg: 'An unexpected error occurred' });
     }
@@ -49,31 +61,41 @@ const registerUser = async (req, res) => {
 
 // Login controller
 const loginUser = async (req, res) => {
-    const { username, password } = req.body;
+  const { username, password } = req.body;
 
-    // Validate input
-    const errorMessage = validateFields(req.body, ['username', 'password']);
-    if (errorMessage) {
-        return res.status(400).json({ error: 'Bad Request', msg: errorMessage });
-    }
+  // Validate input
+  const errorMessage = validateFields(req.body, ['username', 'password']);
+  if (errorMessage) {
+      return res.status(400).json({ error: 'Bad Request', msg: errorMessage });
+  }
 
-    try {
-        const user = await User.findOne({ username });
-        
-        // Check if username and password are valid
-        if (!user) {
-            return res.status(400).json({ error: 'Bad Request', msg: 'Username or password is incorrect' });
-        }
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return res.status(400).json({ error: 'Bad Request', msg: 'Username or password is incorrect' });
-        }
+  try {
+      const user = await User.findOne({ username });
 
-        // Successful login
-        res.status(200).json({ msg: 'User logged in successfully', userId: user._id.toString() });
-    } catch (err) {
-        res.status(500).json({ error: 'Internal Server Error', msg: 'An unexpected error occurred' });
-    }
+      if (!user || !(await bcrypt.compare(password, user.password))) {
+        return res.status(401).send({
+            error: 'Invalid credentials', msg: 'Password doesnt match!'
+        });
+      }         
+      // Check if username and password are valid
+      if (!user) {
+          return res.status(400).json({ error: 'Bad Request', msg: 'Username or password is incorrect' });
+      }
+
+      const token = jwt.sign(
+        { userId: user._id },
+        process.env.JWT_SECRET,
+        { expiresIn: '24h' }          
+      )
+
+      // Successful login
+      res.status(200).json({
+        token: token,
+        userId: user._id.toString(), 
+      });
+  } catch (err) {
+      res.status(500).json({ error: 'Internal Server Error', msg: 'An unexpected error occurred' });
+  }
 };
 
 // Remove user from databse
