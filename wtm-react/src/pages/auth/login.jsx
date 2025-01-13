@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { UserContext } from '../../context/UserProvider';
 import { Link, useNavigate } from 'react-router-dom';
-import BetterLoginGroup from '../../components/Login/betterLoginGroup';
 
 function LoginPage() {
   const navigate = useNavigate();
