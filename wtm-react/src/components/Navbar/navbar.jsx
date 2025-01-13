@@ -4,8 +4,9 @@ import { UserContext } from '../../context/UserProvider';
 
 
 const navData = [
-  {linkto:"/", text:"Home"},
+  {linkto:"/home", text:"Home"},
   {linkto:"/login", text:"Login"},
+  {linkto:"/register", text:"Register"},
   {linkto:"/create", text:"Create Meeting"},
   {linkto:"/schedule", text:"Schedule"},
   {linkto:"/profile", text:"Profile"},
@@ -18,29 +19,29 @@ function Navbar() {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <nav className='bg-blue-600 text-white'>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className='bg-[#0f4d0f] h-24 max-w-[2480px] text-white'>      
+      <nav className='flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4'>      
+        <h1 className='w-full text-3xl font-bold text-[#00df9a]'>Swamp Sync</h1>
+        
         <div className='flex flex-row justify-center'>
-          <div className="flex items-center m-3">
-            {navData.map(({linkto, text}) => (
-              <div className='m-4' key={linkto}>
-                <Link 
-                  to={linkto}
-                  className={isActive(linkto) ? 'underline' : ''}
-                >
-                  {text}
-                </Link>
-              </div>))}
-            <span 
-              onClick={() => handleLogout()}
-              className='cursor-pointer ml-10'
+          {navData.map(({linkto, text}) => (
+            <Link 
+              key={linkto}
+              to={linkto}
+              className={`m-4 font-bold ${isActive(linkto) ? 'underline' : ''}`}
             >
-            Logout
-            </span>               
-          </div>       
+              {text}
+            </Link>
+          ))}
+          <span 
+            onClick={() => handleLogout()}
+            className='m-4 font-bold  cursor-pointer ml-10'
+          >
+          Logout
+          </span>               
         </div>
-      </div>
-    </nav>
+      </nav>
+    </div>
   );
 }
 

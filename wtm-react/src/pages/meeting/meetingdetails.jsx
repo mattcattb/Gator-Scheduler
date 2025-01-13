@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { MeetingDetailsContext } from '../context/MeetingDetailsProvider';
-import InfoPanel from '../components/MeetingDetails/InfoPanel';
-import DetailsPanel from '../components/MeetingDetails/DetailsPanel';
-import InviteField from '../components/MeetingDetails/InviteField';
+import { MeetingDetailsContext } from '../../context/MeetingDetailsProvider';
+import InfoPanel from '../../components/MeetingDetails/InfoPanel';
+import DetailsPanel from '../../components/MeetingDetails/DetailsPanel';
+import InviteField from '../../components/MeetingDetails/InviteField';
 
 function MeetingDetails() {
   const { id } = useParams();

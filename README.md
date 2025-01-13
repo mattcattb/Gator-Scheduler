@@ -1,11 +1,11 @@
-# Gator Scheduler
+# Swamp Sync
 Full Stack application designed for scheduling times to meet with your friends and colleagues, even if everyone has a busy schedule. Built with the mern stack for Fall Intro to Software Engineering class at University of Florida.
 
 ![homepage image](/assets/homepage.png)
 
 ## Project Overview
 
-Gator-Scheduler is a social-media-like platform that simplifies the process of scheduling meetings. Users can manage their schedules, create events, and find common meeting times with friends.
+Swamp-Sync is a social-media-like platform that simplifies the process of scheduling meetings. Users can manage their schedules, create events, and find common meeting times with friends.
 
 ## Features and Functionality
 * Full Authentication and Database Storage with MongoDB.

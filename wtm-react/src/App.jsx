@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
 import HomeView from './pages/homeview';
-import MeetingCreator from './pages/meetingcreator';
-import MeetingDetails from './pages/meetingdetails';
-import LoginPage from './pages/login';
+import MeetingCreator from './pages/meeting/meetingcreator';
+import MeetingDetails from './pages/meeting/meetingdetails';
+import LoginPage from './pages/auth/login';
+import RegisterPage from './pages/auth/register';
 import Profile from './pages/profile';
 import Schedule from './pages/schedule';
 import { Routes, Route, Navigate } from 'react-router-dom';
@@ -11,6 +12,8 @@ import Navbar from './components/Navbar/navbar';
 import './styles/App.css';
 
 import { UserContext } from './context/UserProvider';
+import LandingPage from './pages/landing';
+import Register from './pages/auth/register';
 
 const ProtectedRoute = ({ children }) => {
   console.log("checking if following is valid: ", children)
@@ -29,8 +32,10 @@ function App() {
     <div> 
       <Navbar />
       <Routes>
+        <Route path="/" element={<LoginOnlyRoute><LandingPage/></LoginOnlyRoute>}/>
         <Route path="/home" element={<ProtectedRoute><HomeView /></ProtectedRoute>} />
         <Route path="/login" element={<LoginOnlyRoute><LoginPage /></LoginOnlyRoute>} />
+        <Route path="/register" element={<LoginOnlyRoute><RegisterPage/></LoginOnlyRoute>}/>
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/schedule" element={<ProtectedRoute><Schedule /></ProtectedRoute>} />
         <Route path="/create" element={<ProtectedRoute><MeetingCreator/></ProtectedRoute>} />

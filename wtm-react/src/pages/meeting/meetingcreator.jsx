@@ -1,14 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { Button, Card, CardContent, CardActions, Typography } from '@mui/material';
 
-import InviteForm from '../components/MeetingCreation/inviteform';
-import MeetingOptions from '../components/MeetingCreation/meetingoptions';
-import DescriptionField from '../components/MeetingCreation/descriptionfield';
+import InviteForm from '../../components/MeetingCreation/inviteform';
+import MeetingOptions from '../../components/MeetingCreation/meetingoptions';
+import DescriptionField from '../../components/MeetingCreation/descriptionfield';
 
 import { useNavigate } from 'react-router-dom';
 
-import { UserContext } from '../context/UserProvider';
-import { MeetingContext } from '../context/MeetingProvider';
+import { UserContext } from '../../context/UserProvider';
+import { MeetingContext } from '../../context/MeetingProvider';
 
 
 function MeetingCreator() {
