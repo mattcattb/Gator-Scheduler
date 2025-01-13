@@ -1,7 +1,7 @@
 # Swamp Sync
 Full Stack application designed for scheduling times to meet with your friends and colleagues, even if everyone has a busy schedule. Built with the mern stack for Fall Intro to Software Engineering class at University of Florida.
 
-![homepage image](/assets/homepage.png)
+![homepage image](/assets/landing-page.png)
 
 ## Project Overview
 
