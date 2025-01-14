@@ -32,7 +32,8 @@ const connectdb = async () => {
         });
 
     } catch (error) {
-        process.exit(1);
+      console.log("An error occured when connected the mongo database: ", error)
+      process.exit(1);
     }
 };
 // Function to close the database connection.

@@ -36,9 +36,9 @@ Swamp-Sync is a social-media-like platform that simplifies the process of schedu
 * Create '.env' file in /wtm-express/ with the following:
 ```plaintext
 MONGO_INITDB_ROOT_USERNAME=rootuser
-MONGO_INITDB_ROOT_PASSWORD=rootpassword
-MONGO_URI=mongodb://rootuser:rootpassword@wtm-mongodb:27017/admin
-LOCAL_MONGO_URI=mongodb://rootuser:rootpassword@localhost:12345/admin
+MONGO_INITDB_ROOT_PASSWORD=rootpass
+MONGO_URI=mongodb://rootuser:rootpass@wtm-mongodb:27017/admin
+LOCAL_MONGO_URI=mongodb://rootuser:rootpass@localhost:12345/admin
 MONGO_INITDB_DATABASE=lamdb
 PORT=3004
 JWT_SECRET=pAonqkN/rorjS7sXd3ngJHXZJ8bjWVIMA9ZmJPRET8o=
@@ -53,7 +53,7 @@ This command starts the wtm-mongodb, wtm-react, wtm-express containers, and esta
 ### Local Setup
 
 1. Make sure mongodb container is running:
-```
+```sh
 docker compose up wtm-mongodb -d
 ```
 
@@ -64,9 +64,9 @@ cd wtm-express
 .env file should look like 
 ```
 MONGO_INITDB_ROOT_USERNAME=rootuser
-MONGO_INITDB_ROOT_PASSWORD=rootpassword
-MONGO_URI=mongodb://rootuser:rootpassword@wtm-mongodb:27017/admin
-LOCAL_MONGO_URI=mongodb://rootuser:rootpassword@localhost:12345/admin
+MONGO_INITDB_ROOT_PASSWORD=rootpass
+MONGO_URI=mongodb://rootuser:rootpass@wtm-mongodb:27017/admin
+LOCAL_MONGO_URI=mongodb://rootuser:rootpass@localhost:12345/admin
 MONGO_INITDB_DATABASE=lamdb
 PORT=3004
 JWT_SECRET=pAonqkN/rorjS7sXd3ngJHXZJ8bjWVIMA9ZmJPRET8o=
