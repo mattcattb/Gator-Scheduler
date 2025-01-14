@@ -22,7 +22,6 @@ const connectdb = async () => {
                 : process.env.MONGO_URI;
 
         }
-        console.log("mongoURI:", mongoURI)
         // Establish a connection to the MongoDB instance.
         await mongoose.connect(mongoURI, {
             authSource: process.env.NODE_ENV !== 'test' ? 'admin' : undefined,

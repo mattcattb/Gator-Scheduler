@@ -60,8 +60,10 @@ function LoginPage() {
           </Link>
         </p>
       </div>
+      <Link to="/" className=' w-auto px-5 bg-red-400 text-black hover:bg-red-500 rounded-md'>Back</Link>
+
     </div>
-    </div>
+  </div>
   );
 }
 

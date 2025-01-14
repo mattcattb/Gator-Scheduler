@@ -33,7 +33,7 @@ function RegisterPage() {
         <h1 className='text-5xl font-bold m-3 text-orange-600'>Welcome to Swamp Sync!</h1>
       </div>
       <div className='flex flex-col gap-5 items-center bg-green-700 p-6 rounded-md shadow-md'>
-      <h2 className='text-2xl font-bold text-white mb-4'>Login here.</h2>
+      <h2 className='text-2xl font-bold text-white mb-4'>Register here.</h2>
       <div className='flex flex-col gap-5 w-full'>
         <input 
           type="text"
@@ -70,6 +70,7 @@ function RegisterPage() {
           </Link>
         </p>      
       </div>
+      <Link to="/" className=' w-auto px-5 bg-red-400 text-black hover:bg-red-500 rounded-md'>Back</Link>
     </div>
   </div>
   );

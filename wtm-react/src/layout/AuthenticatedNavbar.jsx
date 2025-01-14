@@ -1,3 +1,4 @@
+
 import React, { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { UserContext } from '../context/UserProvider';
@@ -5,14 +6,11 @@ import { UserContext } from '../context/UserProvider';
 
 const navData = [
   {linkto:"/home", text:"Home"},
-  {linkto:"/login", text:"Login"},
-  {linkto:"/register", text:"Register"},
-  {linkto:"/create", text:"Create Meeting"},
   {linkto:"/schedule", text:"Schedule"},
   {linkto:"/profile", text:"Profile"},
 ]
 
-function Navbar() {
+export default function AuthenticatedNavbar() {
   const location = useLocation();
   const {handleLogout} = useContext(UserContext);
 
@@ -42,7 +40,5 @@ function Navbar() {
         </div>
       </nav>
     </div>
-  );
+  );  
 }
-
-export default Navbar;

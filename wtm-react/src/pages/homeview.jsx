@@ -36,7 +36,6 @@ export default function HomeView() {
 
   return (
     <div className='flex flex-row'>
-      <Sidebar/>
       <div>
 
       </div>
