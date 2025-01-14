@@ -7,13 +7,12 @@ import RegisterPage from './pages/auth/register';
 import Profile from './pages/profile';
 import Schedule from './pages/schedule';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Navbar from './components/Navbar/navbar';
+import Navbar from './layout/navbar';
 
 import './styles/App.css';
 
 import { UserContext } from './context/UserProvider';
 import LandingPage from './pages/landing';
-import Register from './pages/auth/register';
 
 const ProtectedRoute = ({ children }) => {
   console.log("checking if following is valid: ", children)
