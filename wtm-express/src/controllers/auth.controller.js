@@ -64,7 +64,6 @@ const registerUser = async (req, res) => {
 // Login controller
 const loginUser = async (req, res) => {
   const { username, password } = req.body;
-  debugger;
   // Validate input
   const errorMessage = validateFields(req.body, ['username', 'password']);
   if (errorMessage) {

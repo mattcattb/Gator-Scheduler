@@ -5,6 +5,8 @@ import { MeetingContext } from '../context/MeetingProvider';
 
 import JoinedMeetingsBar from "../components/HomeView/joined/joinedmeetingsbar";
 import InvitedMeetingsBar from "../components/HomeView/invited/invitedmeetingsbar";
+import Sidebar from "../layout/Sidebar"
+
 import { Typography } from "@mui/material";
 
 export default function HomeView() {
@@ -31,6 +33,15 @@ export default function HomeView() {
   if (error) { //fail if something has gone wrong in the web request
     return <div>{error}</div>;
   }
+
+  return (
+    <div className='flex flex-row'>
+      <Sidebar/>
+      <div>
+
+      </div>
+    </div>
+  )
 
   return ( //display proper attributes using the Joined and Invited Bars if everything worked successfully
     <div className='HomeView' style={{ padding: '20px', maxWidth: '1200px', margin: 'auto' }}>

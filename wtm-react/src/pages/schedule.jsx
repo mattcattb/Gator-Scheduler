@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useCalendarApp, ScheduleXCalendar } from '@schedule-x/react';
 import { createViewMonthGrid, createViewWeek, createViewMonthAgenda } from '@schedule-x/calendar';
-import { Button, Typography } from '@mui/material';
 
 import { createEventsServicePlugin } from '@schedule-x/events-service';
 import '@schedule-x/theme-default/dist/index.css';
@@ -110,13 +109,20 @@ function Schedule() {
   };
 
   return (
-    <>
-      <Typography variant="h4">Schedule</Typography>
-      <Button onClick={() => setAddEventModalOpen(true)} variant="contained" color="primary">
-        Add Event
-      </Button>
+    <div className='flex flex-row m-8 justify-start items-stretch'>
+      <div className='flex flex-col items-center justify-normal m-10 gap-4 bg-orange-300 p-4 rounded-lg w-[300px]'>
+        <button 
+          onClick={() => setAddEventModalOpen(true)}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Add Event
+        </button>
+
+        <EventList events={events} onEventClick={handleEventClick} />
+
+      </div>
+
       <ScheduleXCalendar calendarApp={calendar} style={{ width: '80%', height: '400px', margin: '0 auto' }} />
-      <EventList events={events} onEventClick={handleEventClick} />
       <EditModal 
         open={editEventModalOpen} 
         handleClose={handleCloseModal}
@@ -129,7 +135,7 @@ function Schedule() {
         handleClose={() => setAddEventModalOpen(false)}
         handleSubmit={handleAddEvent}
       />
-    </>
+    </div>
   );
 }
 
