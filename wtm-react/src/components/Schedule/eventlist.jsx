@@ -5,7 +5,7 @@ import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
 const EventList = ({ events, onEventClick }) => {
 
   return (
-  <div className='overflow-y-scroll border border-gray-300 bg-white rounded p-4'>
+  <div className='overflow-y-scroll border border-gray-300 bg-white rounded p-4 '>
     <h6 className='text-lg font-semibold mb-4'>Events</h6>
     <ul>
       {events.length > 0 ? (
