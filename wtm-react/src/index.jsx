@@ -12,13 +12,11 @@ import gatorTheme from './styles/globalTheme';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-  <React.StrictMode>
     <ContextProvider>
       <ThemeProvider theme={gatorTheme}>
         <App />
       </ThemeProvider>
     </ContextProvider>
-  </React.StrictMode>
   </BrowserRouter>
 );
 

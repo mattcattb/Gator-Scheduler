@@ -7,9 +7,8 @@ import RegisterPage from "./pages/auth/register";
 import Profile from "./pages/profile";
 import Schedule from "./pages/schedule";
 import { Routes, Route, Navigate } from "react-router-dom";
-import PublicNavbar from "./layout/PublicNavbar";
-import AuthenticatedNavbar from "./layout/AuthenticatedNavbar";
 import Sidebar from "./layout/Sidebar";
+import Navbar from "./layout/Navbar";
 
 import "./styles/App.css";
 
@@ -37,7 +36,7 @@ function App() {
       {token && <Sidebar/>}
       <div className="flex flex-col w-full">
 
-        {token? <AuthenticatedNavbar /> : <PublicNavbar/>}
+        <Navbar/>
         <Routes>
           <Route
             path="/"
